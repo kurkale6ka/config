@@ -50,6 +50,9 @@ BEGIN {
 
         tag_print("\t", "title", $15, 1)
 
+        sys_date="date"; sys_date | getline the_date; close(sys_date)
+        print "<updated>" the_date "</updated>"
+
         print "\t<html>"
         tag_print("\t\t", "title", $19, 1)
         print "\t</html>"
