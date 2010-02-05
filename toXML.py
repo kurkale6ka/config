@@ -1,6 +1,7 @@
-# Global: to be changed!
+# Should bundle it all in a class:
+# tags should be a member and consDic a method
 tags =\
-'Game.highscore',\
+'Game.Highscore',\
 'Game.avatar',\
 'Game.instructions',\
 'Game.flash.swf',\
@@ -19,13 +20,15 @@ def consDic(level, child):
 
     dic = {}
 
+    # Let's loop trough all tags for every column (level)
     for tag in tags:
 
         list = tag.split('.')
 
+        # If there are children and it is not a child we already parsed
         if [] != list[level + 1:] and child != list[level + 1]:
 
-            # one child
+            # just one child
             if [] == list[level + 2:] and [] != list[level + 1:]:
 
                 if list[level] in dic:
