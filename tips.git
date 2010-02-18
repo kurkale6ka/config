@@ -10,6 +10,7 @@ git-config core.editor 'gvim -v'
 GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
 
 # ~/.ssh/proxy_cmd_for_github
+# http://www.agroman.net/corkscrew/
 corkscrew <company proxy> <company port> 207.97.227.248 443
 
 # ~/.ssh/config
