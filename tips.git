@@ -1,0 +1,20 @@
+# Misc
+# ----
+
+git-config core.editor 'gvim -v'
+
+# Http tunneling
+# --------------
+
+# ~/.bashrc
+GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
+
+# ~/.ssh/proxy_cmd_for_github
+corkscrew <company proxy> <company port> 207.97.227.248 443
+
+# ~/.ssh/config
+Host 207.97.227.248
+ProxyCommand corkscrew <company proxy> <company port> %h %p
+Port 443
+ServerAliveInterval 10
+IdentityFile ~/.ssh/id_rsa
