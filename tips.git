@@ -2,6 +2,8 @@
 # ----
 
 git-config core.editor 'gvim -v'
+git config --global user.name "Mitko"
+git config --global user.email you@yourdomain.example.com
 
 # Http tunneling
 # --------------
