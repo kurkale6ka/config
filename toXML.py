@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 # Should bundle it all in a class:
 # tags should be a member and consDic a method
 tags =\

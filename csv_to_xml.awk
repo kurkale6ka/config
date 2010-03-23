@@ -1,4 +1,4 @@
-#!/usr/bin/gawk -f
+#! /usr/bin/gawk -f
 
 # Usage:
 #     1 - ./brand.awk line=<start line> data.csv > data.xml
