@@ -1,0 +1,2 @@
+List the admin users of a channel
+/msg chanserv access #bash list
