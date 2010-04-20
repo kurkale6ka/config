@@ -1,0 +1,21 @@
+Defaults env_reset
+
+# Users
+User_Alias ME = mitko
+
+# Hosts
+Host_Alias MY_MACHINE = debian
+
+# Commands
+Cmnd_Alias VIM = /usr/bin/vi, /usr/bin/vim, /usr/bin/vimdiff, /usr/bin/gvim, /usr/bin/gvimdiff
+
+# User privilege specifications
+root ALL = (ALL) ALL
+
+# Uncomment to allow members of group sudo to not need a password
+# (Note that later entries override this, so you might need to move
+# it further down)
+# %sudo ALL=NOPASSWD: ALL
+
+ME MY_MACHINE = NOPASSWD: /usr/bin/tee
+ME MY_MACHINE = NOPASSWD: VIM
