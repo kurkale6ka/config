@@ -6,8 +6,9 @@ SHELL=/bin/bash
 
 # At startup
 @reboot gnome-terminal
+@reboot pidgin
 
-# Birthdays
+# Birthdays and name-days
 0 0 25 apr * echo Рожден ден TEST
 # January
 0 0 5  jan * echo Рожден ден на Светла
