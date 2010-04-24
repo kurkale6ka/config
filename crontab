@@ -1,0 +1,37 @@
+# minute | hour | day of month | month | day of week | command
+#
+# a last blank line could be needed for the last command
+
+SHELL=/bin/bash
+
+# At startup
+@reboot gnome-terminal
+
+# Birthdays
+0 0 25 apr * echo Рожден ден TEST
+# January
+0 0 5  jan * echo Рожден ден на Светла
+0 0 7  jan * echo Имен ден на Ивето
+0 0 18 jan * echo Имен ден на Наско
+# February
+0 0 7  feb * echo Рожден ден на Роси
+0 0 18 feb * echo Рожден ден на Баба Мария
+0 0 20 feb * echo Рожден ден на Майка
+0 0 22 feb * echo Рожден ден на Дядо Веско
+# Mars
+0 0 17 mar * echo Рожден ден на Леля
+0 0 26 mar * echo Рожден ден на Сара
+# May
+0 0 22 may * echo Рожден ден на Пепа
+0 0 27 may * echo Рожден ден на Бени
+0 0 30 may * echo Рожден ден на Ивето
+# September
+0 0 2  sep * echo Рожден ден на Наско
+# October - Me
+# November
+0 0 11 nov * echo Рожден ден на Демона
+0 0 12 nov * echo Anniversaire à Sébi
+0 0 16 nov * echo Рожден ден на Нели
+0 0 19 nov * echo Рожден ден на Татко
+0 0 28 nov * echo Рожден ден на Баба Лука
+
