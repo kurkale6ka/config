@@ -1,6 +1,6 @@
 # minute | hour | day of month | month | day of week | command
 #
-# a last blank line could be needed for the last command
+# a last blank line might be needed for the last command
 
 SHELL=/bin/bash
 
@@ -9,7 +9,6 @@ SHELL=/bin/bash
 @reboot pidgin
 
 # Birthdays and name-days
-0 0 25 apr * echo Рожден ден TEST
 # January
 0 0 5  jan * echo Рожден ден на Светла
 0 0 7  jan * echo Имен ден на Ивето
