@@ -1,0 +1,70 @@
+﻿h1. 1. One can customize all labels in a XForm:
+
+*<xs:element name="description">*
+&nbsp;&nbsp;&nbsp; {color:#0099ff}<xs:annotation>{color}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <xs:appinfo>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <alf:label>Title</alf:label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <alf:alert>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A title is required, length restriction: 115
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; characters
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </alf:alert>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <alf:appearance>+minimal+</alf:appearance>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </xs:appinfo>
+&nbsp;&nbsp;&nbsp; {color:#0099ff}</xs:annotation>{color}
+&nbsp;&nbsp;&nbsp; <xs:simpleType>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <xs:restriction base="xs:string">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <xs:minLength value="0"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <xs:maxLength value="250"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </xs:restriction>
+&nbsp;&nbsp;&nbsp; </xs:simpleType>
+*</xs:element>*
+
+The above would create a +minimal+ textarea (not a rich text editor)
+
+But be careful to position the annotation element right after *{_}xs:element{_}*, no other elements can go in between.
+\\
+
+h1. 2. If a value starts with "$\{" and ends with "\}", the Form UI will look up for the key/value pair in a chain of property files
+
+These default configured property file locations from highest to lowest precedence are:
+* /Company Home/Data Dictionary/Web Forms/\{form name\}/*strings.properties*
+* /Company Home/Data Dictionary/Web Forms/*strings.properties*
+* *webclient.properties* (within the Alfresco webapp)
+
+key1=val1
+key2=val2
+\\
+
+h1. 3. You can update a schema in Alfresco without going trough all the steps again:
+
+&nbsp; !schema.jpg|align=left!
+&nbsp;
+\\
+
+&nbsp; *instead of:*
+&nbsp;
+\\
+
+&nbsp; !settings.jpg|align=left!
+&nbsp;
+\\
+
+h1. 4. Webscripts:
+
+Importing within an imported schema is a known Alfresco bug. Your imports must be one level deep atmost.
+
+h1. 5. Links:
+
+[xml schemas|http://www.learn-xml-schema-tutorial.com/|xsd tutorial]
+
+[schema namespaces|http://www.ibm.com/developerworks/library/xml-schema/|The basics of using XML Schema to define elements]
+
+[Forms Authoring Guide|http://wiki.alfresco.com/wiki/Forms_Authoring_Guide#Overview_of_supported_XML_Schema_structures_and_data_types|Supported structures and data types]
+
+[Alfresco Widgets|http://wiki.alfresco.com/wiki/Creating_XForms_Widgets|Creating XForms Widgets]
+
+[Unbeatable JavaScript Tools|http://docs.dojocampus.org/quickstart/index|Dojo]
+
+[Alfresco Developers|http://wiki.alfresco.com/wiki/Main_Page|Alfresco wiki]
+
+[Learning Alfresco Web Forms by Examples|http://drquyong.com/myblog/?p=65|Dr. Q's Workshop]
