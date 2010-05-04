@@ -8,6 +8,9 @@ SHELL=/bin/bash
 @reboot gnome-terminal
 @reboot pidgin
 
+# Плащане всеки две седмици
+0 0 * * mon/2 echo Наем
+
 # Birthdays and name-days
 # January
 0 0 5  jan * echo Рожден ден на Светла
