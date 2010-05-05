@@ -53,11 +53,25 @@ h1. 4. Webscripts:
 
 Importing within an imported schema is a known Alfresco bug. Your imports must be one level deep atmost.
 
-h1. 5. Links:
+Your webscripts must reside within: 'Data Dictionary/Web Scripts' and you can test them using a url of the sort: [https://admin.int.bbc.co.uk/isite/wcservice/cbbc/content?storeid=CBBC|Content Item Page]
+
+You must thought beware that the iSite team needs refresh the webscripts' index before you can test your newly created scripts.
+
+h1. 5. Save Location for your schema:
+
+If you want to use a normalizedString field for defining the name under which your schema should be saved, here is the kind of Freemaker output pattern to be used:
+
+{color:#0000ff}/${webapp}/brand/${xml['cr_bra:cbbc']['cr_bra:brand']['cr_bra:name_id']}.xml{color}
+
+See:&nbsp; [Output Path Pattern Examples|http://wiki.alfresco.com/wiki/WCM_Forms_Developer_Guide#Output_Path_Pattern_Examples]
+
+h1. 6. Links:
 
 [xml schemas|http://www.learn-xml-schema-tutorial.com/|xsd tutorial]
 
 [schema namespaces|http://www.ibm.com/developerworks/library/xml-schema/|The basics of using XML Schema to define elements]
+
+[Web Scripts|https://confluence.dev.bbc.co.uk/display/isite/Web+Scripts|iSite documentation on webscripts]
 
 [Forms Authoring Guide|http://wiki.alfresco.com/wiki/Forms_Authoring_Guide#Overview_of_supported_XML_Schema_structures_and_data_types|Supported structures and data types]
 
