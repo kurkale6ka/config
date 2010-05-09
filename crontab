@@ -25,6 +25,7 @@ SHELL=/bin/bash
 0 0 17 mar * echo Рожден ден на Леля
 0 0 26 mar * echo Рожден ден на Сара
 # May
+0 0 8  may * echo Anniversaire à Jérôme
 0 0 22 may * echo Рожден ден на Пепа
 0 0 27 may * echo Рожден ден на Бени
 0 0 30 may * echo Рожден ден на Ивето
