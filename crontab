@@ -4,12 +4,8 @@
 
 SHELL=/bin/bash
 
-# At startup
-@reboot gnome-terminal
-@reboot pidgin
-
 # Плащане всеки две седмици
-0 0 * * mon/2 echo Наем
+0 0 * * mon "$HOME"/.crontab/crontab_fortnight
 
 # Birthdays and name-days
 # January
