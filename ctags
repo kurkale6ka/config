@@ -5,15 +5,21 @@
 
 # tags generation for:
 #
-#     abstract|final     class     (class alone auto generated)
-#       public|protected function  (private unnecessary)
-#                        interface
+#     abstract|final             class         (class alone auto generated)
+#       public|private|protected function
+#              private|protected $_variable...
+#                          const CONSTANT...
+#                                interface
 
-ctags -R --regex-PHP='/\s*abstract\s+class\s+(\w+)/\1/'\
-         --regex-PHP='/\s*final\s+class\s+(\w+)/\1/'\
-         --regex-PHP='/\s*public\s+function\s+(\w+)/\1/'\
-         --regex-PHP='/\s*protected\s+function\s+(\w+)/\1/'\
-         --regex-PHP='/\s*interface\s+(\w+)/\1/'\
+ctags -R --regex-PHP='/^\s*abstract\s+class\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*final\s+class\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*const\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*private\s+\$(\w+)/\1/'\
+         --regex-PHP='/^\s*protected\s+\$(\w+)/\1/'\
+         --regex-PHP='/^\s*public\s+function\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*private\s+function\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*protected\s+function\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*interface\s+(\w+)/\1/'\
          --exclude='*~'\
          --exclude='dojo-release-1.4.1'\
          --exclude='static/conf'\
