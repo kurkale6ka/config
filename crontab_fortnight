@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 
-if [[ -e $HOME/.crontab/payday ]]; then
+if [[ -e payday ]]; then
 
-    rm -f "$HOME"/.crontab/payday
+    rm -f payday
 
     echo Наем
 
 else
 
-    touch "$HOME"/.crontab/payday
+    touch payday
 fi
