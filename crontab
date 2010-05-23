@@ -5,7 +5,7 @@
 SHELL=/bin/bash
 
 # Плащане всеки две седмици
-0 0 * * mon "$HOME"/.crontab/crontab_fortnight
+0 0 * * mon $HOME/.crontab/crontab_fortnight
 
 # Birthdays and name-days
 # January
