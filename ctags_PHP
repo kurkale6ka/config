@@ -14,6 +14,7 @@
 ctags -R --regex-PHP='/^\s*abstract\s+class\s+(\w+)/\1/'\
          --regex-PHP='/^\s*final\s+class\s+(\w+)/\1/'\
          --regex-PHP='/^\s*const\s+(\w+)/\1/'\
+         --regex-PHP='/^\s*public\s+(static)?\s+\$(\w+)/\2/'\
          --regex-PHP='/^\s*private\s+\$(\w+)/\1/'\
          --regex-PHP='/^\s*protected\s+\$(\w+)/\1/'\
          --regex-PHP='/^\s*public\s+function\s+(\w+)/\1/'\
