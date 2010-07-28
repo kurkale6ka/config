@@ -1,4 +1,19 @@
-List the admin users of a channel
-/msg chanserv access #bash list
+IRC
+--------------------------------------------------------------------------------
 
-/msg nickserv identify ********
+List the admin users of a channel
+
+    /msg chanserv access #bash list
+
+Login
+
+    /msg nickserv identify ********
+
+Regex
+--------------------------------------------------------------------------------
+
+date: 1900-2099/01-12/01-31
+
+    (?:19|20)\d\d/(?:0?[1-9]|1[0-2])/(?:0?[1-9]|[12]\d|3[01])
+
+time: ???
