@@ -67,6 +67,10 @@ loop continues and another dispatch is performed. Otherwise, the process ends.
 
 h1. {color:#3300cc}Routing{color}
 
+*Note*: *Reverse Matching*
+Routes are matched in reverse order so make sure your most generic routes are defined first.
+
+
 1. {color:#6666ff}{*}Variable route{*}{color}
 {code}
 $route = new Zend_Controller_Router_Route(
