@@ -1,8 +1,0 @@
-# awk
-ls files_list | awk '{print "mv "$1" "$1".new"}' | sh
-
-# sed
-ls *old | sed 's/\(.*\)\.old/mv \1.old  \1.new/' | sh
-
-# bash
-for file in *; do mv "$file" "${file%.*}".new; done
