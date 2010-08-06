@@ -24,3 +24,5 @@ ProxyCommand corkscrew <company proxy> <company port> %h %p
 Port 443
 ServerAliveInterval 10
 IdentityFile ~/.ssh/id_rsa
+
+# vim: set filetype=conf:
