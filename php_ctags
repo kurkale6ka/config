@@ -24,6 +24,7 @@ ctags -R --regex-PHP='/^\s*(abstract|final)\s+class\s+(\w+)/\2/'\
          --regex-PHP='/^\s*(static\s+)?((public|protected|private)\s+)?(final\s+)?function\s+(\w+)/\5/'\
          --regex-PHP='/^\s*interface\s+(\w+)/\1/'\
          --exclude='*~'\
+         --exclude='*.html'\
          --exclude='img'\
          --exclude='swf'\
          --exclude='fla'\
