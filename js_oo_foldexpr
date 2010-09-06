@@ -1,0 +1,3 @@
+// if bla.bla.bla = { then level 1, if embed: function( then level 2 or 3...
+// vim: set foldmethod=expr:
+// vim: set foldexpr=getline(v\:lnum)=~'^\\s*\\w\\+\\%(\\.\\w\\+\\)\\{1,}\\s*=\\_s\\{-}{\\%(\\_s\\{-}}\\)\\@!'?'>1'\:getline(v\:lnum)=~'^\\s\\{,4}\\w\\+\\s*\:\\s\\+function\\s*('?'>2'\:getline(v\:lnum)=~'^\\s\\{4,}\\w\\+\\s*\:\\s\\+function\\s*('?'>3'\:'=':
