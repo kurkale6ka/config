@@ -1,5 +1,8 @@
 escape ^Ww
 
+# http://www.enigmacurry.com/2009/01/20/256-colors-on-the-linux-terminal/
+# http://push.cx/2008/256-color-xterms-in-ubuntu
+
 # terminfo and termcap for nice 256 color terminal
 # allow bold colors - necessary for some reason
 attrcolor b ".I"
