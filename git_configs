@@ -10,19 +10,27 @@ git config --global user.email you@yourdomain.example.com
 # Http tunneling
 # --------------
 
-# ~/.bashrc
-GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
+1. Download from http://www.agroman.net/corkscrew/
+2. Install as explained in http://http://www..agroman.net/corkscrew/README
+3. ssh-keygen -t rsa -C "mitkofr@yahoo.fr", then change the pub key in github
 
+4.
 # ~/.ssh/proxy_cmd_for_github
-# http://www.agroman.net/corkscrew/
 # 207.97.227.248 <=> ssh.github.com
 corkscrew <company proxy> <company port> 207.97.227.248 443
 
+5.
 # ~/.ssh/config
 Host 207.97.227.248
 ProxyCommand corkscrew <company proxy> <company port> %h %p
 Port 443
 ServerAliveInterval 10
 IdentityFile ~/.ssh/id_rsa
+
+6.
+# ~/.bashrc
+GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
+
+7. dot --ip=207.97.227.248
 
 # vim: set filetype=conf:
