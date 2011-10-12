@@ -1,4 +1,4 @@
-Help: [-] todo, [*] done {{{1
+Help: [-] todo, [*] done
 
 Bash {{{1
 
@@ -16,3 +16,5 @@ Vim {{{1
 [-] CentOS: upstream updates??
 [-] vimfiles backup
 [-] re-report the <c-k> bug
+
+# ex: se fdm=marker fmr& ft=txt:
