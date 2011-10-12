@@ -1,0 +1,14 @@
+Bash {{{1
+
+[*]
+
+Vim {{{1
+
+[*] qq0t:x<cr>q4@qu -> crash
+       word1 :
+       word2     :
+       word3   :
+
+[*] Ascii 1 29 correct! Ascii 1-29 or 1,29 wrong: write a help message
+
+[*] snippets for dashes: -- and ---
