@@ -17,4 +17,10 @@ Vim {{{1
 [-] vimfiles backup
 [-] re-report the <c-k> bug
 
+Readings {{{1
+
+[-] REST
+[-] curl
+[-] Cloud
+
 # ex: se fdm=marker fmr& ft=txt:
