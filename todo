@@ -2,7 +2,16 @@ Help: [-] todo, [*] done
 
 Bash {{{1
 
-[-]
+[-] use .bash_completion ?
+[-] mkdir bin, config in .profile Vs mkconfig
+[-] bashfiles, vimfiles, help: remake ln -s because hard links aren't tracked by git
+[-] lll no args allowed
+[-] improve bak()
+[-] change alias ap to aptitude Vs apropos ?
+[-] remove alias hd because of hex dump
+[-] rem alias ps -el
+[-] where are my vim videos (bak needed)
+[-] map h (was used for help before)
 
 Vim {{{1
 
@@ -12,15 +21,28 @@ Vim {{{1
        word3   :
 [-] Ascii 1 29 correct! Ascii 1-29 or 1,29 wrong: write a help message
 [-] snippets for dashes: -- and ---
+[-] Improve select snippet
 [-] rens (rename) snippet
+[-] git commit ZQ: can I get the message next time?
+[-] Extend vim-quotes to (), [], <>
+[-] github RDOCS: show the help files (ex: blockinsert.txt)
 [-] CentOS: upstream updates??
 [-] vimfiles backup
 [-] re-report the <c-k> bug
+[-] map h,j,k,l ?
 
 Readings {{{1
 
 [-] REST
-[-] curl
+[-] curl -so
 [-] Cloud
+[-] man ln (arg2 relative path advantages?)
+[-] Terrestrial tv
+[-] Digital Vs Analogue
+[-] tty
+
+Personal {{{1
+
+[-] Broadband Internet
 
 # ex: se fdm=marker fmr& ft=txt:
