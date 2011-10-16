@@ -6,4 +6,4 @@ Author:
 
 Dimitar Dimitrov: kurkale6ka
 
-mailto:mitkofr@yahoo.fr
+mitkofr@yahoo.fr
