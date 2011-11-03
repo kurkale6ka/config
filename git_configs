@@ -31,6 +31,4 @@ IdentityFile ~/.ssh/id_rsa
 # ~/.bashrc
 GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
 
-7. dot --ip=207.97.227.248
-
 # vim: set filetype=conf:
