@@ -1,3 +1,5 @@
+hardstatus string "SCREEN: %{= kG}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+
 startup_message off
 
 escape ^Ww
