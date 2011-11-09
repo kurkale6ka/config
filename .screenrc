@@ -1,3 +1,5 @@
+startup_message off
+
 escape ^Ww
 
 # http://www.enigmacurry.com/2009/01/20/256-colors-on-the-linux-terminal/
