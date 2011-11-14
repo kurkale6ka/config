@@ -1,5 +1,3 @@
-hardstatus string "SCREEN: %{= kG}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
-
 startup_message off
 
 escape ^Ww
@@ -22,3 +20,7 @@ term xterm
 
 # Enable scrolling
 termcapinfo xterm* ti@:te@
+
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
