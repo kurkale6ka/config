@@ -2,6 +2,11 @@ startup_message off
 
 escape ^Ww
 
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
 # http://www.enigmacurry.com/2009/01/20/256-colors-on-the-linux-terminal/
 # http://push.cx/2008/256-color-xterms-in-ubuntu
 
