@@ -276,3 +276,4 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
+hilights = ( { text = "kurkale6ka"; nick = "yes"; word = "yes"; } );
