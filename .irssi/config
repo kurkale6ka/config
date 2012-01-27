@@ -169,6 +169,7 @@ aliases = {
   RESET = "set -default";
   id = "/msg nickserv identify";
   wg = "/window goto";
+  l = "/window list";
 };
 
 statusbar = {
