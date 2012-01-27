@@ -288,9 +288,16 @@ settings = {
     nick = "kurkale6ka";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { theme = "default"; };
 };
-hilights = ( { text = "kurkale6ka"; nick = "yes"; word = "yes"; } );
-keyboard = (
-  { key = "^w^w"; id = "command"; data = "window last"; },
-  { key = "^W^W"; id = "command"; data = "window last"; }
+hilights = (
+  { text = "kurkale6ka"; color = "%R"; nick = "yes"; word = "yes"; }
 );
+keyboard = (
+  { key = "^L"; id = "command"; data = "clear "; },
+  { key = "meta-backspace"; id = "delete_previous_word"; data = ""; },
+  { key = "^W^W"; id = "command"; data = "window last"; },
+  { key = "^Wc"; id = "command"; data = "window close"; },
+  { key = "^R"; id = "command"; data = "history_search "; }
+);
+logs = { };
