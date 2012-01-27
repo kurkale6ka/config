@@ -288,7 +288,7 @@ settings = {
     nick = "kurkale6ka";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { theme = "default"; };
+  "fe-common/core" = { theme = "default"; hilight_nick_matches = "no"; };
 };
 hilights = (
   { text = "kurkale6ka"; color = "%R"; nick = "yes"; word = "yes"; }
