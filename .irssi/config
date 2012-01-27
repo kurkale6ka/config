@@ -296,8 +296,9 @@ hilights = (
 keyboard = (
   { key = "^L"; id = "command"; data = "clear "; },
   { key = "meta-backspace"; id = "delete_previous_word"; data = ""; },
-  { key = "^W^W"; id = "command"; data = "window last"; },
-  { key = "^Wc"; id = "command"; data = "window close"; },
-  { key = "^R"; id = "command"; data = "history_search "; }
+  { key = "^R"; id = "command"; data = "history_search "; },
+  { key = "^W"; id = "key"; data = "window"; },
+  { key = "window-window"; id = "command"; data = "window last"; },
+  { key = "window-c"; id = "command"; data = "window close"; }
 );
 logs = { };
