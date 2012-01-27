@@ -168,6 +168,7 @@ aliases = {
   UNSET = "set -clear";
   RESET = "set -default";
   id = "/msg nickserv identify";
+  wg = "/window goto";
 };
 
 statusbar = {
@@ -299,6 +300,7 @@ keyboard = (
   { key = "^R"; id = "command"; data = "history_search "; },
   { key = "^W"; id = "key"; data = "window"; },
   { key = "window-window"; id = "command"; data = "window last"; },
-  { key = "window-c"; id = "command"; data = "window close"; }
+  { key = "window-c"; id = "command"; data = "window close"; },
+  { key = "window-p"; id = "command"; data = "window last"; }
 );
 logs = { };
