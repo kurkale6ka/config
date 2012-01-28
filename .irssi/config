@@ -294,11 +294,18 @@ settings = {
     theme = "default";
     hilight_nick_matches = "no";
     autolog = "yes";
-    autolog_path = "= /var/log/irssi/$tag/$0.log";
+    autolog_path = "/var/log/irssi/$tag/$0.log";
   };
 };
 hilights = (
-  { text = "kurkale6ka"; color = "%R"; nick = "yes"; word = "yes"; }
+  {
+    text = "kurkale6ka!*@*";
+    color = "%b";
+    nick = "yes";
+    word = "yes";
+    mask = "yes";
+  },
+  { text = "kurkale6ka"; color = "%b"; nick = "no"; word = "no"; }
 );
 keyboard = (
   { key = "^L"; id = "command"; data = "clear "; },
