@@ -294,6 +294,7 @@ settings = {
     theme = "default";
     hilight_nick_matches = "no";
     autolog = "yes";
+    autolog_path = "= /var/log/irssi/$tag/$0.log";
   };
 };
 hilights = (

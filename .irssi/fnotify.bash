@@ -6,5 +6,5 @@
 tailf "$HOME"/.irssi/fnotify | sed -u 's/[<@&]//g' |\
 while read heading message
 do
-   notify-send -i gtk-dialog-info -t 300000 -- "$heading" "$message"
+   notify-send -i gtk-dialog-info -t 30000 -- "$heading" "$message"
 done
