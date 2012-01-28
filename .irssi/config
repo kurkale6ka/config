@@ -289,7 +289,7 @@ settings = {
     user_name = "mitko";
     nick = "kurkale6ka";
   };
-  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-text" = { actlist_sort = "refnum"; scroll_page_count = "/2"; };
   "fe-common/core" = { theme = "default"; hilight_nick_matches = "no"; };
 };
 hilights = (
@@ -305,3 +305,4 @@ keyboard = (
   { key = "window-p"; id = "command"; data = "window last"; }
 );
 logs = { };
+ignores = ( { level = "JOINS PARTS QUITS MODES NICKS"; } );
