@@ -290,7 +290,11 @@ settings = {
     nick = "kurkale6ka";
   };
   "fe-text" = { actlist_sort = "refnum"; scroll_page_count = "/2"; };
-  "fe-common/core" = { theme = "default"; hilight_nick_matches = "no"; };
+  "fe-common/core" = {
+    theme = "default";
+    hilight_nick_matches = "no";
+    autolog = "yes";
+  };
 };
 hilights = (
   { text = "kurkale6ka"; color = "%R"; nick = "yes"; word = "yes"; }
