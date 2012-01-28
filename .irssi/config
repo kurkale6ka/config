@@ -288,6 +288,7 @@ settings = {
     real_name = "Dimitar Dimitrov";
     user_name = "mitko";
     nick = "kurkale6ka";
+    awaylog_file = "/var/log/irssi/away.log";
   };
   "fe-text" = { actlist_sort = "refnum"; scroll_page_count = "/2"; };
   "fe-common/core" = {
@@ -298,13 +299,6 @@ settings = {
   };
 };
 hilights = (
-  {
-    text = "kurkale6ka!*@*";
-    color = "%b";
-    nick = "yes";
-    word = "yes";
-    mask = "yes";
-  },
   { text = "kurkale6ka"; color = "%b"; nick = "no"; word = "no"; }
 );
 keyboard = (
