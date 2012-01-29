@@ -281,6 +281,13 @@ statusbar = {
         topicbarend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 settings = {
@@ -308,7 +315,8 @@ keyboard = (
   { key = "^W"; id = "key"; data = "window"; },
   { key = "window-window"; id = "command"; data = "window last"; },
   { key = "window-c"; id = "command"; data = "window close"; },
-  { key = "window-p"; id = "command"; data = "window last"; }
+  { key = "window-p"; id = "command"; data = "window last"; },
+  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; }
 );
 logs = { };
 ignores = ( { level = "JOINS PARTS QUITS MODES NICKS"; } );
