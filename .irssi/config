@@ -290,7 +290,11 @@ settings = {
     nick = "kurkale6ka";
     awaylog_file = "/var/log/irssi/away.log";
   };
-  "fe-text" = { actlist_sort = "refnum"; scroll_page_count = "/2"; };
+  "fe-text" = {
+    actlist_sort = "refnum";
+    scroll_page_count = "/2";
+    actlist_names = "yes";
+  };
   "fe-common/core" = {
     theme = "default";
     hilight_nick_matches = "no";
