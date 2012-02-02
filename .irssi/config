@@ -331,7 +331,11 @@ keyboard = (
   { key = "window-window"; id = "command"; data = "window last"; },
   { key = "window-c"; id = "command"; data = "window close"; },
   { key = "window-p"; id = "command"; data = "window last"; },
-  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; }
+  { key = "meta-[M"; id = "command"; data = "mouse_xterm "; },
+  { key = "meta-v"; id = "command"; data = "window goto #vim"; },
+  { key = "meta-s"; id = "command"; data = "window goto (status)"; },
+  { key = "meta-g"; id = "command"; data = "window goto #gentoo"; },
+  { key = "meta-b"; id = "command"; data = "window goto &bitlbee"; }
 );
 logs = { };
 ignores = ( { level = "JOINS PARTS QUITS MODES NICKS"; } );
