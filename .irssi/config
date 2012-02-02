@@ -238,7 +238,6 @@ statusbar = {
         window = { };
         window_empty = { };
         lag = { priority = "-1"; };
-        act = { priority = "10"; };
         more = { priority = "-1"; alignment = "right"; };
         barend = { priority = "100"; alignment = "right"; };
       };
@@ -288,6 +287,13 @@ statusbar = {
         topicbarend = { priority = "100"; alignment = "right"; };
       };
     };
+    awl_0 = {
+      items = {
+        barstart = { priority = "100"; };
+        awl_0 = { };
+        barend = { priority = "100"; alignment = "right"; };
+      };
+    };
   };
 };
 settings = {
@@ -308,6 +314,10 @@ settings = {
     autolog = "yes";
     autolog_path = "/var/log/irssi/$tag/$0.log";
     term_charset = "utf-8";
+  };
+  "perl/core/scripts" = {
+    awl_display_key = "[$Q:$H$C$S]";
+    awl_block = "20";
   };
 };
 hilights = (
