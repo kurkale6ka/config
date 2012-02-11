@@ -240,6 +240,7 @@ statusbar = {
         lag = { priority = "-1"; };
         more = { priority = "-1"; alignment = "right"; };
         barend = { priority = "100"; alignment = "right"; };
+        usercount = { };
       };
     };
 
@@ -318,6 +319,8 @@ settings = {
   "perl/core/scripts" = {
     awl_display_key = "[$Q:$H$C$S]";
     awl_block = "20";
+    usercount_show_halfops = "no";
+    usercount_show_zero = "no";
   };
 };
 hilights = (
