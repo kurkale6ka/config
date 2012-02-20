@@ -317,7 +317,7 @@ settings = {
     autolog = "yes";
     autolog_path = "/var/log/irssi/$tag/$0.log";
     term_charset = "utf-8";
-    use_status_window = "no";
+    use_status_window = "yes";
     print_active_channel = "no";
     use_msgs_window = "no";
   };
