@@ -178,7 +178,7 @@ aliases = {
   id = "/^msg nickserv identify";
   wg = "/window goto";
   l = "/window list";
-  cc = "/scrollback levelclear -level all,-msgs,-public,-actions,-wallops,-invites,-dcc,-dccmsgs";
+  cc = "/scrollback levelclear -level all,-msgs,-public,-actions,-wallops,-invites,-dcc,-dccmsgs; /lastlog -clear";
 };
 
 statusbar = {
@@ -317,7 +317,8 @@ settings = {
     autolog = "yes";
     autolog_path = "/var/log/irssi/$tag/$0.log";
     term_charset = "utf-8";
-    use_status_window = "yes";
+    use_status_window = "no";
+    print_active_channel = "no";
   };
   "perl/core/scripts" = {
     awl_display_key = "[$Q:$H$C$S]";
@@ -345,3 +346,46 @@ keyboard = (
 );
 logs = { };
 ignores = ( { level = "JOINS PARTS QUITS MODES NICKS"; } );
+windows = {
+  1 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#techops";
+        tag = "BitlBee";
+      }
+    );
+  };
+  2 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "&bitlbee";
+        tag = "BitlBee";
+      }
+    );
+  };
+  3 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vim";
+        tag = "Freenode";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#gentoo";
+        tag = "Freenode";
+      }
+    );
+  };
+};
+mainwindows = { 1 = { first_line = "1"; lines = "26"; }; };
