@@ -319,13 +319,16 @@ settings = {
     term_charset = "utf-8";
     use_status_window = "no";
     print_active_channel = "no";
+    use_msgs_window = "no";
   };
   "perl/core/scripts" = {
     awl_display_key = "[$Q:$H$C$S]";
     awl_block = "20";
     usercount_show_halfops = "no";
     usercount_show_zero = "no";
+    awl_prefer_name = "no";
   };
+  "irc/core" = { skip_motd = "no"; };
 };
 hilights = (
   { text = "kurkale6ka"; color = "%b"; nick = "no"; word = "no"; }
@@ -346,46 +349,3 @@ keyboard = (
 );
 logs = { };
 ignores = ( { level = "JOINS PARTS QUITS MODES NICKS"; } );
-windows = {
-  1 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#techops";
-        tag = "BitlBee";
-      }
-    );
-  };
-  2 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "&bitlbee";
-        tag = "BitlBee";
-      }
-    );
-  };
-  3 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#vim";
-        tag = "Freenode";
-      }
-    );
-  };
-  4 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#gentoo";
-        tag = "Freenode";
-      }
-    );
-  };
-};
-mainwindows = { 1 = { first_line = "1"; lines = "26"; }; };
