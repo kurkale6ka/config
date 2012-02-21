@@ -321,6 +321,8 @@ settings = {
     use_status_window = "yes";
     print_active_channel = "no";
     use_msgs_window = "no";
+    bell_beeps = "yes";
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
   };
   "perl/core/scripts" = {
     awl_display_key = "[$Q:$H$C$S]";
