@@ -2,6 +2,7 @@
 
                                      figlet             "$1"
 printf "\nfiglet -f slant:    \n" && figlet -f slant    "$1"
+printf "\nfiglet -f smslant:  \n" && figlet -f smslant  "$1"
 printf "\nfiglet -f small:    \n" && figlet -f small    "$1"
 printf "\nfiglet -f block:    \n" && figlet -f block    "$1"
 printf "\nfiglet -f lean:     \n" && figlet -f lean     "$1"
