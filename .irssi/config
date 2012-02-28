@@ -180,6 +180,8 @@ aliases = {
   l = "/window list";
   cc = "/scrollback levelclear -level all,-msgs,-public,-actions,-wallops,-invites,-dcc,-dccmsgs; /lastlog -clear";
   f = "exec - -o figlet -f small";
+  se = "/scrollback end";
+  sh = "/scrollback home";
 };
 
 statusbar = {
