@@ -1,17 +1,20 @@
-.git
-colors
-texmf
-bg.utf-8.spl
-es.utf-8.spl
-fr.utf-8.spl
-thesaurus_bg.dat
-thesaurus_fr.idx
-thesaurus_fr.dat
-.*~
-*~
-.*.swp
-*.swp
-.*.stackdump
-*.stackdump
-tags
-**/tags
+- .git
++ colors
++ tdefault.vim
+- colors/*
+- vimfiles/autoload/pathogen.vim
+- texmf
+- bg.utf-8.spl
+- es.utf-8.spl
+- fr.utf-8.spl
+- thesaurus_bg.dat
+- thesaurus_fr.idx
+- thesaurus_fr.dat
+- .*~
+- *~
+- .*.swp
+- *.swp
+- .*.stackdump
+- *.stackdump
+- tags
+- **/tags
