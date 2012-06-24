@@ -1,0 +1,71 @@
+-*- (E)nable the block layer  ---> {{{1
+   (P)artition Types  --->
+      [ ] (A)dvanced partition selection
+
+(P)rocessor type and features  ---> {{{1
+   [*] (S)ymmetric multi-processing support
+   (P)rocessor family (Core 2/newer Xeon)  --->
+   [*] M(a)chine Check / overheating reporting
+
+(E)xecutable file formats / Emulations  ---> {{{1
+   [*] (I)A32 Emulation
+
+(D)evice Drivers ---> {{{1
+   (G)eneric Driver Options ---> {{{2
+      [*] M(a)intain a devtmpfs filesystem to mount at /dev
+   <*> (C)onnector - unified userspace <-> kernelspace linker  ---> {{{2
+   <*> (S)erial ATA and Parallel ATA drivers  ---> {{{2
+      [*]   (A)TA SFF support
+         [*]     (A)TA BMDMA support
+            <*>       (S)iS 964/965/966/180 SATA support
+   [*] M(u)ltiple devices driver support (RAID and LVM)  ---> {{{2
+      < >   (R)AID support
+      <*>   (D)evice mapper support
+   [*] N(e)twork device support  ---> {{{2
+      [*]   (E)thernet driver support  --->
+         [*]   (R)ealtek devices
+            <*>     (R)ealTek RTL-8139 C+ PCI Fast Ethernet Adapter support (EXPERIMENTAL)
+            <*>     (R)ealTek RTL-8129/8130/8139 PCI Fast Ethernet Adapter support
+   <M> M(u)ltimedia support  ---> {{{2
+      <M>   (V)ideo For Linux
+      [*]   (V)ideo capture adapters  --->
+         [*]   (V)4L USB devices  --->
+            <M>   (U)SB Video Class (UVC)
+   (G)raphics support  ---> {{{2
+      <*> /(d)ev/agpgart (AGP Support)  --->
+      <*> (D)irect Rendering Manager (XFree86 4.1.0 and higher DRI support)  --->
+         <M>   (A)TI Radeon
+            [*]     (E)nable modesetting on radeon by default - NEW DRIVER
+      -*- (S)upport for frame buffer devices  --->
+         [*]   (E)nable firmware EDID
+         <*>   (U)serspace VESA VGA graphics support
+         <M>   (A)TI Radeon display support
+      (C)onsole display driver support  --->
+         -*- (F)ramebuffer Console support
+   <*> (S)ound card support  ---> {{{2
+      <*>   (A)dvanced Linux Sound Architecture  --->
+         <*>   (S)equencer support
+         <*>   (O)SS Mixer API
+         <*>   (O)SS PCM (digital audio) API
+         [*]   (P)CI sound devices  --->
+            <*>   (I)ntel HD Audio  --->
+         [*]   (U)SB sound devices  --->
+            <M>   (U)SB Audio/MIDI driver
+   [*] H(I)D Devices  ---> {{{2
+      <*>   (U)SB Human Interface Device (full HID) support
+   [*] USB support  ---> {{{2
+      <*>   (E)HCI HCD (USB 2.0) support
+      <*>   (O)HCI HCD support
+}}}2
+
+(F)ile systems  ---> {{{1
+   <*> (S)econd extended fs support
+   <*> (E)xt3 journalling file system support
+   (P)seudo filesystems  --->
+      -*- /(p)roc file system support
+      -*- (T)mpfs virtual memory file system support (former shm fs)
+
+(S)ecurity options  ---> {{{1
+   [ ] N(S)A SELinux Support
+
+# ex: fdm=marker fmr={{{,}}}
