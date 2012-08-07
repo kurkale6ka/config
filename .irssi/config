@@ -123,7 +123,8 @@ channels = (
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
   { name = "#vim"; chatnet = "Freenode"; autojoin = "yes"; },
-  { name = "#techops"; chatnet = "BitlBee"; autojoin = "yes"; },
+  { name = "#bash"; chatnet = "Freenode"; autojoin = "yes"; },
+  { name = "#linux"; chatnet = "Freenode"; autojoin = "yes"; },
   { name = "#gentoo"; chatnet = "Freenode"; autojoin = "yes"; }
 );
 
