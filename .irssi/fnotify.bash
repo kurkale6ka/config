@@ -5,7 +5,7 @@
 # Keep notification window for 5 minutes = 300000 milliseconds
 > "$HOME"/.irssi/fnotify
 tailf "$HOME"/.irssi/fnotify | sed -u 's/[<@&]//g' |\
-while read heading message
+while read -r heading message
 do
    notify-send -i gtk-dialog-info -t 300000 -- "$heading" "$message"
 done
