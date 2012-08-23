@@ -1,0 +1,5 @@
+SHELL=/bin/bash
+
+# minute | hour | day_of_month | month | day_of_week | command
+
+30 15 * * * cp $HOME/.bash_history $HOME/backups
