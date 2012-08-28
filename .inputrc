@@ -1,0 +1,99 @@
+# GNU Readline Library
+# http://cnswww.cns.cwru.edu/php/chet/readline/rluserman.html
+#
+# Note: use ^x^r to re-read this file after modification
+
+# Key bindings
+# ------------
+
+# <up> and <down>
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# <Ctrl-Left> and <Ctrl-Right>
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
+# Allow the use of the <Home> and <End> keys
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# ^d (instead of the default 'delete char before cursor')
+"\C-d": kill-whole-line
+
+"\C-xa": "\"${[@]}\"\e5\C-b"
+"\C-xA": "awk '// {print $}' \eb\e3\C-b"
+"\C-xc": " | column -t"
+"\C-xC": " | cut -d -f\e2\eb\C-f"
+"\C-xd": "comm <(sort ) <(sort )\eb\e4\C-b"
+"\C-xD": "xclip <<< dimitar.dimitrov\C-M"
+"\C-xi": "ed -s  <<< $'0i\\n\\n.\\nwq'\e5\eb\e2\C-f"
+"\C-xe": "ed -s  <<< $'\\nwq'\e2\eb\e2\C-f"
+"\C-xE": "sed '' \e2\C-b"
+"\C-xh": "\eb\ed\C-y --help || \C-y -h || \C-y help\C-M"
+"\C-xH": " | groff -man -Tascii | less\C-M"
+"\C-xm": "for file in *; do mv -- \"$file\" \"${file%.*}\".; done; unset file\e7\eb\e2\C-b"
+"\C-xM": "find . -type f -iname '*' -print0 | while IFS= read -rd ''; do mv -- \"$REPLY\" \"${REPLY%.*}\". ; done\e10\eb\e3\C-b"
+"\C-xr": "while IFS= read -r; do echo \"$REPLY\"; done < "
+"\C-xR": "IFS= read -ra  <<< \"$\"\e2\eb\C-b"
+"\C-x/": "find . -iname '*' -print\eb\e3\C-b"
+"\C-x?": "find . -type f -exec bash -c '-- \"$1\"' _ {} \\;\e2\eb\e3\C-f"
+"\C-xf": "for i in ; do  \"$i\"; done\e3\eb\e2\C-b"
+"\C-xF": "for ((i = ; i < ; i++)); do  \"$i\"; done\e5\eb\e2\C-b"
+"\C-xn": "shopt -s nullglob; unset latest; for f in ; do [[ $f -nt $latest ]] && latest=\"$f\"; done; echo \"$latest\"\e9\eb\e2\C-b"
+"\C-xo": "shopt -s nullglob; unset oldest; for f in ; do [[ $f -ot $oldest || ! $oldest ]] && oldest=\"$f\"; done; echo \"$oldest\"\e10\eb\e2\C-b"
+"\C-xp": "printf '%s\\n' "
+"\C-xP": "\"$(type -P )\"\e2\C-b"
+"\C-xS": "s///\e2\C-b"
+"\C-xs": " | sort -u"
+"\C-xv": "\"$\"\C-b"
+"\C-xV": "\"${}\"\e2\C-b"
+"\C-xu": "until ; do ; done\e2\eb\e2\C-b"
+"\C-xw": "while ; do ; done\e2\eb\e2\C-b"
+"\C-xW": " >&2"
+"\C-x#": "\"${#}\"\e3\C-b"
+"\C-x%": "\"${%}\"\e3\C-b"
+"\C-x:": "\"${:}\"\e3\C-b"
+"\C-xx": " && echo 'This is a test'"
+"\C-x`": "\"$()\"\e2\C-b"
+"\C-xb": "\"$()\"\e2\C-b"
+"\C-xB": "\"$(())\"\e3\C-b"
+"\C-x+": "command vim -nNX -u NONE -c '|wq'\eb\C-b"
+"\C-x<": "<()\C-b"
+"\C-x[": "[[  ]]\e3\C-b"
+"\C-x]": "[[  ]]\e3\C-b"
+"\C-x9": "(())\e2\C-b"
+"\C-x0": "(())\e2\C-b"
+"\C-x,": "{,}\e2\C-b"
+"\C-x.": "{1..}\C-b"
+"\C-x>": "> 2>&1\e2\eb\C-b"
+"\C-x\\": "$''\C-b"
+"\C-x'": "$''\C-b"
+"\C-x=": "command bc <<< 'scale=20; '\C-b"
+"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; files=(*); echo There are \"${#files[@]}\" files)"
+"\C-x_": "/dev/null"
+"\C-xq": "\eb\"\ef\""
+"\C-x ": "IFS=;  \"$*\"; unset IFS\e3\eb\e4\C-f"
+
+# Variable settings
+# -----------------
+
+set bell-style none
+
+# link@, dir/...
+set visible-stats on
+
+# Don't show hidden files (unless .<tab>)
+set match-hidden-files off
+
+# Ignore case + treat - and _ as equivalent
+set completion-ignore-case on
+set completion-map-case on
+
+# Display all possible completions right away
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# no (y or n) + no less
+set completion-query-items 200
+set page-completions off
