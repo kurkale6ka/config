@@ -4,22 +4,23 @@
 # Note: use ^x^r to re-read this file after modification
 
 # Key bindings
-# ------------
 
 # <up> and <down>
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Ctrl-Left> and <Ctrl-Right>
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-
-# Allow the use of the <Home> and <End> keys
+# <Home> and <End>
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 
+# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f)
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
 # ^d (instead of the default 'delete char before cursor')
 "\C-d": kill-whole-line
+
+# Macros
 
 "\C-xa": "\"${[@]}\"\e5\C-b"
 "\C-xA": "awk '/\e / {print $}' \e3\C-b"
@@ -76,7 +77,6 @@
 "\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
 
 # Variable settings
-# -----------------
 
 set bell-style none
 set echo-control-characters off
