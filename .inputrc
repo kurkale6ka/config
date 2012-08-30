@@ -22,6 +22,8 @@
 
 # Macros
 
+$if Bash
+
 "\C-xa": "\"${[@]}\"\e5\C-b"
 "\C-xA": "awk '/\e / {print $}' \e3\C-b"
 "\C-xc": " | column -t"
@@ -75,6 +77,8 @@
 "\C-x_": "/dev/null"
 "\C-xq": "\eb\"\ef\""
 "\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
+
+$endif
 
 # Variable settings
 
