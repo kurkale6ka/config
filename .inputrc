@@ -3,7 +3,7 @@
 #
 # Note: use ^x^r to re-read this file after modification
 
-# Key bindings
+# Key bindings {{{1
 
 # <up> and <down>
 "\e[A": history-search-backward
@@ -20,7 +20,7 @@
 # ^d (instead of the default 'delete char before cursor')
 "\C-d": kill-whole-line
 
-# Macros
+# Macros {{{1
 
 $if Bash
 
@@ -80,7 +80,7 @@ $if Bash
 
 $endif
 
-# Variable settings
+# Variable settings {{{1
 
 set bell-style none
 set echo-control-characters off
