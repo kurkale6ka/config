@@ -77,7 +77,7 @@ $if Bash
 "\C-x_": "/dev/null"
 "\C-xq": "\eb\"\ef\""
 "\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
-    ".": "sudo !!"
+"\C-x.": "sudo !!\C-M"
 
 $endif
 
