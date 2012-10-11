@@ -30,6 +30,7 @@ $if Bash
 "\C-xC": " | cut -d -f\e2\eb\C-f"
 "\C-xd": "comm <(sort \e ) <(sort )\C-b"
 "\C-xD": "xclip <<< dimitar.dimitrov\C-M"
+"\C-x@": "mitkofr@yahoo.fr"
 "\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
 "\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
 "\C-xE": "sed '' \e2\C-b"
