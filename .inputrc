@@ -30,7 +30,7 @@ $if Bash
 "\C-xC": " | cut -d -f\e2\eb\C-f"
 "\C-xd": "comm <(sort \e ) <(sort )\C-b"
 "\C-xD": "xclip <<< dimitar.dimitrov\C-M"
-"\C-x@": "mitkofr@yahoo.fr"
+"\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 "\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
 "\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
 "\C-xE": "sed '' \e2\C-b"
@@ -79,6 +79,7 @@ $if Bash
 "\C-xq": "\eb\"\ef\""
 "\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
 "\C-x.": "sudo !!\C-M"
+"\C-x|": "ssh -fNL \e :: "
 
 $endif
 
