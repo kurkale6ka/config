@@ -24,12 +24,11 @@
 
 $if Bash
 
-"\C-xa": "\"${[@]}\"\e5\C-b"
-"\C-xA": "awk '/\e / {print $}' \e3\C-b"
+"\C-xA": "\"${[@]}\"\e5\C-b"
+"\C-xa": "awk '/\e / {print $}' \e3\C-b"
 "\C-xc": " | column -t"
 "\C-xC": " | cut -d -f\e2\eb\C-f"
-"\C-xd": "comm <(sort \e ) <(sort )\C-b"
-"\C-xD": "xclip <<< dimitar.dimitrov\C-M"
+"\C-xD": "comm <(sort \e ) <(sort )\C-b"
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 "\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
 "\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
@@ -113,3 +112,5 @@ set show-all-if-unmodified on
 # no (y or n) + no less
 set completion-query-items 200
 set page-completions off
+
+$include ~/.inputrc_after
