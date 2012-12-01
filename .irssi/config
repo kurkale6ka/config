@@ -326,6 +326,7 @@ settings = {
     use_msgs_window = "no";
     bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+    window_history = "yes";
   };
   "perl/core/scripts" = {
     awl_display_key = "[$Q:$H$C$S]";
