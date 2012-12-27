@@ -26,7 +26,7 @@ $if Bash
 
 "\C-xA": "\"${[@]}\"\e5\C-b"
 "\C-xa": "awk '/\e / {print $}' \e3\C-b"
-"\C-xc": " | column -t"
+"\C-xc": " | sort | uniq -c | sort -n"
 "\C-xC": " | cut -d -f\e2\eb\C-f"
 "\C-xD": "comm <(sort \e ) <(sort )\C-b"
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
@@ -39,6 +39,7 @@ $if Bash
 "\C-xM": "find . -type f -iname '*\e ' -print0 | while IFS= read -rd ''; do mv -- \"$REPLY\" \"${REPLY%.*}\". ; done\eb\e3\C-b"
 "\C-xr": "while IFS= read -r; do echo \"${REPLY}\"; done < "
 "\C-xR": "IFS=\e  read -ra  <<< \"$\"\eb\e3\C-f"
+"\C-xt": " | column -t"
 "\C-x/": "find . -iname '*' -print\eb\e3\C-b"
 "\C-x?": "find . -type f -exec bash -c '-- \"$1\"' _ {} \\;\e2\eb\e3\C-f"
 "\C-xf": "for i in \e ; do  \"$i\"; done; unset i\e4\eb\e3\C-b"
