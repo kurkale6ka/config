@@ -1,0 +1,33 @@
+-R
+
+# REMOVE COMMENTS BEFORE USE
+# (?:abstract|final) doesn't work although it is an extended POSIX regex
+# Two folders are taken into consideration in our example:
+
+# tags generation for:
+#
+#     abstract|final             class         (class alone auto generated)
+#       public|private|protected function
+#              private|protected $_variable...
+#                          const CONSTANT...
+#                                interface
+--langdef=PHP
+--langmap=PHP:.php,.phtml
+--regex-PHP=/^\s*(abstract|final)\s+class\s+(\w+)/\2/
+--regex-PHP=/^\s*const\s+(\w+)/\1/
+--regex-PHP=/^\s*(public|protected|private|var)\s+(static\s+)?\$(\w+)/\3/
+--regex-PHP=/^\s*(static\s+)?(public|protected|private|var)\s+\$(\w+)/\3/
+--regex-PHP=/^\s*static\s+\$(\w+)/\1/
+--regex-PHP=/^\s*(final\s+)?((public|protected|private)\s+)?(static\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*(final\s+)?(static\s+)?((public|protected|private)\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*((public|protected|private)\s+)?(static\s+)?(final\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*((public|protected|private)\s+)?(final\s+)?(static\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*(static\s+)?(final\s+)?((public|protected|private)\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*(static\s+)?((public|protected|private)\s+)?(final\s+)?function\s+(\w+)/\5/
+--regex-PHP=/^\s*interface\s+(\w+)/\1/
+--exclude=*~
+--exclude=*.html
+--exclude=img
+--exclude=swf
+--exclude=fla
+--exclude=.svn

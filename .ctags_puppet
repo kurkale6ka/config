@@ -1,0 +1,6 @@
+-R
+
+--langdef=puppet
+--langmap=puppet:.pp
+--regex-puppet=/^[[:space:]]*class[[:space:]]+([[:lower:]]([_[:alnum:]]+|[_[:alnum:]]*(::[_[:alnum:]]+)+))/\1/c,class/
+--regex-puppet=/^[[:space:]]*define[[:space:]]+([[:lower:]]([_[:alnum:]]+|[_[:alnum:]]*(::[_[:alnum:]]+)+))/\1/d,define,defined resource type/
