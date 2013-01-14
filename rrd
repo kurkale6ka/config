@@ -16,14 +16,14 @@ RRA:CF:xff:step:rows
 --------------------
 
 Consolidation function (CF) - AVERAGE, MINIMUM, MAXIMUM, and LAST
-   Uses step number of PDPs (primary data points: one PDP per --step: see create below)
+   Uses step number of PDPs per row (primary data points: one PDP per --step: see create below)
 
 xff - XFiles Factor (XFF), this is the percentage of PDPs that can be unknown
       without making the recorded value unknown
 
 rrdtool create target.rrd         \
         --start 1023654125        \
-        --step 300                \
+        --step 300                \ 5 minutes
         DS:mem:GAUGE:600:0:671744 \
         RRA:AVERAGE:0.5:12:24     \ ( 12  * 300 = one value per 1h,  24 => a day)
         RRA:AVERAGE:0.5:288:31      ( 288 * 300 = one value per 24H, 31 => a month)
