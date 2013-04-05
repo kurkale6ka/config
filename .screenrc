@@ -26,6 +26,9 @@ term xterm
 # Enable scrolling
 termcapinfo xterm* ti@:te@
 
+# after editing a file, remove its contents from the screen window
+altscreen on
+
 hardstatus on
 hardstatus alwayslastline
 hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
