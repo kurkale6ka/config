@@ -31,4 +31,10 @@ altscreen on
 
 hardstatus on
 hardstatus alwayslastline
-hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+# Color: %{ color modifier (+-!=) bg color modifier fg} => %{+b
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y}| %D %d %M, %C%a "
+# hardstatus string "%{.bW} %{.bG} %H | %-w%{.rW}%n %t%{-}%+w %=%{..G} Load: %l | %D %d %M, %c%a "
+
+# hardstatus off
+# hardstatus alwayslastline
+# hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
