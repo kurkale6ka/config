@@ -2,11 +2,14 @@
 
 # virt-install --os-variant list
 
+(($# == 1)) || { echo 'Usage: vinstall <vm>' >&2; exit 1; }
+
 name="$1"
 image=/var/lib/libvirt/images/"$name".img
 size=7 # in Gigabytes
 # The location must be the root directory of an install tree
-mirror=http://mirror.as29550.net/mirror.centos.org/6.4/os/x86_64/
+mirror=http://mirror.as29550.net/mirror.centos.org/5/os/x86_64/
+# mirror=http://mirror.as29550.net/mirror.centos.org/6.4/os/x86_64/
 
 ksdir=/var/lib/libvirt/images
 ks=centos.ks
@@ -31,7 +34,8 @@ autopart
 
 %packages
 @core
-%end
+vim-enhanced
+# %end (unavailable in centos 5)
 EOF
 fi
 
