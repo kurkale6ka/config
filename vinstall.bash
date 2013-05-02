@@ -63,7 +63,8 @@ virt-install                                                 \
 #    hostame <vm>
 #    useradd <user>
 #    passwd <user>
-#    visudo -> uncomment %wheel
+#    visudo (uncomment %wheel)
 #    gpasswd -a <user> wheel
+#    ifconfig (to see IP)
 #    add <vm> to ~/.ssh/config
 #    ssh-copy-id <vm>
