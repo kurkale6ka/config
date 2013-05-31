@@ -26,6 +26,11 @@
          [*]   (R)ealtek devices
             <*>     (R)ealTek RTL-8139 C+ PCI Fast Ethernet Adapter support (EXPERIMENTAL)
             <*>     (R)ealTek RTL-8129/8130/8139 PCI Fast Ethernet Adapter support
+
+   (C)haracter devices  ---> {{{2
+      <*>   (I)ntel HW Random Number Generator support
+   [*] Watchdog Timer Support  ---> {{{2
+      <*>   (I)ntel TCO Timer/Watchdog
    <M> M(u)ltimedia support  ---> {{{2
       <M>   (V)ideo For Linux
       [*]   (V)ideo capture adapters  --->
