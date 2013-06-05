@@ -3,6 +3,8 @@
 + tdefault.vim
 - colors/*
 - vimfiles/autoload/pathogen.vim
+- vimfiles/bundle/UltiSnips/
+- vimfiles/bundle/csapprox/
 - texmf
 - bg.utf-8.spl
 - es.utf-8.spl
