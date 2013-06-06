@@ -1,5 +1,6 @@
 - .git
 + colors
++ colors/desertEX.vim
 + tdefault.vim
 - colors/*
 - vimfiles/autoload/pathogen.vim
