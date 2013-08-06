@@ -65,9 +65,9 @@ TERM xterm-debian
 # Background:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 #
-# NORMAL 00 # no color code at all
-# FILE   00 # regular file: use no color at all
-# RESET  0  # reset to "normal" color
+# RESET 0  # reset to "normal" color
+NORMAL  00 # no color code at all
+FILE    00 # regular file: use no color at all
 
 # Document files ([Bold] blue) {{{1
 DIR 01;34
@@ -100,14 +100,14 @@ BLK             01;33;40 # block device driver
 ORPHAN          01;31;40 # symlink to nonexistent file
 MISSING         00;37    # said nonexistent file
 
-SETUID                  00;37;41 # file that is setuid (u+s)
-SETGID                  00;30;43 # file that is setgid (g+s)
-# CAPABILITY            00;30;41 # file with capability
+SETUID                00;37;41 # file that is setuid (u+s)
+SETGID                00;30;43 # file that is setgid (g+s)
+# CAPABILITY          00;30;41 # file with capability
 # Todo:
-# STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
-# OTHER_WRITABLE        00;34;42 # dir that is other-writable (o+w) and not sticky
-# STICKY                00;37;44 # dir with the sticky bit set (+t) and not other-writable
-EXEC                    00;01;32 # This is for files with execute permission:
+STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE        00;34;42 # dir that is other-writable (o+w) and not sticky
+STICKY                00;37;44 # dir with the sticky bit set (+t) and not other-writable
+EXEC                  00;01;32 # This is for files with execute permission:
 
 # Scripts (Green) {{{1
 .sh  00;32
@@ -248,15 +248,15 @@ EXEC                    00;01;32 # This is for files with execute permission:
 .wav  00;36
 
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions (Bold magenta) {{{1
-.axv  01;35
-.anx  01;35
-.ogv  01;35
-.ogx  01;35
+.axv  01;35;40
+.anx  01;35;40
+.ogv  01;35;40
+.ogx  01;35;40
 # Cyan
-.axa  00;36
-.oga  00;36
-.spx  00;36
-.xspf 00;36
+.axa  00;36;40
+.oga  00;36;40
+.spx  00;36;40
+.xspf 00;36;40
 
 # Misc (Bold white) {{{1
 .dpkg-dist 01;37
