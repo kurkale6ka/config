@@ -107,6 +107,9 @@ EXEC                    00;01;32 # This is for files with execute permission:
 .com 00;32
 .btm 00;32
 .bat 00;32
+# Patches (Green on black bg)
+.diff  00;32;40
+.patch 00;32;40
 
 # Archives or compressed (Bold red) {{{1
 .tar  01;31
@@ -170,10 +173,6 @@ EXEC                    00;01;32 # This is for files with execute permission:
 .rbc   00;33
 .pyc   00;33
 .class 00;33
-
-# Patches (Red) {{{1
-.diff  00;31
-.patch 00;31
 
 # Misc (Bold white) {{{1
 .dpkg-dist 01;37
