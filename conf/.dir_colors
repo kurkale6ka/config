@@ -68,15 +68,17 @@ TERM xterm-debian
 # RESET 0  # reset to 'normal' color
 NORMAL  00 # no color code at all
 
-# Document files ([Bold] blue) {{{1
+# Document files (Bold blue) {{{1
 DIR 01;34
 
 FILE  00 # regular file: use no color at all
+# Blue
 .txt  00;34
 .text 00;34
 .log  00;34
 .conf 00;34
 .ini  00;34
+# Blue on black bg
 .pdf  00;34;40
 .doc  00;34;40
 .docx 00;34;40
@@ -233,7 +235,7 @@ EXEC                  00;01;32 # This is for files with execute permission:
 .cgm  01;35
 .emf  01;35
 
-# Audio formats (cyan) {{{1
+# Audio formats (Cyan) {{{1
 .aac  00;36
 .au   00;36
 .flac 00;36
@@ -245,13 +247,12 @@ EXEC                  00;01;32 # This is for files with execute permission:
 .ogg  00;36
 .ra   00;36
 .wav  00;36
-
-# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions (Bold magenta) {{{1
+# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions (Bold magenta on black bg)
 .axv  01;35;40
 .anx  01;35;40
 .ogv  01;35;40
 .ogx  01;35;40
-# Cyan
+# Cyan on black bg
 .axa  00;36;40
 .oga  00;36;40
 .spx  00;36;40
