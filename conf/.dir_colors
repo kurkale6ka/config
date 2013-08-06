@@ -71,20 +71,21 @@ NORMAL  00 # no color code at all
 # Document files (Bold blue) {{{1
 DIR 01;34
 
-FILE  00 # regular file: use no color at all
+FILE    00 # regular file: use no color at all
 # Blue
-.txt  00;34
-.text 00;34
-.log  00;34
-.conf 00;34
-.ini  00;34
+.txt    00;34
+.text   00;34
+*README 00;34
+.log    00;34
+.conf   00;34
+.ini    00;34
 # Blue on black bg
-.pdf  00;34;40
-.doc  00;34;40
-.docx 00;34;40
-.ppt  00;34;40
-.tex  00;34;40
-.ps   00;34;40
+.pdf    00;34;40
+.doc    00;34;40
+.docx   00;34;40
+.ppt    00;34;40
+.tex    00;34;40
+.ps     00;34;40
 
 # Links (Bold cyan) {{{1
 # If you set this to 'target' instead of a numerical value, the color is as for the file pointed to.)
