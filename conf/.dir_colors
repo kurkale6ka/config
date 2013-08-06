@@ -191,6 +191,7 @@ EXEC                  00;01;32 # This is for files with execute permission:
 
 # Image formats (Bold magenta) {{{1
 .jpg  01;35
+.JPG  01;35
 .jpeg 01;35
 .gif  01;35
 .bmp  01;35
