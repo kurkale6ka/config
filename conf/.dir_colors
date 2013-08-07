@@ -91,11 +91,11 @@ STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 *README 00;34
 
 # Config files (Green underlined) {{{1
-.log  04;32
 .conf 04;32
 .ini  04;32
 .yml  04;32
 .yaml 04;32
+.log  00;31
 
 # Documents (Blue on black bg) {{{1
 .pdf  00;34;40
