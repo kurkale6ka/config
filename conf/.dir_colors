@@ -102,8 +102,6 @@ STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 .doc  00;34;40
 .docx 00;34;40
 .ppt  00;34;40
-.tex  00;34;40
-.ps   00;34;40
 
 # Links (Bold cyan) {{{1
 # If you set this to 'target' instead of a numerical value, the color is as for the file pointed to.)
@@ -117,6 +115,7 @@ EXEC   01;32 # This is for files with execute permission:
 .csh   00;32
 .pl    00;32
 .rb    00;32
+.php   00;32
 # DOS-style
 .cmd   00;32
 .exe   00;32
@@ -126,6 +125,12 @@ EXEC   01;32 # This is for files with execute permission:
 # Patches (Green on black bg)
 .diff  00;32;40
 .patch 00;32;40
+
+# Markup languages
+.html 00;33
+.xml  00;33
+.tex  00;33
+.ps   00;33
 
 # Archives or compressed (Bold red) {{{1
 .tar  01;31
@@ -182,13 +187,13 @@ EXEC   01;32 # This is for files with execute permission:
 .blg      01;30
 
 # System libraries, etc... (Yellow) {{{1
-.so    00;33
-.o     00;33
-.a     00;33
-.dll   00;33
-.rbc   00;33
-.pyc   00;33
-.class 00;33
+.so    01;33
+.o     01;33
+.a     01;33
+.dll   01;33
+.rbc   01;33
+.pyc   01;33
+.class 01;33
 
 # Image formats (Bold magenta) {{{1
 .jpg  01;35
