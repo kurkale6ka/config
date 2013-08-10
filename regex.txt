@@ -1,4 +1,4 @@
-                               Regex flavors:
+                                   Regex
     Globs: * ? [...]                                    bash,    find
 POSIX BRE:   . [...] ^ $ * \{,\} \(\) \1               (s)ed,    grep
   GNU BRE:   --------------------------- \? \+ \|      (s)ed,    grep
@@ -11,3 +11,11 @@ Notes: * POSIX [[:upper:]] will match according to the locale
        * \d (not in BRE/ERE) is a shortcut for [[:digit:]] and is equivalent to [0-9] only faster
        * POSIX: \ cannot escape stuff in [...]
        * perl: The \d\s\w\D\S\W abbreviations can be used both inside and outside of character classes
+
+Extended Globs: bash (shopt -s extglob)
+
+    @(item1|item2): 1      <=> item1|item2
+    ?               0 or 1 occurrence of the given patterns
+    *               0 or >
+    +               1 or >
+    !               none   <~> [^...]
