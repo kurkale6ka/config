@@ -32,3 +32,11 @@
 /set irc.server.freenode.sasl_mechanism dh-blowfish
 /set irc.server.freenode.sasl_username kurkale6ka
 /set irc.server.freenode.sasl_password **********
+
+IRC tips:
+
+List the admin users of a channel
+   /msg chanserv access #bash list
+
+Login
+    /msg nickserv identify ********
