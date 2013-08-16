@@ -1,0 +1,41 @@
+#! /usr/bin/env bash
+
+touch                 \
+README                \
+Readme_plain.txt      \
+file                  \
+script.rb             \
+script_config.yml     \
+script_exe            \
+script.patch          \
+messages.log          \
+messages.tar.gz       \
+cacert.pem            \
+caserver.csr          \
+markup_index.html     \
+markup_simulation.tex \
+image.jpg             \
+audio.midi            \
+audio.axa             \
+audio.axv             \
+binary_doc.pdf        \
+link.url              \
+object.so             \
+osys.dll              \
+backup.bak            \
+bdelete.old           \
+setuid                \
+setgid
+
+chmod u+x script_exe
+chmod u+s setuid
+chmod g+s setgid
+
+mkdir directory missing_dir setOW setsticky setstickyOW
+
+chmod o+w setOW
+chmod +t setsticky
+chmod +t,o+w setstickyOW
+
+ln -sT directory linksym
+ln -sT missing_dir link_broken && rmdir missing_dir
