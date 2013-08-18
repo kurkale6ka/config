@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+mkdir -p /tmp/dircolors && cd "$_"
+
 touch                 \
 README                \
 Readme_plain.txt      \
@@ -31,11 +33,18 @@ chmod u+x script_exe
 chmod u+s setuid
 chmod g+s setgid
 
-mkdir directory missing_dir setOW setsticky setstickyOW
+mkdir -p directory missing_dir setOW setsticky setstickyOW
 
 chmod o+w setOW
 chmod +t setsticky
 chmod +t,o+w setstickyOW
 
-ln -sT directory linksym
-ln -sT missing_dir link_broken && rmdir missing_dir
+[[ ! -h linksym ]] && ln -sT directory linksym
+[[ ! -h link_broken ]] && ln -sT missing_dir link_broken && rmdir missing_dir
+
+echo '/tmp/dircolors:'
+command ls -FB --color=auto
+echo
+
+echo '/dev:'
+command ls -FB --color=auto /dev
