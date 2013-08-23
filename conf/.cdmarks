@@ -1,9 +1,11 @@
-~/bashfiles/             bashfiles
-~/vimfiles               vimfiles
-~/vimfiles/bundle        bundle    plugin
-~/vimfiles/bundle/pairs/ pairs
-~/help                   help
-~/Documents/             docs
-~/Downloads/             downloads
-/media/0007-6BCA/        usb
-/usr/src/linux           src       linux
+~/bashfiles             bashfiles
+~/vimfiles              vimfiles
+~/vimfiles/bundle       bundle    plugin
+~/vimfiles/bundle/pairs pairs
+~/test                  test
+/var/log                log
+~/help                  help
+~/Documents             docs
+~/Downloads             downloads
+/media/0007-6BCA        usb
+/usr/src/linux          src       linux
