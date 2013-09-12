@@ -1,9 +1,8 @@
-# Setup:
-#     cat "$USER" >> /etc/cron.allow
+# Gentoo setup:
+#     echo "$USER" >> /etc/cron.allow
 #     chmod u+s "$(type -P crontab)"
 
 SHELL=/bin/bash
 
 # minute | hour | day_of_month | month | day_of_week | command
-
-30 15 * * * cp $HOME/.bash_history $HOME/backups
+# ...
