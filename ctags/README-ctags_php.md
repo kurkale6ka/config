@@ -1,5 +1,4 @@
-`(?:abstract|final)` doesn't work although it is an extended POSIX regex.  
-Two folders are taken into consideration in our example:
+`(?:abstract|final)` doesn't work although it is an extended POSIX regex
 
 tags generation for:
 
