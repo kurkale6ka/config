@@ -1,9 +1,20 @@
-Digest of Linux tips and template files
-=======================================
+Personal Linux configuration files and scripts
+==============================================
 
-Author:
--------
+Configuration files for:
+-----------------------
 
-Dimitar Dimitrov: kurkale6ka
+* ctags
+* dig
+* dircolors
+* git
+* inputrc
+* weechat
+* ...
 
-mitkofr@yahoo.fr
+Scripts for:
+-----------
+
+* CentOS virt-install
+* figlet
+* subtotals
