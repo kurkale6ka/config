@@ -1,5 +1,5 @@
-Personal Linux configuration files and scripts
-==============================================
+Linux configuration files and scripts
+=====================================
 
 Configuration files for:
 -----------------------
@@ -18,3 +18,4 @@ Scripts for:
 * CentOS virt-install
 * figlet
 * subtotals
+* ...
