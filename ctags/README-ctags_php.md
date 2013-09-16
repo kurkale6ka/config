@@ -1,4 +1,4 @@
-(?:abstract|final) doesn't work although it is an extended POSIX regex
+`(?:abstract|final)` doesn't work although it is an extended POSIX regex.  
 Two folders are taken into consideration in our example:
 
 tags generation for:
