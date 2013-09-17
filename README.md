@@ -2,7 +2,7 @@ Linux configuration files and scripts
 =====================================
 
 Configuration files for:
------------------------
+------------------------
 
 * ctags
 * dig
@@ -10,12 +10,4 @@ Configuration files for:
 * git
 * inputrc
 * weechat
-* ...
-
-Scripts for:
------------
-
-* CentOS virt-install
-* figlet
-* subtotals
 * ...
