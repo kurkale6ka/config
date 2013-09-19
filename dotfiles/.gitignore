@@ -3,6 +3,8 @@
 # Vim
 .*~
 *~
+.*.swo
+*.swo
 .*.swp
 *.swp
 tags
