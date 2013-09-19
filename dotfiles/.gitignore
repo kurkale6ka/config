@@ -3,6 +3,8 @@
 # Vim
 .*~
 *~
+.*.swn
+*.swn
 .*.swo
 *.swo
 .*.swp
