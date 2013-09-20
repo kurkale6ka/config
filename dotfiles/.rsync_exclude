@@ -1,11 +1,8 @@
 - .git
 + colors
-+ colors/desertEX.vim
 + tdefault.vim
 - colors/*
-- vimfiles/autoload/pathogen.vim
-- vimfiles/bundle/UltiSnips/
-- vimfiles/bundle/csapprox/
+- bundle/UltiSnips/
 - texmf
 - bg.utf-8.spl
 - es.utf-8.spl
