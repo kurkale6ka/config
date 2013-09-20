@@ -1,5 +1,6 @@
 - .git
 + colors
++ desertEX.vim
 + tdefault.vim
 - colors/*
 - bundle/UltiSnips/
