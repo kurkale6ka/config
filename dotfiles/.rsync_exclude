@@ -2,6 +2,7 @@
 + colors
 + desertEX.vim
 + tdefault.vim
++ pathogen/autoload/pathogen.vim
 - colors/*
 - bundle/UltiSnips/
 - texmf
@@ -9,6 +10,8 @@
 - es.utf-8.spl
 - fr.utf-8.spl
 - en.utf-8.add
+- pathogen.vim
+- snippets/
 - thesaurus_bg.dat
 - thesaurus_fr.idx
 - thesaurus_fr.dat
