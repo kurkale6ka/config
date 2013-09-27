@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+[[ -r $HOME/.dir_colors ]] && eval "$(dircolors $HOME/.dir_colors)"
+
 mkdir -p /tmp/dircolors
 cd /tmp/dircolors || exit 1
 

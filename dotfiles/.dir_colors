@@ -53,17 +53,21 @@ TERM xterm-color
 TERM xterm-debian
 # }}}1
 
-# 01   ; 32    ; 40
-# Bold   Green   Black bg
-#
 # Emphasis:
+# --------
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 #
-# Text:
+# Foreground:
+# ----------
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
 #
 # Background:
+# ----------
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#
+# Example: 01   ; 32    ; 40
+#          Bold   Green   Black
+#          em     fg      bg
 
 # Special {{{1
 # CAPABILITY          00;30;41 # file with capability
@@ -85,23 +89,22 @@ OTHER_WRITABLE        00;34;42 # dir that is other-writable (o+w) and not sticky
 STICKY                00;37;44 # dir with the sticky bit set (+t) and not other-writable
 STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 
-# Ascii files (Blue) {{{1
-.txt    00;34
-.text   00;34
-*README 00;34
+# Ascii files (FILE) {{{1
+.txt    00;00
+.text   00;00
+.log    00;00
 
 # Config files (Green underlined) {{{1
 .conf 04;32
 .ini  04;32
 .yml  04;32
 .yaml 04;32
-.log  00;31
 
-# Documents (Blue on black bg) {{{1
-.pdf  00;34;40
-.doc  00;34;40
-.docx 00;34;40
-.ppt  00;34;40
+# Documents (Black on blue bg) {{{1
+.pdf  00;30;44
+.doc  00;30;44
+.docx 00;30;44
+.ppt  00;30;44
 
 # Links (Bold cyan) {{{1
 # If you set this to 'target' instead of a numerical value, the color is as for the file pointed to.)
@@ -243,33 +246,38 @@ EXEC   01;32 # This is for files with execute permission:
 .cgm  01;35
 .emf  01;35
 
-# Audio formats (Cyan) {{{1
-.aac  00;36
-.au   00;36
-.flac 00;36
-.mid  00;36
-.midi 00;36
-.mka  00;36
-.mp3  00;36
-.mpc  00;36
-.ogg  00;36
-.ra   00;36
-.wav  00;36
-# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions (Bold magenta on black bg)
-.axv  01;35;40
-.anx  01;35;40
-.ogv  01;35;40
-.ogx  01;35;40
-# Cyan on black bg
-.axa  00;36;40
-.oga  00;36;40
-.spx  00;36;40
-.xspf 00;36;40
+# Audio formats (Bold white on magenta bg) {{{1
+.aac  01;37;45
+.au   01;37;45
+.flac 01;37;45
+.mid  01;37;45
+.midi 01;37;45
+.mka  01;37;45
+.mp3  01;37;45
+.mpc  01;37;45
+.ogg  01;37;45
+.ra   01;37;45
+.wav  01;37;45
+# http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions (Bold yellow on magenta bg)
+.axv  01;33;45
+.anx  01;33;45
+.ogv  01;33;45
+.ogx  01;33;45
+# Bold cyan on magenta bg
+.axa  01;36;45
+.oga  01;36;45
+.spx  01;36;45
+.xspf 01;36;45
 
-# Misc (Bold white) {{{1
-.dpkg-dist 01;37
-*core      01;37
-.pem       01;37
-.csr       01;37
-.bin       01;37
-.pki       01;37
+# README (Bold white) {{{1
+*README    01;37
+*INSTALL   01;37
+*LICENCE   01;37
+
+# Misc (Cyan) {{{1
+.dpkg-dist 00;36
+*core      00;36
+.pem       00;36
+.csr       00;36
+.bin       00;36
+.pki       00;36
