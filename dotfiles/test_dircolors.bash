@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
-mkdir -p /tmp/dircolors && cd "$_"
+mkdir -p /tmp/dircolors
+cd /tmp/dircolors || exit 1
 
 touch                 \
 README                \
@@ -39,8 +40,9 @@ chmod o+w setOW
 chmod +t setsticky
 chmod +t,o+w setstickyOW
 
-[[ ! -h linksym ]] && ln -sT directory linksym
-[[ ! -h link_broken ]] && ln -sT missing_dir link_broken && rmdir missing_dir
+[[ ! -h linksym     ]] && ln -sT directory   linksym
+[[ ! -h link_broken ]] && ln -sT missing_dir link_broken
+rmdir missing_dir
 
 echo '/tmp/dircolors:'
 command ls -FB --color=auto
