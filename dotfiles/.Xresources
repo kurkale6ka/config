@@ -1,0 +1,48 @@
+xterm*faceName: DejaVu\ Sans\ Mono
+xterm*faceSize: 9
+xterm*background:  #2b2b2b
+xterm*foreground:  #bebebe
+xterm*cursorColor: #444444
+! Tango theme
+! Normal
+xterm*color0:      #000000
+xterm*color1:      #cc0000
+xterm*color2:      #4e9a06
+xterm*color3:      #c4a000
+xterm*color4:      #3465a4
+xterm*color5:      #75507b
+xterm*color6:      #06989a
+xterm*color7:      #d3d7cf
+! Bold
+xterm*color8:      #555753
+xterm*color9:      #ef2929
+xterm*color10:     #8ae234
+xterm*color11:     #fce94f
+xterm*color12:     #729fcf
+xterm*color13:     #ad7fa8
+xterm*color14:     #34e2e2
+xterm*color15:     #eeeeec
+
+! #! /usr/bin/env bash
+!
+! #             Normal           Bold
+! echo $'\e[30m color0  \e[30;1m color8  \e[0m' # Black
+! echo $'\e[31m color1  \e[31;1m color9  \e[0m' # Red
+! echo $'\e[32m color2  \e[32;1m color10 \e[0m' # Green
+! echo $'\e[33m color3  \e[33;1m color11 \e[0m' # Yellow
+! echo $'\e[34m color4  \e[34;1m color12 \e[0m' # Blue
+! echo $'\e[35m color5  \e[35;1m color13 \e[0m' # Magenta
+! echo $'\e[36m color6  \e[36;1m color14 \e[0m' # Cyan
+! echo $'\e[37m color7  \e[37;1m color15 \e[0m' # White
+! echo $'\e[38m color8  \e[38;1m color16 \e[0m' #
+! echo $'\e[39m color9  \e[39;1m color17 \e[0m' #
+! echo $'\e[40m color10 \e[40;1m color18 \e[0m' #
+! echo $'\e[41m color11 \e[41;1m color19 \e[0m' #
+! echo $'\e[42m color12 \e[42;1m color20 \e[0m' #
+! echo $'\e[43m color13 \e[43;1m color21 \e[0m' #
+! echo $'\e[44m color14 \e[44;1m color22 \e[0m' #
+! echo $'\e[45m color15 \e[45;1m color23 \e[0m' #
+! echo $'\e[46m color16 \e[46;1m color24 \e[0m' #
+! echo $'\e[47m color17 \e[47;1m color25 \e[0m' #
+! echo $'\e[48m color18 \e[48;1m color26 \e[0m' #
+! echo $'\e[49m color19 \e[49;1m color27 \e[0m' #
