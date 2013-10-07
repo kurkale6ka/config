@@ -23,6 +23,8 @@ xterm*color13:     #ad7fa8
 xterm*color14:     #34e2e2
 xterm*color15:     #eeeeec
 
+! Note: ~/.clusterssh/config needs terminal_colorize=0
+
 ! #! /usr/bin/env bash
 !
 ! #             Normal           Bold
