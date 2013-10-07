@@ -68,6 +68,9 @@ TERM xterm-debian
 # Example: 01   ; 32    ; 40
 #          Bold   Green   Black
 #          em     fg      bg
+#
+# Note: ansi escape sequences graphics mode - Esc[Value;Value;Valuem
+#                                       echo $'\e[01;04;32;44mMy text\e[0m'
 
 # Special {{{1
 # CAPABILITY          00;30;41 # file with capability
