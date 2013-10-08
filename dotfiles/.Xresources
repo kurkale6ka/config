@@ -4,23 +4,28 @@ xterm*background:  #2b2b2b
 xterm*foreground:  #bebebe
 xterm*cursorColor: #444444
 ! Tango theme
-! Normal
 xterm*color0:      #000000
-xterm*color1:      #cc0000
-xterm*color2:      #4e9a06
-xterm*color3:      #c4a000
-xterm*color4:      #3465a4
-xterm*color5:      #75507b
-xterm*color6:      #06989a
-xterm*color7:      #d3d7cf
-! Bold
 xterm*color8:      #555753
+
+xterm*color1:      #cc0000
 xterm*color9:      #ef2929
+
+xterm*color2:      #4e9a06
 xterm*color10:     #8ae234
+
+xterm*color3:      #c4a000
 xterm*color11:     #fce94f
+
+xterm*color4:      #3465a4
 xterm*color12:     #729fcf
+
+xterm*color5:      #75507b
 xterm*color13:     #ad7fa8
+
+xterm*color6:      #06989a
 xterm*color14:     #34e2e2
+
+xterm*color7:      #d3d7cf
 xterm*color15:     #eeeeec
 
 ! Note: ~/.clusterssh/config needs terminal_colorize=0
