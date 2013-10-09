@@ -1,4 +1,4 @@
-xterm*faceName: DejaVu\ Sans\ Mono
+xterm*faceName: DejaVu Sans Mono
 xterm*faceSize: 9
 xterm*background:  #2b2b2b
 xterm*foreground:  #bebebe
@@ -43,3 +43,19 @@ xterm*color15:     #eeeeec
 ! echo $'\e[35m color5  \e[35;1m color13 \e[0m' # Magenta
 ! echo $'\e[36m color6  \e[36;1m color14 \e[0m' # Cyan
 ! echo $'\e[37m color7  \e[37;1m color15 \e[0m' # White
+
+xterm*loginshell:         true
+xterm*VT100.geometry:     80x25
+! double-click to select whole URLs :D
+xterm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*eightBitInput:      true
+xterm*saveLines:          2048
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          true
+xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
