@@ -10,6 +10,7 @@
 .*.swp
 *.swp
 tags
+cscope.*
 
 # Irc
 away.log
