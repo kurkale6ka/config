@@ -20,4 +20,4 @@
 - .*.stackdump
 - *.stackdump
 - tags
-- **/tags
+- cscope.*
