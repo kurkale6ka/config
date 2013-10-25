@@ -1,3 +1,6 @@
+# After changing, run:
+# [[ -r $HOME/.dir_colors ]] && eval "$(dircolors $HOME/.dir_colors)"
+#
 # The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
 # slackware version of dircolors) are recognized but ignored.
 
@@ -273,9 +276,12 @@ EXEC   01;32 # This is for files with execute permission:
 .xspf 01;36;45
 
 # README (Bold white) {{{1
-*README    01;37
-*INSTALL   01;37
-*LICENCE   01;37
+*README      01;37
+*INSTALL     01;37
+*LICENCE     01;37
+*README.txt  01;37
+*INSTALL.txt 01;37
+*LICENCE.txt 01;37
 
 # Misc (Cyan) {{{1
 .dpkg-dist 00;36
