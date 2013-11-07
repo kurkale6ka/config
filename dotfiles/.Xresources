@@ -1,7 +1,7 @@
 ! Reload with: xrdb -merge ~/.Xresources
 
 xterm*faceName: DejaVu Sans Mono
-xterm*faceSize: 11
+xterm*faceSize: 12
 xterm*background:  #2b2b2b
 xterm*foreground:  #bebebe
 xterm*cursorColor: #444444
