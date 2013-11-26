@@ -1,0 +1,14 @@
+# If the message matches no rule it goes to the inbox folder
+DEFAULT="$HOME/mail"
+
+logfile "$HOME/mail/logs/mailfilter.log"
+
+log 'Desktop notification'
+xfilter "$HOME/bin/mutt_notif.py"
+
+# Filters
+if (/^From: none/)
+{
+   log 'Moving message...'
+   to "$DEFAULT/..."
+}
