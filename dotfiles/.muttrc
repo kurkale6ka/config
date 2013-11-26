@@ -3,9 +3,9 @@ set from=mitkofr@yahoo.fr
 set use_from=yes
 
 set mbox_type=Maildir
-set folder=~/Mail
-set mbox=~/Mail
-set spoolfile=~/Mail
+set folder=~/mail
+set mbox=~/mail
+set spoolfile=~/mail
 
 # Colors:             fg         bg
 color attachment brightmagenta default
@@ -22,5 +22,5 @@ color status     yellow        blue
 color tilde      magenta       default
 color tree       magenta       default
 
-alias me mitkofr@yahoo.fr
+alias me Dimitar Dimitrov <mitkofr@yahoo.fr>
 source ~/aliases
