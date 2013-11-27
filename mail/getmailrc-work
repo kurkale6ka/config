@@ -1,10 +1,10 @@
-# mkdir -p ~/mail/{cur,new,tmp,logs,filters}
+# mkdir -p ~/mail/{google,work,yahoo}/{cur,new,tmp,logs,filters}
 
 [options]
 # read new mails only
 read_all = false
 delete = false
-message_log = ~/mail/logs/getmail.log
+message_log = ~/mail/work/logs/getmail.log
 # message_log_verbose = true
 
 [retriever]
