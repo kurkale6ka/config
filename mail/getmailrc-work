@@ -1,5 +1,3 @@
-# mkdir -p ~/mail/{google,work,yahoo}/{cur,new,tmp,logs,filters}
-
 [options]
 # read new mails only
 read_all = false
