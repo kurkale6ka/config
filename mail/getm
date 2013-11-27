@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd "$HOME"/.getmail || exit 1
+
+rcfiles=()
+for file in getmailrc-* ; do
+   rcfiles+=(--rcfile "$file")
+done
+exec /usr/bin/getmail "${rcfiles[@]}" "$@"
