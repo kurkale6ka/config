@@ -3,7 +3,7 @@
 cd "$HOME"/.getmail || exit 1
 
 rcfiles=()
-for file in getmailrc-* ; do
-   rcfiles+=(--rcfile "$file")
+for file in getmailrc-{google,work,yahoo} ; do
+   [[ -r $file ]] && rcfiles+=(--rcfile "$file")
 done
 exec /usr/bin/getmail "${rcfiles[@]}" "$@"
