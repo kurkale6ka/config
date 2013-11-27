@@ -24,6 +24,8 @@ color tree       magenta       default
 
 set sort = threads
 
+bind index G last-entry
+
 # Lists and aliases
 subscribe vim[-_](dev|use)
 
