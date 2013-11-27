@@ -1,3 +1,6 @@
+# mkdir -p ~/mail/{google,work,yahoo}/{cur,new,tmp,logs,filters}
+# mkdir -p ~/mail/google/filters/vim_{dev,use}
+
 # If the message matches no rule it goes to the inbox folder
 DEFAULT="$HOME/mail/yahoo"
 
@@ -20,6 +23,16 @@ if (/kurkale6ka/)
 if (/mitkofr/)
 {
    to "$HOME/mail/yahoo"
+}
+
+if (/vim[-_]dev/)
+{
+   to "$HOME/mail/google/filters/vim_dev"
+}
+
+if (/vim[-_]use/)
+{
+   to "$HOME/mail/google/filters/vim_use"
 }
 
 to "$DEFAULT"
