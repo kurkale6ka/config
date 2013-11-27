@@ -1,14 +1,25 @@
 # If the message matches no rule it goes to the inbox folder
-DEFAULT="$HOME/mail"
+DEFAULT="$HOME/mail/yahoo"
 
-logfile "$HOME/mail/logs/mailfilter.log"
+# TODO: separate
+logfile "$HOME/mail/maildrop.log"
 
-log 'Desktop notification'
 xfilter "$HOME/bin/mutt_notif.py"
 
 # Filters
-if (/^From: none/)
+if (/company/)
 {
-   log 'Moving message...'
-   to "$DEFAULT/..."
+   to "$HOME/mail/work"
 }
+
+if (/kurkale6ka/)
+{
+   to "$HOME/mail/google"
+}
+
+if (/mitkofr/)
+{
+   to "$HOME/mail/yahoo"
+}
+
+to "$DEFAULT"
