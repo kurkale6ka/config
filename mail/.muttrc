@@ -1,11 +1,11 @@
-set realname='Dimitar Dimitrov'
-set from=mitkofr@yahoo.fr
-set use_from=yes
+set realname = 'Dimitar Dimitrov'
+set from     = mitkofr@yahoo.fr
+set use_from = yes
 
-set mbox_type=Maildir
-set folder=~/mail   # +
-set spoolfile=+work # inbox
-set mbox=+work      # move read msgs to this folder
+set mbox_type = Maildir
+set folder    = ~/mail # +
+set spoolfile = +work  # inbox
+set mbox      = +work  # move read msgs to this folder
 
 # Colors:             fg         bg
 color attachment brightmagenta default
@@ -22,8 +22,10 @@ color status     yellow        blue
 color tilde      magenta       default
 color tree       magenta       default
 
+set sort = threads
+
 # Lists and aliases
-subscribe .*@vim.org
+subscribe vim[-_](dev|use)
 
 source ~/aliases
 alias me Dimitar Dimitrov <mitkofr@yahoo.fr>
