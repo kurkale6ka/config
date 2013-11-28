@@ -25,6 +25,7 @@ color signature  red           default
 color status     yellow        blue
 color tilde      magenta       default
 color tree       magenta       default
+color header     brightgreen   default ^Date:
 
 set sort = threads
 
