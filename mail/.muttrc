@@ -3,9 +3,13 @@ set from     = mitkofr@yahoo.fr
 set use_from = yes
 
 set mbox_type = Maildir
-set folder    = ~/mail # +
-set spoolfile = +work  # inbox
-set mbox      = +work  # move read msgs to this folder
+set folder    = ~/mail    # +
+set spoolfile = +work     # inbox
+set mbox      = +received # move read msgs to this folder
+set record    = +sent
+set postponed = +postponed
+
+mailboxes ! +work +google
 
 # Colors:             fg         bg
 color attachment brightmagenta default
@@ -29,5 +33,5 @@ bind index G last-entry
 # Lists and aliases
 subscribe vim[-_](dev|use)
 
-source ~/aliases
+source ~/config/mail/aliases
 alias me Dimitar Dimitrov <mitkofr@yahoo.fr>
