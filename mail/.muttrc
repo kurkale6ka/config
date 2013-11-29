@@ -1,12 +1,14 @@
 set realname = 'Dimitar Dimitrov'
 
 set mbox_type = Maildir
-set folder    = ~/mail  # +
-set spoolfile = +work   # inbox
+set folder    = ~/mail # +
+set spoolfile = +work/inbox
 
-mailboxes ! +work
-mailboxes ! +yahoo
-mailboxes ! +google +google/filters/vim_dev +google/filters/vim_use
+mailboxes ! +work/inbox
+mailboxes ! +yahoo/inbox
+mailboxes ! +google/inbox
+mailboxes ! +google/inbox/vim_dev
+mailboxes ! +google/inbox/vim_use
 
 folder-hook +work   source ~/.mutt/accounts/work
 folder-hook +yahoo  source ~/.mutt/accounts/yahoo
