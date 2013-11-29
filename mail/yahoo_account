@@ -1,0 +1,5 @@
+set from      = mitkofr@yahoo.fr
+set sendmail  = "/usr/bin/msmtp -a yahoo"
+set mbox      = +yahoo/archive
+set postponed = +yahoo/drafts
+set record    = +yahoo/sent

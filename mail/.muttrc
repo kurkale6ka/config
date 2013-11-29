@@ -1,15 +1,16 @@
 set realname = 'Dimitar Dimitrov'
-set from     = mitkofr@yahoo.fr
-set use_from = yes
 
 set mbox_type = Maildir
-set folder    = ~/mail    # +
-set spoolfile = +work     # inbox
-set mbox      = +received # move read msgs to this folder
-set record    = +sent
-set postponed = +postponed
+set folder    = ~/mail  # +
+set spoolfile = +work   # inbox
 
-mailboxes ! +work +google
+mailboxes ! +work
+mailboxes ! +yahoo
+mailboxes ! +google +google/filters/vim_dev +google/filters/vim_use
+
+folder-hook +work   source ~/.mutt/accounts/work
+folder-hook +yahoo  source ~/.mutt/accounts/yahoo
+folder-hook +google source ~/.mutt/accounts/google
 
 # Colors:             fg         bg
 color attachment brightmagenta default
@@ -25,9 +26,28 @@ color signature  red           default
 color status     yellow        blue
 color tilde      magenta       default
 color tree       magenta       default
-color header     brightgreen   default ^Date:
+color header     brightgreen   default ^From:
 
+# color index brightred    default ~O
+color index brightcyan   default ~N
+color index brightyellow default ~F
+color index black        green   ~T
+color index brightred    default ~D
+
+mono index bold ~N
+mono index bold ~F
+mono index bold ~T
+mono index bold ~D
+
+# URLs
+color body brightblue default "(https?|ftp|news|telnet|finger)://[^ \"\t\r\n]*"
+color body brightblue default "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+# set index_format = "[%Z]  %D  %-20.20F  %s"
+# set date_format = "%m/%d"
+# set pager_index_lines = 27
 set sort = threads
+set mark_old = no
 
 bind index G last-entry
 
