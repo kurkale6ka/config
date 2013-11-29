@@ -1,8 +1,5 @@
-# mkdir -p ~/mail/{google,work,yahoo}/{cur,new,tmp,logs,filters}
-# mkdir -p ~/mail/google/filters/vim_{dev,use}
-
 # If the message matches no rule it goes to the inbox folder
-DEFAULT="$HOME/mail/yahoo"
+DEFAULT="$HOME/mail/yahoo/inbox"
 
 # TODO: separate
 logfile "$HOME/mail/maildrop.log"
@@ -12,27 +9,27 @@ xfilter "$HOME/bin/mutt_notif.py"
 # Filters
 if (/company/)
 {
-   to "$HOME/mail/work"
-}
-
-if (/kurkale6ka/)
-{
-   to "$HOME/mail/google"
+   to "$HOME/mail/work/inbox"
 }
 
 if (/mitkofr/)
 {
-   to "$HOME/mail/yahoo"
+   to "$HOME/mail/yahoo/inbox"
 }
 
 if (/vim[-_]dev/)
 {
-   to "$HOME/mail/google/filters/vim_dev"
+   to "$HOME/mail/google/inbox/vim_dev"
 }
 
 if (/vim[-_]use/)
 {
-   to "$HOME/mail/google/filters/vim_use"
+   to "$HOME/mail/google/inbox/vim_use"
+}
+
+if (/kurkale6ka/)
+{
+   to "$HOME/mail/google/inbox"
 }
 
 to "$DEFAULT"
