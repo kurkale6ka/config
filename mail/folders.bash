@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-folder="$HOME"/bla
+folder="$HOME"/mail
 
 accounts=()
 accounts+=(google)
