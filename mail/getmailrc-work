@@ -2,7 +2,7 @@
 # read new mails only
 read_all = false
 delete = false
-message_log = ~/mail/work/logs/getmail.log
+message_log = ~/mail/work/getmail.log
 # message_log_verbose = true
 
 [retriever]
