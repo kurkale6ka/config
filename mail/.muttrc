@@ -68,6 +68,8 @@ color body brightblue default "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
 # set pager_index_lines = 27
 set sort = threads
 set mark_old = no
+bind pager <up> previous-line
+bind pager <down> next-line
 
 bind index G last-entry
 
