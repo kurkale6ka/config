@@ -10,9 +10,27 @@ mailboxes ! +google/inbox
 mailboxes ! +google/inbox/vim_dev
 mailboxes ! +google/inbox/vim_use
 
+# Setting variables based upon mailbox
 folder-hook +work   source ~/.mutt/accounts/work
 folder-hook +yahoo  source ~/.mutt/accounts/yahoo
 folder-hook +google source ~/.mutt/accounts/google
+
+mbox-hook +work/inbox$           +work/inbox/archive
+mbox-hook +yahoo/inbox$          +yahoo/inbox/archive
+mbox-hook +google/inbox$         +google/inbox/archive
+mbox-hook +google/inbox/vim_dev$ +google/inbox/vim_dev/archive
+mbox-hook +google/inbox/vim_use$ +google/inbox/vim_use/archive
+
+set move = yes # move read messages to mbox
+
+# alternates ""
+# set signature = ~/.signature
+
+# Character set on outgoing messages
+set send_charset="utf-8"
+set editor="vim -u $HOME/.vimrc -c 'set filetype=mail'"
+# just scroll one line instead of full page
+set menu_scroll=yes
 
 # Colors:             fg         bg
 color attachment brightmagenta default
