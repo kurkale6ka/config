@@ -4,11 +4,11 @@ set mbox_type = Maildir
 set folder    = ~/mail # +
 set spoolfile = +work/inbox
 
-mailboxes ! +work/inbox
-mailboxes ! +yahoo/inbox
-mailboxes ! +google/inbox
-mailboxes ! +google/inbox/vim_dev
-mailboxes ! +google/inbox/vim_use
+mailboxes +work/inbox
+mailboxes +yahoo/inbox
+mailboxes +google/inbox
+mailboxes +google/inbox/vim_dev
+mailboxes +google/inbox/vim_use
 
 # Setting variables based upon mailbox
 folder-hook +work   source ~/.mutt/accounts/work
