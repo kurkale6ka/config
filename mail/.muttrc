@@ -21,7 +21,7 @@ mbox-hook +google/inbox$         +google/inbox/archive
 mbox-hook +google/inbox/vim_dev$ +google/inbox/vim_dev/archive
 mbox-hook +google/inbox/vim_use$ +google/inbox/vim_use/archive
 
-set move = yes # move read messages to mbox
+set move = no # move read messages to mbox
 
 # alternates ""
 # set signature = ~/.signature
