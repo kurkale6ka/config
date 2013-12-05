@@ -1,4 +1,4 @@
-set from = mitkofr@yahoo.fr
+set from = EMAIL
 
 set mbox      = +yahoo/archive
 set postponed = +yahoo/drafts
