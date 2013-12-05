@@ -1,4 +1,5 @@
 set from = EMAIL
+set signature = ~/.signature
 
 set mbox      = +yahoo/archive
 set postponed = +yahoo/drafts
