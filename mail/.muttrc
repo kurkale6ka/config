@@ -77,4 +77,3 @@ bind index G last-entry
 subscribe vim[-_](dev|use)
 
 source ~/config/mail/aliases
-alias me Dimitar Dimitrov <mitkofr@yahoo.fr>
