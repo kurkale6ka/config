@@ -68,9 +68,11 @@ color body brightblue default "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
 # set pager_index_lines = 27
 set sort = threads
 set mark_old = no
+set text_flowed = yes
+set sleep_time = 0 # no info messages when moving from folder to folder
+
 bind pager <up> previous-line
 bind pager <down> next-line
-
 bind index G last-entry
 # macro index gg '<change-folder> =google/inbox<enter>' 'Go to my kurkale6ka account on Google'
 
