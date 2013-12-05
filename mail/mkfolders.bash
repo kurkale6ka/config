@@ -15,4 +15,4 @@ done
 mkdir -p "$folder"/google/inbox/vim_{dev,use}/{cur,new,tmp}
 mkdir -p "$folder"/google/inbox/vim_{dev,use}/archive/{cur,new,tmp}
 
-# "$HOME"/github/config/mail/work.bash
+"$HOME"/github/config/mail/mkfolders_work.bash
