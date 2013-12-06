@@ -70,6 +70,7 @@ set sort = threads
 set mark_old = no
 set text_flowed = yes
 set sleep_time = 0 # no info messages when moving from folder to folder
+# auto_view text/html
 
 bind pager <up> previous-line
 bind pager <down> next-line
