@@ -1,0 +1,11 @@
+user1@domain1 [smtp.mail.yahoo.com]
+user2@domain2 [smtp.gmail.com]:587
+user3@domain3 [smtp.gmail.com]:587
+
+# and in sasl_password:
+# both gmail accounts will use these credentials !
+[smtp.mail.yahoo.com] user1@domain1:***********
+[smtp.gmail.com]:587  user2@domain2:***********
+
+# postmap /etc/postfix/relayhost_maps
+# postmap /etc/postfix/sasl_password
