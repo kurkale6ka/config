@@ -5,6 +5,6 @@ set mbox      = +yahoo/archive
 set postponed = +yahoo/drafts
 set record    = +yahoo/sent
 
-set sendmail = "/usr/bin/msmtp -a yahoo"
+# set sendmail = "/usr/bin/msmtp -a yahoo"
 
 source ~/config/mail/aliases_work
