@@ -1,0 +1,26 @@
+# http://www.mutt.org/doc/devel/manual.html#mailcap
+
+video/*; vlc %s
+
+# # Send html to a running firefox by remote
+# text/html; firefox -remote 'openURL(%s)'; test=pgrep firefox > /dev/null
+#
+# # If I'm not running firefox but I am running X, start firefox on the
+# # object
+# text/html; firefox %s; test=[[ $DISPLAY ]]
+
+# text/html; links %s; nametemplate=%s.html
+
+# This version converts the text/html to text/plain
+text/html; links -dump %s; nametemplate=%s.html; copiousoutput
+
+# Use enscript to print text in two columns to a page
+text/*; less %s; print=enscript -2Gr %s
+
+# Firefox adds a flag to tell itself to view jpegs internally
+image/jpeg; ristretto %s; x-mozilla-flags=internal
+
+# Use ristretto to view images if I'm running X
+image/*; ristretto %s; test=[[ $DISPLAY ]]; edit=gimp %s
+
+# application/ms-excel; open.pl %s
