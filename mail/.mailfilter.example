@@ -7,12 +7,17 @@ logfile "$HOME/mail/maildrop.log"
 xfilter "$HOME/bin/mutt_notif.py"
 
 # Filters
-if (/company/)
+if (/^(To|Cc|Bcc):.*kurkale6ka@.*mail.com/)
+{
+   to "$HOME/mail/google/inbox"
+}
+
+if (/^(To|Cc|Bcc).*@company/)
 {
    to "$HOME/mail/work/inbox"
 }
 
-if (/mitkofr/)
+if (/^(To|Cc|Bcc).*mitkofr@yahoo.fr/)
 {
    to "$HOME/mail/yahoo/inbox"
 }
@@ -27,9 +32,4 @@ if (/vim[-_]use/)
    to "$HOME/mail/google/inbox/vim_use"
 }
 
-if (/kurkale6ka/)
-{
-   to "$HOME/mail/google/inbox"
-}
-
-to "$DEFAULT"
+# to "$DEFAULT"
