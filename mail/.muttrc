@@ -36,7 +36,7 @@ set menu_scroll=yes
 color attachment brightmagenta default
 color error      brightred     default
 color hdrdefault red           default
-color indicator  brightyellow  blue
+color indicator  brightyellow  magenta
 color markers    brightcyan    default
 color message    brightcyan    default
 color normal     default       default
