@@ -36,7 +36,7 @@ set menu_scroll=yes
 color attachment brightmagenta default
 color error      brightred     default
 color hdrdefault red           default
-color indicator  brightyellow  magenta
+color indicator  brightyellow  green
 color markers    brightcyan    default
 color message    brightcyan    default
 color normal     default       default
@@ -51,7 +51,7 @@ color header     brightgreen   default ^From:
 # color index brightred    default ~O
 color index brightcyan   default ~N
 color index brightyellow default ~F
-color index black        green   ~T
+color index black        magenta ~T
 color index brightred    default ~D
 
 mono index bold ~N
