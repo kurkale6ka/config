@@ -11,9 +11,14 @@ mailboxes +google/inbox/vim_dev
 mailboxes +google/inbox/vim_use
 
 # Setting variables based upon mailbox
-folder-hook +work   source ~/.mutt/accounts/work
+# folder-hook +work   source ~/.mutt/accounts/work
 folder-hook +yahoo  source ~/.mutt/accounts/yahoo
-folder-hook +google source ~/.mutt/accounts/google
+# folder-hook +google source ~/.mutt/accounts/google
+
+macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " \
+                                       "mu find"
+macro index <F9> "<change-folder-readonly>~/Maildir/search" \
+                                       "mu find results"
 
 mbox-hook +work/inbox$           +work/inbox/archive
 mbox-hook +yahoo/inbox$          +yahoo/inbox/archive
