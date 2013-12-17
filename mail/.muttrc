@@ -56,7 +56,7 @@ color header     brightgreen   default ^From:
 # color index brightred    default ~O
 color index brightcyan   default ~N
 color index brightyellow default ~F
-color index black        green   ~T
+color index black        blue    ~T
 color index brightred    default ~D
 
 mono index bold ~N
