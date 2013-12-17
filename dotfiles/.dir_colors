@@ -122,7 +122,9 @@ LINK 01;36
 EXEC   01;32 # This is for files with execute permission:
 .sh    00;32
 .csh   00;32
+.js    00;32
 .pl    00;32
+.py    00;32
 .rb    00;32
 .php   00;32
 # DOS-style
