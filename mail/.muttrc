@@ -5,8 +5,11 @@ set folder    = ~/mail # +
 set spoolfile = +work/inbox
 
 mailboxes +work/inbox
+mailboxes +work/inbox/archive
 mailboxes +yahoo/inbox
+mailboxes +yahoo/inbox/archive
 mailboxes +google/inbox
+mailboxes +google/inbox/archive
 mailboxes +google/inbox/vim_dev
 mailboxes +google/inbox/vim_use
 
