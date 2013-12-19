@@ -14,14 +14,9 @@ mailboxes +google/inbox/vim_dev
 mailboxes +google/inbox/vim_use
 
 # Setting variables based upon mailbox
-# folder-hook +work   source ~/.mutt/accounts/work
+folder-hook +work   source ~/.mutt/accounts/work
 folder-hook +yahoo  source ~/.mutt/accounts/yahoo
-# folder-hook +google source ~/.mutt/accounts/google
-
-macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " \
-                                       "mu find"
-macro index <F9> "<change-folder-readonly>~/Maildir/search" \
-                                       "mu find results"
+folder-hook +google source ~/.mutt/accounts/google
 
 mbox-hook +work/inbox$           +work/inbox/archive
 mbox-hook +yahoo/inbox$          +yahoo/inbox/archive
@@ -32,7 +27,6 @@ mbox-hook +google/inbox/vim_use$ +google/inbox/vim_use/archive
 set move = no # move read messages to mbox
 
 # alternates ""
-# set signature = ~/.signature
 
 # Character set on outgoing messages
 set send_charset="utf-8"
@@ -84,6 +78,11 @@ bind pager <up> previous-line
 bind pager <down> next-line
 bind index G last-entry
 # macro index gg '<change-folder> =google/inbox<enter>' 'Go to my kurkale6ka account on Google'
+
+macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " \
+                                       "mu find"
+macro index <F9> "<change-folder-readonly>~/Maildir/search" \
+                                       "mu find results"
 
 # Lists and aliases
 subscribe vim[-_](dev|use)
