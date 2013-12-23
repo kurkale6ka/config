@@ -140,6 +140,7 @@ EXEC   01;32 # This is for files with execute permission:
 # Markup languages
 .html 00;33
 .xml  00;33
+.json 00;33
 .tex  00;33
 .ps   00;33
 
@@ -280,10 +281,10 @@ EXEC   01;32 # This is for files with execute permission:
 # README (Bold white) {{{1
 *README      01;37
 *INSTALL     01;37
-*LICENCE     01;37
+*LICENSE     01;37
 *README.txt  01;37
 *INSTALL.txt 01;37
-*LICENCE.txt 01;37
+*LICENSE.txt 01;37
 
 # Misc (Cyan) {{{1
 .dpkg-dist 00;36
