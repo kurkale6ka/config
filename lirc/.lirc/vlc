@@ -1,0 +1,318 @@
+# Fullscreen                                    -> key-toggle-fullscreen
+# Play/Pause                                    -> key-play-pause
+# Pause only                                    -> key-pause
+# Play only                                     -> key-play
+# Faster                                        -> key-faster
+# Slower                                        -> key-slower
+# Next                                          -> key-next
+# Previous                                      -> key-prev
+# Stop                                          -> key-stop
+# Position                                      -> key-position
+# Very short backwards jump                     -> key-jump-extrashort
+# Very short forward jump                       -> key-jump+extrashort
+# Short backwards jump                          -> key-jump-short
+# Short forward jump                            -> key-jump+short
+# Medium backwards jump                         -> key-jump-medium
+# Medium forward jump                           -> key-jump+medium
+# Long backwards jump                           -> key-jump-long
+# Long forward jump                             -> key-jump+long
+# Activate                                      -> key-nav-activate
+# Navigate up                                   -> key-nav-up
+# Navigate down                                 -> key-nav-down
+# Navigate left                                 -> key-nav-left
+# Navigate right                                -> key-nav-right
+# Go to the DVD menu                            -> key-disc-menu
+# Select previous DVD title                     -> key-title-prev
+# Select next DVD title                         -> key-title-next
+# Select prev DVD chapter                       -> key-chapter-prev
+# Select next DVD chapter                       -> key-chapter-next
+# Quit                                          -> key-quit
+# Volume up                                     -> key-vol-up
+# Volume down                                   -> key-vol-down
+# Mute                                          -> key-vol-mute
+# Subtitle delay up                             -> key-subdelay-up
+# Subtitle delay down                           -> key-subdelay-down
+# Audio delay up                                -> key-audiodelay-up
+# Audio delay down                              -> key-audiodelay-down
+# Cycle audio track                             -> key-audio-track
+# Cycle subtitle track                          -> key-subtitle-track
+# Cycle source aspect ratio                     -> key-aspect-ratio
+# Cycle video crop                              -> key-crop
+# Cycle deinterlace modes                       -> key-deinterlace
+# Show interface                                -> key-intf-show
+# Hide interface                                -> key-intf-hide
+# Take video snapshot                           -> key-snapshot
+# Go back in browsing history                   -> key-history-back
+# Go forward in browsing history                -> key-history-forward
+# Record                                        -> key-record
+# Dump                                          -> key-dump
+# Crop one pixel from the top of the video      -> key-crop-top
+# Uncrop one pixel from the top of the video    -> key-uncrop-top
+# Crop one pixel from the left of the video     -> key-crop-left
+# Uncrop one pixel from the left of the video   -> key-uncrop-left
+# Crop one pixel from the bottom of the video   -> key-crop-bottom
+# Uncrop one pixel from the bottom of the video -> key-uncrop-bottom
+# Crop one pixel from the right of the video    -> key-crop-right
+# Uncrop one pixel from the right of the video  -> key-uncrop-right
+# Set playlist bookmark 1                       -> key-set-bookmark1
+# Set playlist bookmark 2                       -> key-set-bookmark2
+# Set playlist bookmark 3                       -> key-set-bookmark3
+# Set playlist bookmark 4                       -> key-set-bookmark4
+# Set playlist bookmark 5                       -> key-set-bookmark5
+# Set playlist bookmark 6                       -> key-set-bookmark6
+# Set playlist bookmark 7                       -> key-set-bookmark7
+# Set playlist bookmark 8                       -> key-set-bookmark8
+# Set playlist bookmark 9                       -> key-set-bookmark9
+# Set playlist bookmark 10                      -> key-set-bookmark10
+# Play playlist bookmark 1                      -> key-play-bookmark1
+# Play playlist bookmark 2                      -> key-play-bookmark2
+# Play playlist bookmark 3                      -> key-play-bookmark3
+# Play playlist bookmark 4                      -> key-play-bookmark4
+# Play playlist bookmark 5                      -> key-play-bookmark5
+# Play playlist bookmark 6                      -> key-play-bookmark6
+# Play playlist bookmark 7                      -> key-play-bookmark7
+# Play playlist bookmark 8                      -> key-play-bookmark8
+# Play playlist bookmark 9                      -> key-play-bookmark9
+# Play playlist bookmark 10                     -> key-play-bookmark10
+
+# Show OSD
+begin
+prog = vlc
+button = KEY_MENU
+config = osd
+end
+
+# Pause playback
+begin
+prog = vlc
+button = KEY_PAUSE
+config = key-play-pause
+end
+
+# Play
+begin
+prog = vlc
+button = KEY_PLAY
+config = key-play
+end
+
+begin
+prog = vlc
+button = KEY_REWIND
+config = key-jump-short
+end
+
+begin
+prog = vlc
+button = KEY_FORWARD
+config = key-faster
+end
+
+# Stop playback and exit
+begin
+prog = vlc
+button = KEY_STOP
+config = key-quit
+end
+
+# Volume Down
+begin
+prog = vlc
+button = KEY_VOLUMEDOWN
+repeat = 3
+config = key-vol-down
+end
+
+# Volume Up
+begin
+prog = vlc
+button = KEY_VOLUMEUP
+repeat = 3
+config = key-vol-up
+end
+
+# Faster
+begin
+prog = vlc
+button = KEY_CHANUP
+config = key-faster
+end
+
+# Slower
+begin
+prog = vlc
+button = KEY_CHANDOWN
+config = key-slower
+end
+
+# Mute
+begin
+prog = vlc
+button = KEY_MUTE
+config = key-vol-mute
+end
+
+# Seek back 10 seconds
+begin
+prog = vlc
+button = KEY_ONE
+repeat = 3
+config = key-jump-short
+end
+
+# Seek forward 10 seconds
+begin
+prog = vlc
+button = KEY_THREE
+repeat = 3
+config = key-jump+short
+end
+
+# Quit
+begin
+prog = vlc
+button = KEY_BACK
+config = key-quit
+end
+
+begin
+prog = vlc
+button = KEY_EXIT
+config = key-quit
+end
+
+begin
+prog = vlc
+button = KEY_LIVETV
+repeat = 1
+config = key-quit
+end
+
+begin
+prog = vlc
+button = KEY_RECORDEDTV
+repeat = 1
+config = key-quit
+end
+
+begin
+prog = vlc
+button = KEY_GUIDE
+repeat = 1
+config = key-quit
+end
+
+# Seek forward 1 minute
+begin
+prog = vlc
+button = KEY_SKIP
+repeat = 3
+config = key-jump+medium
+end
+
+# Seek backward 1 minute
+begin
+prog = vlc
+button = KEY_REPLAY
+repeat = 3
+config = key-jump-medium
+end
+
+# Seek forward 5 minutes
+begin
+prog = vlc
+button = KEY_SIX
+repeat = 3
+config = key-jump+long
+end
+
+# Seek backward 5 minutes
+begin
+prog = vlc
+button = KEY_FOUR
+repeat = 3
+config = key-jump-long
+end
+
+# Position - shows where you are in the video
+begin
+prog = vlc
+button = KEY_MORE
+config = key-position
+end
+
+# Subtitles
+begin
+prog = vlc
+button = KEY_ENTER
+config = key-subtitle-track
+end
+
+# Snapshots
+begin
+prog = vlc
+button = KEY_RECORD
+config = key-snapshot
+end
+
+# Audio Sync'ing
+# Audio Delay UP
+begin
+prog = vlc
+button = KEY_STAR
+config = key-audiodelay-up
+end
+
+# Audio Delay DOWN
+begin
+prog = vlc
+button = KEY_HASH
+config = key-audiodelay-down
+end
+
+# Navigation Menu Up
+begin
+prog = vlc
+button = KEY_UP
+repeat = 3
+config = key-nav-up
+end
+
+# Navigation Menu Down
+begin
+prog = vlc
+button = KEY_DOWN
+repeat = 3
+config = key-nav-down
+end
+
+# Navigation Menu Right
+begin
+prog = vlc
+button = KEY_RIGHT
+repeat = 3
+config = key-nav-right
+end
+
+# Navigation Menu Left
+begin
+prog = vlc
+button = KEY_LEFT
+repeat = 3
+config = key-nav-left
+end
+
+# Navigation Select
+begin
+prog = vlc
+button = KEY_OK
+repeat = 3
+config = key-nav-activate
+end
+
+#DVDMenu
+begin
+prog = vlc
+button = KEY_DVDMENU
+config = key-disc-menu
+end
