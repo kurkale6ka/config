@@ -82,6 +82,12 @@ button = KEY_MENU
 config = osd
 end
 
+begin
+prog = vlc
+button = KEY_HOME
+config = key-toggle-fullscreen
+end
+
 # Pause playback
 begin
 prog = vlc
