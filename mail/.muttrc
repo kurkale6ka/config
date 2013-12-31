@@ -84,6 +84,9 @@ macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~
 macro index <F9> "<change-folder-readonly>~/Maildir/search" \
                                        "mu find results"
 
+# Default attachment download location
+macro attach s "<save-entry><bol>/tmp/<eol>"
+
 # Lists and aliases
 subscribe vim[-_](dev|use)
 
