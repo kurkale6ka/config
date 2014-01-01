@@ -88,6 +88,18 @@ button = KEY_HOME
 config = key-toggle-fullscreen
 end
 
+begin
+prog = vlc
+button = KEY_CHANNELUP
+config = key-next
+end
+
+begin
+prog = vlc
+button = KEY_CHANNELDOWN
+config = key-prev
+end
+
 # Pause playback
 begin
 prog = vlc
