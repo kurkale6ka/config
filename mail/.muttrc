@@ -78,6 +78,7 @@ bind pager <up> previous-line
 bind pager <down> next-line
 bind index G last-entry
 # macro index gg '<change-folder> =google/inbox<enter>' 'Go to my kurkale6ka account on Google'
+bind editor <delete> delete-char
 
 macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=~/Maildir/search " \
                                        "mu find"
