@@ -24,10 +24,10 @@
 
 $if Bash
 
-"\C-xA": "\"${[@]}\"\e5\C-b"
 "\C-xa": "awk '/\e / {print $}' \e3\C-b"
-"\C-xc": " | sort | uniq -c | sort -n"
-"\C-xC": " | cut -d -f\e2\eb\C-f"
+"\C-xA": "\"${[@]}\"\e5\C-b"
+"\C-xc": " | cut -d -f\e2\eb\C-f"
+"\C-xC": " | sort | uniq -c | sort -rn"
 "\C-xD": "comm <(sort \e ) <(sort )\C-b"
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 "\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
