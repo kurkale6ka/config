@@ -51,7 +51,7 @@ $if Bash
 "\C-xp": "printf '%s\\n' "
 "\C-xP": "\"$(type -P )\"\e2\C-b"
 "\C-xS": "s///\e2\C-b"
-"\C-xs": " | sort -u"
+"\C-xs": "awk '{ sum += $1 } END { print sum }' "
 "\C-xv": "\"$\"\C-b"
 "\C-xV": "\"${}\"\e2\C-b"
 "\C-xu": "until \e ; do ; done\eb\e2\C-b"
