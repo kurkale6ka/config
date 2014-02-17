@@ -63,7 +63,7 @@ $if Bash
 "\C-x:": "\"${:}\"\e3\C-b"
 "\C-xx": " && echo 'This is a test'"
 "\C-x`": "\"$()\"\e2\C-b"
-"\C-xb": "\"$()\"\e2\C-b"
+"\C-xb": "{,.bak}"
 "\C-xB": "\"$(())\"\e3\C-b"
 "\C-x+": "command vim -nNX -u NONE -c '|wq' \eb\C-b"
 "\C-x<": "<()\C-b"
