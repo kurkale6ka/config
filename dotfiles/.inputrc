@@ -4,6 +4,7 @@
 # Note: use ^x^r to re-read this file after modification
 
 # Key bindings {{{1
+# ------------
 
 # <up> and <down>
 "\e[A": history-search-backward
@@ -21,6 +22,7 @@
 "\C-d": kill-whole-line
 
 # Macros {{{1
+# ------
 
 $if Bash
 
@@ -28,7 +30,8 @@ $if Bash
 "\C-xA": "\"${[@]}\"\e5\C-b"
 "\C-xc": " | cut -d -f\e2\eb\C-f"
 "\C-xC": " | sort | uniq -c | sort -rn"
-"\C-xD": "comm <(sort \e ) <(sort )\C-b"
+"\C-xd": "date -d@"
+"\C-xD": "date -d'' +%s\e2\eb\e2\C-f"
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 "\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
 "\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
@@ -96,6 +99,7 @@ $if Bash
 $endif
 
 # Variable settings {{{1
+# -----------------
 
 set bell-style none
 set echo-control-characters off
