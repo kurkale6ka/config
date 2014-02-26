@@ -56,7 +56,7 @@ $if Bash
 "\C-xP": "\"$(type -P )\"\e2\C-b"
 "\C-xs": "awk '{sum += $1} END {print sum}' "
 "\C-xS": "systemctl status"
-"\C-xv": "cat /etc/*release\C-M"
+"\C-xv": "cat /etc/*release | uniq\C-M"
 "\C-xV": "\"${}\"\e2\C-b"
 "\C-xu": "until \e ; do ; done\eb\e2\C-b"
 "\C-xw": "while \e ; do ; done\eb\e2\C-b"
