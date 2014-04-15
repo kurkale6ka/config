@@ -8,7 +8,8 @@ git config --global core.editor "vim -u $HOME/.vimrc"
 git config --global color.ui true
 
 # make 'git pull' on master always use rebase
-git config branch.master.rebase true
+# git config branch.master.rebase true
+
 # setup rebase for every tracking branch
 git config --global branch.autosetuprebase always
 
