@@ -282,9 +282,11 @@ EXEC   01;32 # This is for files with execute permission:
 *README      01;37
 *INSTALL     01;37
 *LICENSE     01;37
+*PKGBUILD    01;37
 *README.txt  01;37
 *INSTALL.txt 01;37
 *LICENSE.txt 01;37
+*.md         01;37
 
 # Misc (Cyan) {{{1
 .dpkg-dist 00;36
