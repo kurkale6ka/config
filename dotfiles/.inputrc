@@ -89,7 +89,7 @@ $if Bash
 "\C-x\\": "$''\C-b"
 "\C-x'": "$''\C-b"
 "\C-x=": "command bc <<< 'scale=20; '\C-b"
-"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*); echo There are \"${#inodes[@]}\" inodes)"
+"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
 "\C-x_": "/dev/null"
 "\C-xq": "\eb\"\ef\""
 "\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
