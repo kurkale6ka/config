@@ -3,74 +3,77 @@
 #
 # Note: use ^x^r to re-read this file after modification
 
-# Key bindings {{{1
-# ------------
+## Key bindings {{{1
 
-# <up> and <down>
+# <up> and <down> {{{2
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Home> and <End>
+# <Home> and <End> {{{2
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 
-# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f)
+# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{2
 "\e[1;5D": backward-word
 "\e[1;5C": forward-word
 
-# ^d (instead of the default 'delete char before cursor')
+# ^d (instead of the default 'delete char before cursor') {{{2
 "\C-d": kill-whole-line
+# }}}2
 
-# Macros {{{1
-# ------
+## Macros {{{1
 
 $if Bash
 
+# Array {{{2
+"\C-x[": "\"${[@]}\"\e5\C-b"
+
+# awk {{{2
 "\C-xa": "awk '/\e / {print $}' \e3\C-b"
-"\C-xA": "\"${[@]}\"\e5\C-b"
-"\C-xc": " | cut -d -f\e2\eb\C-f"
-"\C-xC": " | sort | uniq -c | sort -rn"
-"\C-xd": "date -d@"
-"\C-xD": "date -d'' +%s\e2\eb\e2\C-f"
-"\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
-"\C-xi": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
+"\C-xA": "awk '{sum += $1} END {print sum}' "
+
+# bc {{{2
+"\C-x=": "command bc <<< 'scale=20; '\C-b"
+
+# Braces {{{2
+"\C-x]": "[[]]\e2\C-b"
+"\C-xb": "(())\e2\C-b"
+"\C-xB": "{}\C-b"
+
+# Counting row occurrences in a stream {{{2
+"\C-xc": " | sort | uniq -c | sort -rn"
+
+# Date conversions {{{2
+"\C-xd": "date -d@\e  # unix -> std\C-x\C-x"
+"\C-xD": "date -d'\e ' +%s # std -> unix\C-x\C-x"
+
+# Directory statistics {{{2
+"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
+"\C-xn": "(shopt -s nullglob; unset latest; for file in *; do [[ $file -nt $latest ]] && latest=\"$file\"; done; echo \"$latest\")\e9\eb\e2\C-b"
+"\C-xo": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
+
+# ed {{{2
 "\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
-"\C-xE": "sed '' \e2\C-b"
-"\C-xh": "\eb\ed\C-y --help || \C-y -h || \C-y help\C-M"
-"\C-xH": " | groff -man -Tascii | less\C-M"
+"\C-xE": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
+
+# Email {{{2
+"\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
+
+# File renaming (mv) {{{2
 "\C-xm": "find . -maxdepth 1 -iname '*.\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | nvim -u ~/.vimrc -c\"Ta/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
-"\C-xr": "while IFS= read -r; do echo \"${REPLY}\"; done < "
-"\C-xR": "IFS=\e  read -ra  <<< \"$\"\eb\e3\C-f"
-"\C-xt": " | column -t"
+
+# find {{{2
 "\C-x/": "find . -iname '*' -print\eb\e3\C-b"
-"\C-x?": "find . -type f -exec bash -c '-- \"$1\"' _ {} \\;\e2\eb\e3\C-f"
-"\C-xf": "for i in \e ; do  \"$i\"; done\e2\eb\e3\C-b"
-"\C-xF": "for ((i = 0; i < \e ; i++)); do  \"$i\"; done\e2\eb\e3\C-b"
-"\C-xn": "(shopt -s nullglob; unset latest; for file in *; do [[ $file -nt $latest ]] && latest=\"$file\"; done; echo \"$latest\")\e9\eb\e2\C-b"
-"\C-xo": "openssl x509\e  -in  -noout -text\e2\eb\e2\C-b"
-"\C-xO": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
-"\C-xp": "printf '%s\\n' "
-"\C-xP": "\"$(type -P )\"\e2\C-b"
-"\C-xs": "systemctl status"
-"\C-xS": "awk '{sum += $1} END {print sum}' "
-"\C-xv": "cat /etc/*release | uniq\C-M"
-"\C-xV": "\"${}\"\e2\C-b"
-"\C-xu": "until \e ; do ; done\eb\e2\C-b"
-"\C-xw": "while \e ; do ; done\eb\e2\C-b"
-"\C-xW": " >&2"
-"\C-xy": "parallel -X cp -a {} \e  ::: *."
-"\C-x#": "\"${#}\"\e3\C-b"
-"\C-x%": "\"${%}\"\e3\C-b"
-"\C-x:": "\"${:}\"\e3\C-b"
-"\C-xx": " && echo 'This is a test'"
-"\C-x`": "\"$()\"\e2\C-b"
-"\C-xb": "{,.bak}"
-"\C-xB": "\"$(())\"\e3\C-b"
-"\C-x+": "command vim -nNX -u NONE -c '|wq' \eb\C-b"
-"\C-x<": "<()\C-b"
-"\C-x[": "[[  ]]\e3\C-b"
-"\C-x]": "[[  ]]\e3\C-b"
+
+# GNU parallel {{{2
+"\C-x\\": " | parallel -X \e  {} \C-x\C-x"
+
+# groff {{{2
+"\C-xg": " | groff -man -Tascii | less\C-M"
+
+# IPs {{{2
+"\C-x0": "127.0.0.1"
 "\C-x1": "192.168.0.1"
 "\C-x2": "192.168.0.2"
 "\C-x3": "192.168.0.3"
@@ -79,45 +82,64 @@ $if Bash
 "\C-x6": "192.168.0.6"
 "\C-x7": "192.168.0.7"
 "\C-x8": "192.168.0.8"
-"\C-x9": "(())\e2\C-b"
-"\C-x0": "(())\e2\C-b"
-"\C-x,": "{,}\e2\C-b"
-"\C-x-": "{1\e ..}\C-b"
-"\C-x>": "> 2>&1\e2\eb\C-b"
-"\C-x\\": "$''\C-b"
-"\C-x'": "$''\C-b"
-"\C-x=": "command bc <<< 'scale=20; '\C-b"
-"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
-"\C-x_": "/dev/null"
+"\C-x9": "192.168.0.9"
+
+# Loops {{{2
+"\C-xf": "for i in \e ; do  \"$i\"; done\e2\eb\e3\C-b"
+"\C-xF": "for ((i = 0; i < \e ; i++)); do  \"$i\"; done\e2\eb\e3\C-b"
+"\C-xu": "until \e ; do ; done\eb\e2\C-b"
+"\C-xw": "while \e ; do ; done\eb\e2\C-b"
+
+# printf {{{2
+"\C-xp": "printf '%s\\n' "
+
+# Quotes (including back ticks) {{{2
 "\C-xq": "\eb\"\ef\""
-"\C-x ": "IFS=\e ;  \"$*\"; unset IFS\e3\eb\ef\e3\C-f"
-"\C-x.": "sudo !!\C-M"
-"\C-x|": "ssh -fNL \e :: "
+"\C-x`": "\"$()\"\e2\C-b"
+
+# Ranges {{{2
+"\C-x-": "{1\e ..}\C-b"
+"\C-x.": "{1\e ..}\C-b"
+
+# systemd {{{2
+"\C-xs": "systemctl status"
+"\C-xS": "systemctl \e start\C-x\C-x"
+
+# Tabular output {{{2
+"\C-x|": " | column -t"
+
+# Tests {{{2
+"\C-xt": " && echo 'This is a test'"
+"\C-xT": "[[ -\e  ]] && echo 'This is a test'\C-x\C-x"
+
+# /dev/null {{{2
+"\C-x_": "/dev/null"
+# }}}2
 
 $endif
 
-# Variable settings {{{1
-# -----------------
+## Variable settings {{{1
 
 set bell-style none
 set echo-control-characters off
 
-# link@, dir/...
+# link@, dir/... {{{2
 set visible-stats on
 
-# Don't show hidden files (unless .<tab>)
+# Don't show hidden files (unless .<tab>) {{{2
 set match-hidden-files off
 
-# Ignore case + treat - and _ as equivalent
+# Ignore case + treat - and _ as equivalent {{{2
 set completion-ignore-case on
 set completion-map-case on
 
-# Display all possible completions right away
+# Display all possible completions right away {{{2
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# no (y or n) + no less
+# no (y or n) + no less {{{2
 set completion-query-items 200
 set page-completions off
+# }}}2
 
 $include ~/.inputrc_after
