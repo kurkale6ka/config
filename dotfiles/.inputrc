@@ -19,7 +19,6 @@
 
 # ^d (instead of the default 'delete char before cursor') {{{2
 "\C-d": kill-whole-line
-# }}}2
 
 ## Macros {{{1
 
@@ -114,7 +113,6 @@ $if Bash
 
 # /dev/null {{{2
 "\C-x_": "/dev/null"
-# }}}2
 
 $endif
 
