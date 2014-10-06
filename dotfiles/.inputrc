@@ -59,7 +59,7 @@ $if Bash
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 
 # File renaming (mv) {{{2
-"\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | nvim -u ~/.vimrc -c\"Ta/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
+"\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Ta/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
 
 # find {{{2
