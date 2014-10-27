@@ -52,8 +52,8 @@ $if Bash
 "\C-xo": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
 
 # ed {{{2
-"\C-xe": "ed -s \e  <<< $'H\\n\\nwq'\eb\C-b"
-"\C-xE": "ed -s \e  <<< $'H\\n0i\\n\\n.\\nwq'\e2\eb\C-b"
+"\C-xe": "printf '%s\\n' H \e  wq | ed -s "
+"\C-xE": "printf '%s\\n' H 0i \e  . wq | ed -s "
 
 # Email {{{2
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
