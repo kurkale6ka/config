@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+s_count=$(tmux ls | cut -d: -f1 | wc -l)
+
+if ((s_count > 1))
+then echo " ($s_count)"
+else echo ''
+fi
