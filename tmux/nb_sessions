@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
-s_count=$(tmux ls | cut -d: -f1 | wc -l)
+# Number of sessions
+s_count=$(tmux ls -F#S | wc -l)
 
 if ((s_count > 1))
 then echo " ($s_count)"
