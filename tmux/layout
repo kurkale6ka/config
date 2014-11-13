@@ -14,11 +14,16 @@ nb_hosts="${2:-3}"
 
 tmux new-window -n "$prefix" "ssh ${prefix}1"
 
-for ((i = 2; i < nb_hosts + 1; i++))
-do
-   tmux split-window -h "ssh ${prefix}$i"
-   tmux select-layout tiled >/dev/null
-done
+if ((nb_hosts == 2))
+then
+   tmux split-window -h "ssh ${prefix}2"
+else
+   for ((i = 2; i < nb_hosts + 1; i++))
+   do
+      tmux split-window -h "ssh ${prefix}$i"
+      tmux select-layout tiled >/dev/null
+   done
+fi
 
 tmux select-pane -t 1
 tmux set-window-option synchronize-panes on >/dev/null
