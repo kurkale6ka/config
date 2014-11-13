@@ -1,0 +1,24 @@
+#! /usr/bin/env bash
+
+if [[ $1 == -@(h|-h)* ]] || (($# < 1 || $# > 2))
+then
+   info='Usage: layout {host prefix} [number of hosts (3)]'
+   if (($#))
+   then echo "$info"    ; exit 0
+   else echo "$info" >&2; exit 1
+   fi
+fi
+
+prefix="$1"
+nb_hosts="${2:-3}"
+
+tmux new-window -n "$prefix" "ssh ${prefix}1"
+
+for ((i = 2; i < nb_hosts + 1; i++))
+do
+   tmux split-window -h "ssh ${prefix}$i"
+   tmux select-layout tiled >/dev/null
+done
+
+tmux select-pane -t 1
+tmux set-window-option synchronize-panes on >/dev/null
