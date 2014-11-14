@@ -22,29 +22,27 @@ then
 
    tmux new-window -n "$prefix" "ssh ${prefix}1"
 
-   if ((nb_hosts == 2))
-   then
-      tmux split-window -h "ssh ${prefix}2"
-   else
-      for ((i = 2; i < nb_hosts + 1; i++))
-      do
-         tmux split-window -h "ssh ${prefix}$i"
-         tmux select-layout tiled >/dev/null
-      done
-   fi
+   for ((i = 2; i < nb_hosts + 1; i++))
+   do
+      tmux split-window -h "ssh ${prefix}$i"
+      ((i < 4)) && continue
+      tmux select-layout tiled >/dev/null
+   done
 else
-   tmux new-window -n "MULTI" "ssh $1"
+   tmux new-window -n 'multi' "ssh $1"
 
-   if (($# == 2))
-   then
-      tmux split-window -h "ssh $2"
-   else
-      for i in "${@:2}"
-      do
-         tmux split-window -h "ssh $i"
-         tmux select-layout tiled >/dev/null
-      done
-   fi
+   j=2
+   for h in "${@:2}"
+   do
+      tmux split-window -h "ssh $h"
+      ((j++ < 4)) && continue
+      tmux select-layout tiled >/dev/null
+   done
+fi
+
+if { [[ $nb_hosts ]] && ((nb_hosts < 4)); } || { [[ ! $nb_hosts ]] && (($# < 4)); }
+then
+   tmux select-layout even-horizontal >/dev/null
 fi
 
 tmux select-pane -t 1
