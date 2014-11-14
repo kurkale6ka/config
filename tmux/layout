@@ -1,28 +1,50 @@
 #! /usr/bin/env bash
 
-if [[ $1 == -@(h|-h)* ]] || (($# < 1 || $# > 2))
+if [[ $1 == -@(h|-h)* ]] || (($# < 1))
 then
-   info='Usage: layout {host prefix} [number of hosts (3)]'
+read -r -d $'\0' info << 'HELP'
+Usage:
+layout {host prefix} [number of hosts (>1, default: 3)] OR
+       host1 host2 ...
+HELP
    if (($#))
    then echo "$info"    ; exit 0
    else echo "$info" >&2; exit 1
    fi
 fi
 
-prefix="$1"
-nb_hosts="${2:-3}"
-
-tmux new-window -n "$prefix" "ssh ${prefix}1"
-
-if ((nb_hosts == 2))
+if (($# == 1)) || { (($# == 2)) && [[ $2 == [0-9]* ]]; }
 then
-   tmux split-window -h "ssh ${prefix}2"
+   [[ $2 == [01] ]] && { echo "Abort. The second arg must be > 1" 1>&2; exit 2; }
+
+   prefix="$1"
+   nb_hosts="${2:-3}"
+
+   tmux new-window -n "$prefix" "ssh ${prefix}1"
+
+   if ((nb_hosts == 2))
+   then
+      tmux split-window -h "ssh ${prefix}2"
+   else
+      for ((i = 2; i < nb_hosts + 1; i++))
+      do
+         tmux split-window -h "ssh ${prefix}$i"
+         tmux select-layout tiled >/dev/null
+      done
+   fi
 else
-   for ((i = 2; i < nb_hosts + 1; i++))
-   do
-      tmux split-window -h "ssh ${prefix}$i"
-      tmux select-layout tiled >/dev/null
-   done
+   tmux new-window -n "MULTI" "ssh $1"
+
+   if (($# == 2))
+   then
+      tmux split-window -h "ssh $2"
+   else
+      for i in "${@:2}"
+      do
+         tmux split-window -h "ssh $i"
+         tmux select-layout tiled >/dev/null
+      done
+   fi
 fi
 
 tmux select-pane -t 1
