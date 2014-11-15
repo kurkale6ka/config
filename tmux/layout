@@ -1,24 +1,33 @@
 #! /usr/bin/env bash
 
-if [[ $1 == -@(h|-h)* ]] || (($# < 1))
+if [[ $1 == -@(h|-h)* ]]
 then
-read -r -d $'\0' info << 'HELP'
+cat << 'HELP'
 Usage:
 layout {host prefix} [number of hosts (>1, default: 3)] OR
        host1 host2 ...
 HELP
-   if (($#))
-   then echo "$info"    ; exit 0
-   else echo "$info" >&2; exit 1
-   fi
+exit 0
 fi
 
-if (($# == 1)) || { (($# == 2)) && [[ $2 == [0-9]* ]]; }
-then
-   [[ $2 == [01] ]] && { echo "Abort. The second arg must be > 1" 1>&2; exit 2; }
+nb_sessions="$(tmux ls -F#S 2>/dev/null | wc -l)"
 
-   prefix="$1"
-   nb_hosts="${2:-3}"
+if ((nb_sessions == 0))
+then
+   tmux new -s tiles -d
+fi
+
+if (($# <= 1)) || { (($# == 2)) && [[ $2 == [0-9]* ]]; }
+then
+   if (($# == 0))
+   then
+      read -p 'Common host prefix: ' prefix
+      read -p 'Number of hosts: ' nb_hosts
+   else
+      prefix="$1"
+      nb_hosts="${2:-3}"
+   fi
+   [[ $2 == [01] ]] && { echo "Abort. The second arg must be > 1" 1>&2; exit 1; }
 
    tmux new-window -n "$prefix" "ssh ${prefix}1"
 
@@ -47,3 +56,9 @@ fi
 
 tmux select-pane -t 1
 tmux set-window-option synchronize-panes on >/dev/null
+
+if ((nb_sessions == 0))
+then
+   tmux kill-window -t1
+   tmux attach -t tiles
+fi
