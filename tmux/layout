@@ -39,9 +39,9 @@ then
 
    ((nb_sessions == 0)) && tmux new -s tiles -d
 
-   tmux new-window -n "$prefix" "ssh ${prefix}1"
+   tmux new-window -n "$prefix" "ssh ${prefix}$range_start"
 
-   for ((i = 2; i < nb_hosts + 1; i++))
+   for ((i = range_start + 1; i < range_end + 1; i++))
    do
       tmux split-window -h "ssh ${prefix}$i"
       ((i < 4)) && continue
