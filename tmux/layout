@@ -67,7 +67,7 @@ then
 fi
 
 tmux select-pane -t 1
-tmux set-window-option synchronize-panes on >/dev/null
+tmux set-window-option synchronize-panes on
 
 if ((nb_sessions == 0))
 then
