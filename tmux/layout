@@ -44,7 +44,7 @@ then
    for ((i = range_start + 1; i < range_end + 1; i++))
    do
       tmux split-window -h "ssh ${prefix}$i"
-      ((i < 4)) && continue
+      ((i < range_start + 3)) && continue
       tmux select-layout tiled >/dev/null
    done
 else
