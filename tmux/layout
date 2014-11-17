@@ -45,7 +45,7 @@ then
    do
       tmux split-window -h "ssh ${prefix}$i"
       ((i < range_start + 3)) && continue
-      tmux select-layout tiled >/dev/null
+      tmux select-layout tiled
    done
 else
    ((nb_sessions == 0)) && tmux new -s tiles -d
@@ -57,13 +57,13 @@ else
    do
       tmux split-window -h "ssh $h"
       ((j++ < 4)) && continue
-      tmux select-layout tiled >/dev/null
+      tmux select-layout tiled
    done
 fi
 
 if { [[ $nb_hosts ]] && ((nb_hosts == 3)); } || { [[ ! $nb_hosts ]] && (($# == 3)); }
 then
-   tmux select-layout even-horizontal >/dev/null
+   tmux select-layout even-horizontal
 fi
 
 tmux select-pane -t 1
