@@ -1,1 +1,0 @@
-ctags -R --regex-Vim='/^\s*function!?\s+(\w+(#\w+)?)/\1/' .
