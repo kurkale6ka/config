@@ -20,6 +20,8 @@ git config --global alias.d difftool
 git config --global alias.df diff
 git config --global alias.co checkout
 git config --global alias.ci commit
+git config --global alias.msg 'log -1 --pretty=\%B'
+git config --global pager.msg false
 git config --global alias.sha "rev-parse HEAD"
 git config --global alias.st status
 git config --global alias.br branch
