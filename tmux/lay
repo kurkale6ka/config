@@ -4,8 +4,8 @@ if [[ $1 == -@(h|-h)* ]]
 then
 cat << 'HELP'
 Usage:
-layout {host prefix} [range or number of hosts (default: 1-3)] OR
-       host1 host2 ...
+lay {host prefix} [range or number of hosts (default: 1-3)] OR
+    host1 host2 ...
 HELP
 exit 0
 fi
