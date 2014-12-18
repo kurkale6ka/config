@@ -28,12 +28,3 @@
 # /set irc.server.freenode.sasl_username kurkale6ka
 
 3. /set irc.server.freenode.sasl_password **********
-
-IRC tips:
----------
-
-List the admin users of a channel:
-   /msg chanserv access #bash list
-
-Login:
-   /msg nickserv identify ********
