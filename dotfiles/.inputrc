@@ -28,10 +28,10 @@ $if Bash
 "\C-x[": "\"${[@]}\"\e5\C-b"
 
 # bc                                   :: = {{{2
-"\C-x=": "command bc ::< 'scale=20; '\C-b"
+"\C-x=": "command bc <<< 'scale=20; '\C-b"
 
 # Email                                :: @ {{{2
-"\C-x@": "xclip ::< mitkofr@yahoo.fr\C-M"
+"\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 
 # find                                 :: / {{{2
 "\C-x/": "find . -iname '*' -print\eb\e3\C-b"
