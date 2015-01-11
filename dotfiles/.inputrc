@@ -34,7 +34,7 @@ $if Bash
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 
 # find                                 :: / {{{2
-"\C-x/": "find . -iname '*' -print\eb\e3\C-b"
+"\C-x/": "find . -iname '*\e ' -printf '%M %u %g %P\\n'\C-x\C-x"
 
 # GNU parallel                         :: \ {{{2
 "\C-x\\": " | parallel -X \e  {} \C-x\C-x"
