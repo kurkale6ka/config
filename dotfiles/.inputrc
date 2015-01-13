@@ -3,137 +3,142 @@
 #
 # Note: use ^x^r to re-read this file after modification
 
-## Key bindings {{{1
+## Key bindings
 
-# <up> and <down> {{{2
+# <up> and <down> {{{1
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Home> and <End> {{{2
+# <Home> and <End> {{{1
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 
-# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{2
+# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{1
 "\e[1;5D": backward-word
 "\e[1;5C": forward-word
 
-# ^d (instead of the default 'delete char before cursor') {{{2
+# ^d (instead of the default 'delete char before cursor') {{{1
 "\C-d": kill-whole-line
+# }}}1
 
-## Macros {{{1
+## Macros
 
 $if Bash
 
-# Array                                :: [ {{{2
+# Array                                :: [ {{{1
 "\C-x[": "\"${[@]}\"\e5\C-b"
 
-# bc                                   :: = {{{2
+# bc                                   :: = {{{1
 "\C-x=": "command bc <<< 'scale=20; '\C-b"
 
-# Email                                :: @ {{{2
+# Email                                :: @ {{{1
 "\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
 
-# find                                 :: / {{{2
+# find                                 :: / {{{1
 "\C-x/": "find . -iname '*\e ' -printf '%M %u %g %P\\n'\C-x\C-x"
 
-# GNU parallel                         :: \ {{{2
+# GNU parallel                         :: \ {{{1
 "\C-x\\": " | parallel -X \e  {} \C-x\C-x"
 
-# IPs                                  :: 0, 1, 7, 9 {{{2
+# IPs                                  :: 0, 1, 7, 9 {{{1
 "\C-x0": "127.0.0.1"
 "\C-x1": "10.0.0."
 "\C-x7": "172.16.0."
 "\C-x9": "192.168.0."
 
-# Ranges                               :: -, . {{{2
+# Ranges                               :: -, . {{{1
 "\C-x-": "{1\e ..}\C-b"
 "\C-x.": "{1\e ..}\C-b"
 
-# Output in columns                    :: | {{{2
+# Output in columns                    :: | {{{1
 "\C-x|": " | column -t"
 
-# /dev/null                            :: _ {{{2
+# /dev/null                            :: _ {{{1
 "\C-x_": "/dev/null"
 
-# awk                                  :: a, A {{{2
+# awk                                  :: a, A {{{1
 "\C-xa": "awk '/\e / {print $}' \e3\C-b"
 "\C-xA": "awk '{sum += $1} END {print sum}' "
 
-# Braces                               :: b, B, ] {{{2
+# Braces                               :: b, B, ] {{{1
 "\C-xb": "(())\e2\C-b"
 "\C-xB": "{}\C-b"
 "\C-x]": "[[]]\e2\C-b"
 
-# Counting row occurrences in a stream :: c {{{2
+# Counting row occurrences in a stream :: c {{{1
 "\C-xc": " | sort | uniq -c | sort -rn"
 
-# Date conversions                     :: d, D {{{2
+# Date conversions                     :: d, D {{{1
 "\C-xd": "date -d@\e  # unix -> std\C-x\C-x"
 "\C-xD": "date -d'\e ' +%s # std -> unix\C-x\C-x"
 
-# ed                                   :: e, E {{{2
+# ed                                   :: e, E {{{1
 "\C-xe": "printf '%s\\n' H \e  wq | ed -s "
 "\C-xE": "printf '%s\\n' H 0i \e  . wq | ed -s "
 
-# Loops                                :: f, F, u, w {{{2
+# Loops                                :: f, F, u, w {{{1
 "\C-xf": "for i in \e ; do  \"$i\"; done\e2\eb\e3\C-b"
 "\C-xF": "for ((i = 0; i < \e ; i++)); do  \"$i\"; done\e2\eb\e3\C-b"
 "\C-xu": "until \e ; do ; done\eb\e2\C-b"
 "\C-xw": "while \e ; do ; done\eb\e2\C-b"
 
-# groff                                :: g {{{2
+# groff                                :: g {{{1
 "\C-xg": " | groff -man -Tascii | less\C-M"
 
-# File renaming (mv)                   :: m, M {{{2
+# File renaming (mv)                   :: m, M {{{1
 "\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Ta/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
 
-# Directory statistics                 :: n, o, * {{{2
+# Directory statistics                 :: n, o, * {{{1
 "\C-xn": "(shopt -s nullglob; unset latest; for file in *; do [[ $file -nt $latest ]] && latest=\"$file\"; done; echo \"$latest\")\e9\eb\e2\C-b"
 "\C-xo": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
 "\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
 
-# printf                               :: p {{{2
+# printf                               :: p {{{1
 "\C-xp": "printf '%s\\n' "
 
-# Quotes                               :: q, ` {{{2
+# Quotes                               :: q, ` {{{1
 "\C-xq": "\eb\"\ef\""
 "\C-x`": "\"$()\"\e2\C-b"
 
-# systemd                              :: s, S {{{2
+# systemd                              :: s, S {{{1
 "\C-xs": "systemctl status"
 "\C-xS": "systemctl \e start\C-x\C-x"
 
-# tcpdump                              :: t {{{2
+# tcpdump                              :: t {{{1
 "\C-xt": "tcpdump -iany -s0 -nnq "
 
-# Test                                 :: T {{{2
+# Test                                 :: T {{{1
 "\C-xT": " && echo 'This is a test'\C-x\C-x"
+# }}}1
 
 $endif
 
-## Variable settings {{{1
+## Variable settings
 
+# Notifications {{{1
 set bell-style none
 set echo-control-characters off
 
-# link@, dir/... {{{2
+# link@, dir/... {{{1
 set visible-stats on
 
-# Don't show hidden files (unless .<tab>) {{{2
+# Don't show hidden files (unless .<tab>) {{{1
 set match-hidden-files off
 
-# Ignore case + treat - and _ as equivalent {{{2
+# Ignore case + treat - and _ as equivalent {{{1
 set completion-ignore-case on
 set completion-map-case on
 
-# Display all possible completions right away {{{2
+# Display all possible completions right away {{{1
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# no (y or n) + no less {{{2
+# no (y or n) + no less {{{1
 set completion-query-items 200
 set page-completions off
-# }}}2
+# }}}1
 
 $include ~/.inputrc_after
+
+# vim: foldmethod=marker
