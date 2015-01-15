@@ -29,27 +29,3 @@ git config --global alias.l "log --date=short --pretty=format:'%C(yellow)%h%C(re
 git config --global alias.lg "log --graph --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
 git config --global alias.type cat-file -t
 git config --global alias.dump cat-file -p
-
-# # Http tunneling
-# # --------------
-
-# 1. Download from http://www.agroman.net/corkscrew/
-# 2. Install as explained in http://http://www..agroman.net/corkscrew/README
-# 3. ssh-keygen -t rsa -C "mitkofr@yahoo.fr", then change the pub key in github
-
-# 4.
-# # ~/.ssh/proxy_cmd_for_github
-# # 207.97.227.248 <=> ssh.github.com
-# corkscrew <company proxy> <company port> 207.97.227.248 443
-
-# 5.
-# # ~/.ssh/config
-# Host 207.97.227.248
-# ProxyCommand corkscrew <company proxy> <company port> %h %p
-# Port 443
-# ServerAliveInterval 10
-# IdentityFile ~/.ssh/id_rsa
-
-# 6.
-# # ~/.bashrc
-# GIT_PROXY_COMMAND=~/.ssh/proxy_cmd_for_github
