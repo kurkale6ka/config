@@ -3,26 +3,25 @@
 #
 # Note: use ^x^r to re-read this file after modification
 
-## Key bindings
+## Key bindings {{{1
 
-# <up> and <down> {{{1
+# <up> and <down> {{{2
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Home> and <End> {{{1
+# <Home> and <End> {{{2
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 
-# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{1
+# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{2
 "\e[1;5D": backward-word
 "\e[1;5C": forward-word
 
-# ^d (instead of the default 'delete char before cursor') {{{1
+# ^d (instead of the default 'delete char before cursor') {{{2
 "\C-d": kill-whole-line
 # }}}1
 
 ## Macros
-
 $if Bash
 
 # Array                                :: [ {{{1
@@ -31,8 +30,8 @@ $if Bash
 # bc                                   :: = {{{1
 "\C-x=": "command bc <<< 'scale=20; '\C-b"
 
-# Email                                :: @ {{{1
-"\C-x@": "xclip <<< mitkofr@yahoo.fr\C-M"
+# Extended globs: @?*+!(item1|item2)   :: @ {{{1
+"\C-x@": "\e @(|)\C-b\C-b"
 
 # find                                 :: / {{{1
 "\C-x/": "find . -iname '*\e ' -printf '%M %u %g %P\\n'\C-x\C-x"
@@ -68,9 +67,8 @@ $if Bash
 # Counting row occurrences in a stream :: c {{{1
 "\C-xc": " | sort | uniq -c | sort -rn"
 
-# Date conversions                     :: d, D {{{1
-"\C-xd": "date -d@\e  # unix -> std\C-x\C-x"
-"\C-xD": "date -d'\e ' +%s # std -> unix\C-x\C-x"
+# Diff                                 :: d {{{1
+"\C-xd": "diff -uq\e  --from-file "
 
 # ed                                   :: e, E {{{1
 "\C-xe": "printf '%s\\n' H \e  wq | ed -s "
@@ -114,27 +112,27 @@ $if Bash
 
 $endif
 
-## Variable settings
+## Variable settings {{{1
 
-# Notifications {{{1
+# Notifications {{{2
 set bell-style none
 set echo-control-characters off
 
-# link@, dir/... {{{1
+# link@, dir/... {{{2
 set visible-stats on
 
-# Don't show hidden files (unless .<tab>) {{{1
+# Don't show hidden files (unless .<tab>) {{{2
 set match-hidden-files off
 
-# Ignore case + treat - and _ as equivalent {{{1
+# Ignore case + treat - and _ as equivalent {{{2
 set completion-ignore-case on
 set completion-map-case on
 
-# Display all possible completions right away {{{1
+# Display all possible completions right away {{{2
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# no (y or n) + no less {{{1
+# no (y or n) + no less {{{2
 set completion-query-items 200
 set page-completions off
 # }}}1
