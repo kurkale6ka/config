@@ -71,8 +71,8 @@ $if Bash
 "\C-xd": "diff -uq\e  --from-file "
 
 # ed                                   :: e, E {{{1
-"\C-xe": "printf '%s\\n' H \e  wq | ed -s "
-"\C-xE": "printf '%s\\n' H 0i \e  . wq | ed -s "
+"\C-xe": "printf '%s\\n' H \e  wq | 'ed' -s "
+"\C-xE": "printf '%s\\n' H 0i \e  . wq | 'ed' -s "
 
 # Loops                                :: f, F, u, w {{{1
 "\C-xf": "for i in \e ; do  \"$i\"; done\e2\eb\e3\C-b"
