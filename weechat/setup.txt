@@ -4,7 +4,7 @@
 # /set irc.server.freenode.username kurkale6ka
 # /set irc.server.freenode.nicks kurkale6ka
 # /set irc.server.freenode.realname 'Dimitar Dimitrov'
-# /set irc.server.freenode.autojoin '#archlinux,#linux,#vim,#neovim'
+# /set irc.server.freenode.autojoin '#archlinux,##linux,#vim,#neovim'
 # /set irc.look.part_closes_buffer on
 # /set irc.look.smart_filter on
 # /filter add irc_smart * irc_smart_filter *
