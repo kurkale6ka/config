@@ -1,7 +1,3 @@
-1. Shell
-mkdir -p ~/.weechat && cp -a ~/config/weechat/* ~/.weechat
-
-2. Weechat
 /set irc.server.freenode.autoconnect on
 /set irc.server.freenode.username kurkale6ka
 /set irc.server.freenode.nicks kurkale6ka
@@ -31,6 +27,5 @@ mkdir -p ~/.weechat && cp -a ~/config/weechat/* ~/.weechat
 
 /script install iset.pl buffers.pl lnotify.py urlserver.py
 
-/set irc.server.freenode.sasl_mechanism dh-blowfish
 /set irc.server.freenode.sasl_username kurkale6ka
 /set irc.server.freenode.sasl_password **********
