@@ -1,30 +1,36 @@
-1. mkdir -p ~/.weechat && cp -a ~/config/weechat/* ~/.weechat
+1. Shell
+mkdir -p ~/.weechat && cp -a ~/config/weechat/* ~/.weechat
 
-# /set irc.server.freenode.autoconnect on
-# /set irc.server.freenode.username kurkale6ka
-# /set irc.server.freenode.nicks kurkale6ka
-# /set irc.server.freenode.realname 'Dimitar Dimitrov'
-# /set irc.server.freenode.autojoin '#archlinux,##linux,#vim,#neovim'
-# /set irc.look.part_closes_buffer on
-# /set irc.look.smart_filter on
-# /filter add irc_smart * irc_smart_filter *
-# /filter add irc_join_names * irc_366 *
-# /filter add irc_join_topic_date * irc_332,irc_333 *
-# /key missing
-# /set weechat.look.mouse on
-# /mouse enable
-# /alias nn /bar toggle nicklist
-# /set weechat.look.buffer_time_format "%H:%M"
-# /set weechat.look.prefix_align_max 11
-# /set weechat.look.save_config_on_exit off
-# /unset weechat.bar.input.items
-# /set weechat.bar.input.size 0
-# /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
+2. Weechat
+/set irc.server.freenode.autoconnect on
+/set irc.server.freenode.username kurkale6ka
+/set irc.server.freenode.nicks kurkale6ka
+/set irc.server.freenode.realname 'Dimitar Dimitrov'
+/set irc.server.freenode.autojoin '#archlinux,#git,##linux,#neovim,#vim,#zsh'
 
-2. /script install iset.pl buffers.pl lnotify.py urlserver.py
+/set irc.look.part_closes_buffer on
+/set irc.look.smart_filter on
 
-# /set weechat.bar.buffers.size_max 11
-# /set irc.server.freenode.sasl_mechanism dh-blowfish
-# /set irc.server.freenode.sasl_username kurkale6ka
+/filter add irc_smart * irc_smart_filter *
+/filter add irc_join_names * irc_366 *
+/filter add irc_join_topic_date * irc_332,irc_333 *
 
-3. /set irc.server.freenode.sasl_password **********
+/key missing
+/mouse enable
+/alias nn /bar toggle nicklist
+
+/set weechat.look.mouse on
+/set weechat.look.buffer_time_format "%H:%M"
+/set weechat.look.prefix_align_max 11
+/set weechat.look.save_config_on_exit off
+
+/set weechat.bar.buffers.size_max 11
+/set weechat.bar.input.size 0
+/set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
+/unset weechat.bar.input.items
+
+/script install iset.pl buffers.pl lnotify.py urlserver.py
+
+/set irc.server.freenode.sasl_mechanism dh-blowfish
+/set irc.server.freenode.sasl_username kurkale6ka
+/set irc.server.freenode.sasl_password **********
