@@ -1,3 +1,8 @@
+Note: reset by removing ~/.weechat/
+      then rerun the following commands
+
+1. Run this first block first and wait for the plugins to install
+
 /set irc.server.freenode.autoconnect on
 /set irc.server.freenode.username kurkale6ka
 /set irc.server.freenode.nicks kurkale6ka
@@ -13,6 +18,8 @@
 
 /key missing
 /mouse enable
+
+/bar hide nicklist
 /alias nn /bar toggle nicklist
 
 /set weechat.look.mouse on
@@ -20,12 +27,19 @@
 /set weechat.look.prefix_align_max 11
 /set weechat.look.save_config_on_exit off
 
+/script install iset.pl buffers.pl lnotify.py urlserver.py
+
+2. Now we can configure buffer options
+
 /set weechat.bar.buffers.size_max 11
 /set weechat.bar.input.size 0
 /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
 /unset weechat.bar.input.items
 
-/script install iset.pl buffers.pl lnotify.py urlserver.py
+/save
 
 /set irc.server.freenode.sasl_username kurkale6ka
-/set irc.server.freenode.sasl_password **********
+
+3. Password to be entered manually
+
+/set irc.server.freenode.sasl_password
