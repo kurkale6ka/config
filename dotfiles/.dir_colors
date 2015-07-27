@@ -288,6 +288,7 @@ EXEC   01;32 # This is for files with execute permission:
 *INSTALL.txt 01;37
 *LICENSE.txt 01;37
 *.md         01;37
+*.markdown   01;37
 
 # Misc (Cyan) {{{1
 .dpkg-dist 00;36
