@@ -1,5 +1,5 @@
 # After changing, run:
-# [[ -r $HOME/.dir_colors ]] && eval "$(dircolors $HOME/.dir_colors)"
+# [[ -r ~/.dir_colors ]] && eval "$(dircolors ~/.dir_colors)"
 #
 # The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
 # slackware version of dircolors) are recognized but ignored.
@@ -102,6 +102,7 @@ STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 
 # Config files (Green underlined) {{{1
 .conf 04;32
+.cnf  04;32
 .ini  04;32
 .yml  04;32
 .yaml 04;32
