@@ -84,7 +84,7 @@ $if Bash
 "\C-xg": " | groff -man -Tascii | less\C-M"
 
 # File renaming (mv)                   :: m, M {{{1
-"\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Ta/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
+"\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Tabularize/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
 
 # Directory statistics                 :: n, o, * {{{1
