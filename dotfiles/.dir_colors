@@ -74,6 +74,10 @@ TERM xterm-debian
 #
 # Note: ansi escape sequences graphics mode - Esc[Value;Value;Valuem
 #                                       echo $'\e[01;04;32;44mMy text\e[0m'
+#
+# 256 color escape codes:
+#    38;5;colorN for fg
+#    48;5;colorN for bg
 
 # Special {{{1
 # CAPABILITY          00;30;41 # file with capability
@@ -100,12 +104,13 @@ STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 .text   00;00
 .log    00;00
 
-# Config files (Green underlined) {{{1
-.conf 04;32
-.cnf  04;32
-.ini  04;32
-.yml  04;32
-.yaml 04;32
+# Config files {{{1
+.conf 38;5;216
+.cnf  38;5;216
+.cfg  38;5;216
+.ini  38;5;216
+.yml  38;5;216
+.yaml 38;5;216
 
 # Documents (Black on blue bg) {{{1
 .pdf  00;30;44
