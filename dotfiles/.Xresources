@@ -1,64 +1,78 @@
 ! Reload with: xrdb -merge ~/.Xresources
 
+!! Fonts
 xterm*faceName: DejaVu Sans Mono
 xterm*faceSize: 12
-xterm*background:  #262626
-xterm*foreground:  #bebebe
-xterm*cursorColor: #666666
+
+xterm*underLine: true
+
+xterm*background: rgb:26/26/26
+xterm*foreground: rgb:be/be/be
+
+!! Cursor
+xterm*cursorColor: rgb:66/66/66
 xterm*cursorBlink: true
-! Tango theme
-xterm*color0:      #000000
-xterm*color8:      #555753
 
-xterm*color1:      #cc0000
-xterm*color9:      #ef2929
+!! Tango color palette (normal + light colors)
+! black
+xterm*color0:  rgb:00/00/00
+xterm*color8:  rgb:55/57/53
 
-xterm*color2:      #4e9a06
-xterm*color10:     #8ae234
+! red
+xterm*color1:  rgb:cc/00/00
+xterm*color9:  rgb:ef/29/29
 
-xterm*color3:      #c4a000
-xterm*color11:     #fce94f
+! green
+xterm*color2:  rgb:4e/9a/06
+xterm*color10: rgb:8a/e2/34
 
-xterm*color4:      #3465a4
-xterm*color12:     #729fcf
+! yellow / brown
+xterm*color3:  rgb:c4/a0/00
+xterm*color11: rgb:fc/e9/4f
 
-xterm*color5:      #75507b
-xterm*color13:     #ad7fa8
+! blue
+xterm*color4:  rgb:34/65/a4
+xterm*color12: rgb:72/9f/cf
 
-xterm*color6:      #06989a
-xterm*color14:     #34e2e2
+! magenta
+xterm*color5:  rgb:75/50/7b
+xterm*color13: rgb:ad/7f/a8
 
-xterm*color7:      #d3d7cf
-xterm*color15:     #eeeeec
+! cyan
+xterm*color6:  rgb:06/98/9a
+xterm*color14: rgb:34/e2/e2
 
-! Note: ~/.clusterssh/config needs terminal_colorize=0
+! white / light grey
+xterm*color7:  rgb:d3/d7/cf
+xterm*color15: rgb:ee/ee/ec
 
-! #! /usr/bin/env bash
-! #
-! # Note: see ~/.dir_colors for an explanation about ansi escape sequences
-!
-! #             Normal           Bold
-! echo $'\e[30m color0  \e[30;1m color8  \e[0m' # Black
-! echo $'\e[31m color1  \e[31;1m color9  \e[0m' # Red
-! echo $'\e[32m color2  \e[32;1m color10 \e[0m' # Green
-! echo $'\e[33m color3  \e[33;1m color11 \e[0m' # Yellow
-! echo $'\e[34m color4  \e[34;1m color12 \e[0m' # Blue
-! echo $'\e[35m color5  \e[35;1m color13 \e[0m' # Magenta
-! echo $'\e[36m color6  \e[36;1m color14 \e[0m' # Cyan
-! echo $'\e[37m color7  \e[37;1m color15 \e[0m' # White
+xterm*dynamicColors: true
 
-xterm*loginshell:         true
-xterm*VT100.geometry:     80x25
+!! 8-bit Characters
+xterm*eightBitControl: false
+xterm*eightBitInput:   false
+xterm*eightBitOutput:  true
+
+xterm*utf8: 1
+
+!! Scrolling and history
+xterm*scrollKey:       true
+xterm*scrollTtyOutput: false
+xterm*scrollBar:       true
+xterm*rightScrollBar:  true
+xterm*jumpScroll:      true
+xterm*multiScroll:     true
+
+xterm*saveLines: 4096
+
+!! Other settings
+xterm*toolBar: false
+
+xterm*loginshell: true
+
+xterm*VT100.geometry: 80x25
+
 ! double-click to select whole URLs :D
-xterm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-xterm*dynamicColors:      true
-xterm*utf8:               2
-xterm*eightBitInput:      false
-xterm*saveLines:          4096
-xterm*scrollKey:          true
-xterm*scrollTtyOutput:    false
-xterm*scrollBar:          true
-xterm*rightScrollBar:     true
-xterm*jumpScroll:         true
-xterm*multiScroll:        true
-xterm*toolBar:            false
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! vim: fdm=expr fde=getline(v\:lnum)=~'^\\s*!!'?'>'.(len(matchstr(getline(v\:lnum),'!!!*'))-1)\:'='
