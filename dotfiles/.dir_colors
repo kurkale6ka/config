@@ -72,8 +72,8 @@ TERM xterm-debian
 #          Bold   Green   Black
 #          em     fg      bg
 #
-# Note: ansi escape sequences graphics mode - Esc[Value;Value;Valuem
-#                                       echo $'\e[01;04;32;44mMy text\e[0m'
+# ANSI escape sequences graphics mode: Esc[ Value ; Value ; Value m
+#    echo $'\e[01;04;32;44mMy text\e[0m'
 #
 # 256 color escape codes:
 #    38;5;colorN for fg
@@ -302,3 +302,5 @@ EXEC   01;32 # This is for files with execute permission:
 .csr       00;36
 .bin       00;36
 .pki       00;36
+
+# vim: foldmethod=marker foldmarker={{{,}}}
