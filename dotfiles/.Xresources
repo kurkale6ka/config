@@ -4,7 +4,7 @@ xterm*faceName: DejaVu Sans Mono
 xterm*faceSize: 12
 xterm*background:  #262626
 xterm*foreground:  #bebebe
-xterm*cursorColor: #444444
+xterm*cursorColor: #666666
 xterm*cursorBlink: true
 ! Tango theme
 xterm*color0:      #000000
