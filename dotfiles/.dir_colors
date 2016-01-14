@@ -114,6 +114,7 @@ STICKY_OTHER_WRITABLE 00;30;42 # dir that is sticky and other-writable (+t,o+w)
 
 # Documents (Black on blue bg) {{{1
 .pdf  00;30;44
+.odt  00;30;44
 .doc  00;30;44
 .docx 00;30;44
 .ppt  00;30;44
