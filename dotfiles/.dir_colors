@@ -245,6 +245,7 @@ EXEC   01;32 # This is for files with execute permission:
 .mp4  01;35
 .m4v  01;35
 .mp4v 01;35
+.mts  01;35
 .vob  01;35
 .qt   01;35
 .nuv  01;35
