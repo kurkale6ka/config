@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# Number of sessions
+# Number of sessions (used in .tmux.conf)
 s_count=$(tmux ls -F#S | wc -l)
 
 if ((s_count > 1))
