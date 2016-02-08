@@ -15,9 +15,9 @@ HELP
 exit 0
 fi
 
-b="$(tput bold)"
-y="$(printf %s "$b"; tput setaf 3)"
-r="$(tput sgr0)"
+_bld="$(tput bold)"
+_ylw="${_bld}$(tput setaf 3)"
+_res="$(tput sgr0)"
 
 nb_sessions="$(tmux ls -F#S 2>/dev/null | wc -l)"
 
@@ -33,6 +33,8 @@ then
       prefix="$1"
       range="${2:-1-3}"
    fi
+
+   _prefix="$prefix"
 
    [[ $2 == [01] ]] && { echo 'Abort. Number > 1 expected' 1>&2; exit 1; }
 
@@ -53,53 +55,55 @@ then
    fi
 
    # Create a new session named 'tiles'
-   ((nb_sessions == 0)) && tmux new -s tiles -d
+   ((nb_sessions == 0)) && tmux new -s 'tiles' -d
 
    # Create a new window named $prefix within the first running session
-   tmux new-window -n "$prefix" "ssh ${prefix}$range_start"
+   tmux new-window -n "$_prefix" "ssh ${_prefix}$range_start"
 
    for ((i = range_start + 1; i < range_end + 1; i++))
    do
-      tmux split-window -h "ssh ${prefix}$i"
+      tmux split-window -t "$_prefix" -h "ssh ${_prefix}$i"
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
       ((i < range_start + 3)) && continue
-      tmux select-layout tiled
+      tmux select-layout -t "$_prefix" tiled
    done
 
 # lay host1 host2 ... hostn
 else
 
    # Create a new session named 'tiles'
-   ((nb_sessions == 0)) && tmux new -s tiles -d
+   ((nb_sessions == 0)) && tmux new -s 'tiles' -d
+
+   _prefix='multi'
 
    # Create a new window named 'multi' within the first running session
-   tmux new-window -n 'multi' "ssh $1"
+   tmux new-window -n "$_prefix" "ssh $1"
 
    j=2
    for h in "${@:2}"
    do
-      tmux split-window -h "ssh $h"
+      tmux split-window -t "$_prefix" -h "ssh $h"
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
       ((j++ < 4)) && continue
-      tmux select-layout tiled
+      tmux select-layout -t "$_prefix" tiled
    done
 fi
 
 # 3 hosts case: split the screen vertically in 3 equal panes
 if { [[ $nb_hosts ]] && ((nb_hosts == 3)); } || { [[ ! $nb_hosts ]] && (($# == 3)); }
 then
-   tmux select-layout even-horizontal
+   tmux select-layout -t "$_prefix" even-horizontal
 fi
 
-tmux select-pane -t 1
-tmux set-window-option synchronize-panes on
+tmux select-pane -t "${_prefix}.1"
+tmux set-window-option -t "$_prefix" synchronize-panes on
 
 if ((nb_sessions == 0))
 then
    tmux kill-window -t1
-   tmux attach -t tiles
+   tmux attach -t 'tiles'
 else
-   echo "${y}Attached to the first session!$r"
+   echo "${_ylw}Attached to the first session!$_res"
 fi
