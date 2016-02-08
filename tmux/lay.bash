@@ -1,20 +1,8 @@
-#! /usr/bin/env zsh
+#! /usr/bin/env bash
 
-# Usage:
-#    lay
-#    lay host_prefix
-#    lay host_prefix number_of_hosts
-#    lay host_prefix range (default: 1-3)
-#    lay host1 host2 ... hostn
+shopt -s extglob
 
-# needed for outputting colors with cecho
-if [[ -d $XDG_CONFIG_HOME/zsh/autoload ]]
-then
-   fpath=($XDG_CONFIG_HOME/zsh/autoload $XDG_CONFIG_HOME/zsh/autoload/*(/) $fpath)
-   autoload $XDG_CONFIG_HOME/zsh/autoload/**/[^_]*(.:t)
-fi
-
-if [[ $1 == -(h|-h)* ]]
+if [[ $1 == -@(h|-h)* ]]
 then
 cat << 'HELP'
 Usage:
@@ -27,6 +15,10 @@ HELP
 exit 0
 fi
 
+_bld="$(tput bold)"
+_ylw="${_bld}$(tput setaf 3)"
+_res="$(tput sgr0)"
+
 nb_sessions="$(tmux ls -F#S 2>/dev/null | wc -l)"
 
 #  lay              lay prefix num
@@ -35,36 +27,30 @@ if (($# <= 1)) || { (($# == 2)) && [[ $2 == [0-9]* || $2 == [0-9]*-[0-9]* ]]; }
 then
    if (($# == 0))
    then
-      read 'prefix?Common host prefix: '
-      read 'range?Range or number of hosts (ex: [1-]3): '
+      read -p 'Common host prefix: ' prefix
+      read -p 'Range or number of hosts (ex: [1-]3): ' range
    else
-      prefix=$1
-      range=${2:-1-3}
+      prefix="$1"
+      range="${2:-1-3}"
    fi
 
-   _prefix=$prefix
+   _prefix="$prefix"
 
-   if [[ $2 == [01] ]]
-   then
-      cecho -fred 'Abort. Number > 1 expected' 1>&2
-      exit 1
-   fi
+   [[ $2 == [01] ]] && { echo 'Abort. Number > 1 expected' 1>&2; exit 1; }
 
-   [[ $range != *-* ]] && range=1-$range
+   [[ $range != *-* ]] && range=1-"$range"
 
-   range_start=${range%-*}
-   range_end=${range#*-}
+   range_start="${range%-*}"
+   range_end="${range#*-}"
 
    nb_hosts="$((range_end - range_start + 1))"
 
    if ((nb_hosts < 2))
    then
-      cecho -fred 'Invalid range. Number of hosts must be > 1' 1>&2
-      exit 2
+      echo 'Invalid range. Number of hosts must be > 1' 1>&2; exit 2
    elif ((nb_hosts > 10))
    then
-      cset -sfred _nb_hosts $nb_hosts
-      read "answer?Are you sure you want to create $_nb_hosts panes? (y/n) "
+      read -p "Are you sure you want to create $nb_hosts panes? (y/n) " answer
       [[ $answer == n* ]] && exit 3
    fi
 
@@ -72,15 +58,15 @@ then
    ((nb_sessions == 0)) && tmux new -s 'tiles' -d
 
    # Create a new window named $prefix within the first running session
-   tmux new-window -n $_prefix "ssh ${_prefix}$range_start"
+   tmux new-window -n "$_prefix" "ssh ${_prefix}$range_start"
 
    for ((i = range_start + 1; i < range_end + 1; i++))
    do
-      tmux split-window -t $_prefix -h "ssh ${_prefix}$i"
+      tmux split-window -t "$_prefix" -h "ssh ${_prefix}$i"
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
       ((i < range_start + 3)) && continue
-      tmux select-layout -t $_prefix tiled
+      tmux select-layout -t "$_prefix" tiled
    done
 
 # lay host1 host2 ... hostn
@@ -92,32 +78,32 @@ else
    _prefix='multi'
 
    # Create a new window named 'multi' within the first running session
-   tmux new-window -n $_prefix "ssh $1"
+   tmux new-window -n "$_prefix" "ssh $1"
 
    j=2
-   for h in ${@:2}
+   for h in "${@:2}"
    do
-      tmux split-window -t $_prefix -h "ssh $h"
+      tmux split-window -t "$_prefix" -h "ssh $h"
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
       ((j++ < 4)) && continue
-      tmux select-layout -t $_prefix tiled
+      tmux select-layout -t "$_prefix" tiled
    done
 fi
 
 # 3 hosts case: split the screen vertically in 3 equal panes
 if { [[ $nb_hosts ]] && ((nb_hosts == 3)); } || { [[ ! $nb_hosts ]] && (($# == 3)); }
 then
-   tmux select-layout -t $_prefix even-horizontal
+   tmux select-layout -t "$_prefix" even-horizontal
 fi
 
-tmux select-pane -t ${_prefix}.1
-tmux set-window-option -t $_prefix synchronize-panes on
+tmux select-pane -t "${_prefix}.1"
+tmux set-window-option -t "$_prefix" synchronize-panes on
 
 if ((nb_sessions == 0))
 then
    tmux kill-window -t1
    tmux attach -t 'tiles'
 else
-   cecho -sfyellow 'Attached to the first session!'
+   echo "${_ylw}Attached to the first session!$_res"
 fi
