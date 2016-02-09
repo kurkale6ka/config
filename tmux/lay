@@ -71,11 +71,15 @@ then
    # Create a new session named 'tiles'
    ((nb_sessions == 0)) && tmux new -s 'tiles' -d
 
+   ssh_hosts=(${_prefix}$range_start)
+
    # Create a new window named $prefix within the first running session
    tmux new-window -n $_prefix "ssh ${_prefix}$range_start"
 
    for ((i = range_start + 1; i < range_end + 1; i++))
    do
+      ssh_hosts+=(${_prefix}$i)
+
       tmux split-window -t $_prefix -h "ssh ${_prefix}$i"
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
@@ -90,6 +94,8 @@ else
    ((nb_sessions == 0)) && tmux new -s 'tiles' -d
 
    _prefix='multi'
+
+   ssh_hosts=($@)
 
    # Create a new window named 'multi' within the first running session
    tmux new-window -n $_prefix "ssh $1"
@@ -118,6 +124,10 @@ if ((nb_sessions == 0))
 then
    tmux kill-window -t1
    tmux attach -t 'tiles'
+   echo -n 'New tmux session: '
+   cecho -fpink:205 "tiles:$_prefix.[${(j.,.)ssh_hosts}]"
 else
-   cecho -sfyellow 'Attached to the first session!'
+   echo -n 'Attaching '
+   cecho -nfpink:205 "$_prefix.[${(j.,.)ssh_hosts}] "
+   echo 'to the current tmux session!'
 fi
