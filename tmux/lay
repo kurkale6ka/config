@@ -73,7 +73,7 @@ then
 
    ssh_hosts=(${_prefix}$range_start)
 
-   # Create a new window named $prefix within the first running session
+   # Create a new window named $prefix within the current session
    tmux new-window -n $_prefix "ssh ${_prefix}$range_start"
 
    for ((i = range_start + 1; i < range_end + 1; i++))
@@ -84,6 +84,8 @@ then
 
       # Start tiling from the 4th pane since 2 is ok and 3 is a special case
       ((i < range_start + 3)) && continue
+      # I can't move this after the loop because after a few hosts, splitting fails with:
+      # 'create pane failed: pane too small'
       tmux select-layout -t $_prefix tiled
    done
 
