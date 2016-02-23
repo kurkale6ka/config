@@ -289,15 +289,33 @@ EXEC   01;32 # This is for files with execute permission:
 .xspf 01;36;45
 
 # README (Bold white) {{{1
-*README      01;37
-*INSTALL     01;37
-*LICENSE     01;37
-*PKGBUILD    01;37
-*README.txt  01;37
-*INSTALL.txt 01;37
-*LICENSE.txt 01;37
-*.md         01;37
-*.markdown   01;37
+*README           01;37
+*README.txt       01;37
+*INSTALL          01;37
+*INSTALL.txt      01;37
+*LICENSE          01;37
+*LICENSE.txt      01;37
+*COPYING          01;37
+*COPYING.txt      01;37
+*COPYRIGHT        01;37
+*COPYRIGHT.txt    01;37
+*AUTHORS          01;37
+*AUTHORS.txt      01;37
+*HISTORY          01;37
+*HISTORY.txt      01;37
+*CONTRIBUTORS     01;37
+*CONTRIBUTORS.txt 01;37
+*PATENTS          01;37
+*PATENTS.txt      01;37
+*VERSION          01;37
+*VERSION.txt      01;37
+*NOTICE           01;37
+*NOTICE.txt       01;37
+*CHANGES          01;37
+*CHANGES.txt      01;37
+*PKGBUILD         01;37
+*.md              01;37
+*.markdown        01;37
 
 # Misc (Cyan) {{{1
 .dpkg-dist 00;36
