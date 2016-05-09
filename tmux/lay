@@ -137,7 +137,7 @@ else
 fi
 
 # 3 hosts case: split the screen vertically in 3 equal panes
-if { [[ $nb_hosts ]] && ((nb_hosts == 3)); } || { [[ ! $nb_hosts ]] && (($# == 3)); }
+if { [[ -n $nb_hosts ]] && ((nb_hosts == 3)); } || { [[ -z $nb_hosts ]] && (($# == 3)); }
 then
    tmux select-layout -t $_win_name even-horizontal
 fi
