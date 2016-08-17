@@ -1,0 +1,14 @@
+# Help on everything
+set global autoinfo command|onkey|normal
+
+# Highlight paired chars ({}, <>, ...) in cyan bold
+face MatchingChar cyan+b
+
+hook global WinCreate .* %{
+
+    # {}, <>, ...
+    addhl show_matching
+
+    # 1 lorem ipsum
+    addhl number_lines -hlcursor -separator ' '
+}
