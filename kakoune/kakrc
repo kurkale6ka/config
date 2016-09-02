@@ -1,6 +1,9 @@
 # Help on everything
 set global autoinfo command|onkey|normal
+
 set global scrolloff 2,0
+
+map global normal <ret> jgh
 
 # Highlight paired chars ({}, <>, ...) in cyan bold
 face MatchingChar cyan+b
