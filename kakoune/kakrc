@@ -1,7 +1,10 @@
+colorscheme desertex
+
 # Help on everything
 set global autoinfo command|onkey|normal
 
 set global scrolloff 2,0
+set global grepcmd 'ag -S --hidden --ignore=.git --ignore=.hg --ignore=.svn'
 
 map global normal <ret> jgh
 
