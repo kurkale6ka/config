@@ -2,10 +2,6 @@
 
 %sh{
 
-#zencursor="default,rgb:7f9f7f"
-#zeninfo="rgb:cc9393,rgb:2a2a2a"
-menubg='rgb:000000,rgb:c2bfa5+b'
-menufg='rgb:f0a0c0,rgb:302028'
 #zentext="rgb:efefef"
 #zenstorageClass="rgb:c3bf9f+b"
 comment='rgb:7ccd7c+i'
@@ -24,7 +20,7 @@ string=$constant
 
 cat << FACES
 
-# then we map them to code
+# Code
 face value $constant
 #face type ${zentype}
 face identifier $identifier
@@ -36,7 +32,7 @@ face attribute $statement
 face comment $comment
 #face meta ${zenspecial}
 
-# and markup
+# Markup
 face title $keyword
 face header $constant
 #face bold ${zenstorageClass}
@@ -47,6 +43,7 @@ face link $string
 face bullet $identifier
 #face list ${zentype}
 
+# Builtin
 # fg,bg+attributes
 face Default 'default,rgb:262626'
 # face PrimarySelection 'default,rgb:373b41'
@@ -57,17 +54,22 @@ face PrimaryCursor black,white
 face SecondaryCursor black,white
 face LineNumbers 'rgb:605958'
 face LineNumberCursor 'yellow,default+b'
-face MenuForeground $menufg
-face MenuBackground $menubg
+
+# Bottom menu:
+# text + background
+face MenuBackground 'black,rgb:c2bfa5+b'
+# selected entry in the menu
+face MenuForeground 'rgb:f0a0c0,rgb:302028'
+
 face MenuInfo rgb:cc9393
-#face Information ${zeninfo}
+face Information black,yellow
 face Error default,red
 face StatusLine 'cyan,default'
 face StatusLineMode $comment
 #face StatusLineInfo ${zenspecial}
 face StatusLineValue $number
-#face StatusCursor ${zencursor}
-face Prompt yellow
+face StatusCursor black,cyan
+face Prompt blue
 face MatchingChar default+b
 #face BufferPadding ${zenpadding}
 
