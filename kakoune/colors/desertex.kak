@@ -6,7 +6,6 @@
 comment='rgb:7ccd7c+i'
 constant='rgb:fa8072'
 number=$constant
-#zenspecial="rgb:cfbfaf"
 function='rgb:87ceeb'
 statement='rgb:eedc82'
 keyword=$statement
@@ -15,7 +14,6 @@ identifier='rgb:87ceeb'
 string=$constant
 #zenexception="rgb:c3bf9f+b"
 #zenmatching="rgb:3f3f3f,rgb:8cd0d3"
-#zenpadding="rgb:f0dfaf,rgb:343434+b"
 
 cat << FACES
 
@@ -29,7 +27,7 @@ face keyword $keyword
 face operator $function
 face attribute $statement
 face comment $comment
-#face meta ${zenspecial}
+#face meta
 
 # Markup
 face title $keyword
@@ -63,12 +61,15 @@ face Information black,yellow
 face Error default,red
 face StatusLine 'cyan,default'
 face StatusLineMode $comment
-#face StatusLineInfo ${zenspecial}
+# 1 sel
+face StatusLineInfo blue,default
 face StatusLineValue $number
 face StatusCursor black,cyan
 face Prompt blue
 face MatchingChar default+b
-#face BufferPadding ${zenpadding}
+
+# buffer tildas (~) at the EOF
+face BufferPadding blue,default
 
 FACES
 }
