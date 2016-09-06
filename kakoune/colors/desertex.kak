@@ -2,7 +2,6 @@
 
 %sh{
 
-#zentext="rgb:efefef"
 #zenstorageClass="rgb:c3bf9f+b"
 comment='rgb:7ccd7c+i'
 constant='rgb:fa8072'
@@ -46,8 +45,6 @@ face bullet $identifier
 # Builtin
 # fg,bg+attributes
 face Default 'default,rgb:262626'
-# face PrimarySelection 'default,rgb:373b41'
-# face SecondarySelection 'rgb:605958,rgb:373b41'
 face PrimarySelection white,blue
 face SecondarySelection black,blue
 face PrimaryCursor black,white
