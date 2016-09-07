@@ -1,55 +1,41 @@
 # desertex theme
 
-%sh{
-
-constant='rgb:fa8072'
-function='rgb:87ceeb'
-statement='rgb:eedc82'
-keyword=$statement
-identifier='rgb:87ceeb'
-#zentype="rgb:dfdfbf"
-string=$constant
-#zenexception="rgb:c3bf9f+b"
-#zenmatching="rgb:3f3f3f,rgb:8cd0d3"
-
-cat << FACES
-
 # Code
-face value $constant
-#face type ${zentype}
-face identifier $identifier
-face string $string
-#face error ${zenexception}
-face keyword $keyword
-face operator $function
-face attribute $statement
-face comment 'rgb:7ccd7c+i'
+face value      'rgb:fa8072'
+face type       'rgb:dfdfbf'
+face identifier 'rgb:87ceeb'
+face string     'rgb:fa8072'
+face error      'rgb:c3bf9f+b'
+face keyword    'rgb:eedc82'
+face operator   'rgb:87ceeb'
+face attribute  'rgb:eedc82'
+face comment    'rgb:7ccd7c+i'
 
 # #include <...>
 face meta 'rgb:ee799f'
 
 # Markup
-face title $keyword
-face header $constant
+#face title
+#face header
 #face bold
-face italic $function
+#face italic
 #face mono
-face block $statement
-face link $string
-face bullet $identifier
-#face list ${zentype}
+#face block
+#face link
+#face bullet
+#face list
 
 # Builtin
 # fg,bg+attributes
 face Default 'default,rgb:262626'
 
-face PrimarySelection 'white,blue'
+face PrimarySelection   'white,blue'
 face SecondarySelection 'black,blue'
 
-face PrimaryCursor 'black,white'
+face PrimaryCursor   'black,white'
 face SecondaryCursor 'black,white'
 
-face LineNumbers 'rgb:605958'
+face LineNumbers      'rgb:605958'
 face LineNumberCursor 'yellow,default+b'
 
 # Bottom menu:
@@ -64,7 +50,7 @@ face MenuInfo 'white,rgb:445599'
 # assistant, [+]
 face Information 'black,yellow'
 
-face Error 'white,red'
+face Error      'white,red'
 face StatusLine 'cyan,default'
 
 # Status line modes and prompts:
@@ -76,6 +62,7 @@ face StatusLineInfo 'blue,default'
 
 # param=value, reg=value. ex: "ey
 face StatusLineValue 'green,default'
+
 face StatusCursor 'black,cyan'
 
 # :
@@ -86,6 +73,3 @@ face MatchingChar 'cyan+b'
 
 # EOF tildas (~)
 face BufferPadding 'blue,default'
-
-FACES
-}
