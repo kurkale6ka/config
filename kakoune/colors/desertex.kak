@@ -5,7 +5,6 @@
 #zenstorageClass="rgb:c3bf9f+b"
 comment='rgb:7ccd7c+i'
 constant='rgb:fa8072'
-number=$constant
 function='rgb:87ceeb'
 statement='rgb:eedc82'
 keyword=$statement
@@ -34,7 +33,7 @@ face title $keyword
 face header $constant
 #face bold ${zenstorageClass}
 face italic $function
-face mono $number
+#face mono
 face block $statement
 face link $string
 face bullet $identifier
@@ -57,18 +56,31 @@ face MenuBackground 'black,rgb:c2bfa5+b'
 face MenuForeground 'rgb:f0a0c0,rgb:302028'
 
 face MenuInfo rgb:cc9393
+
+# assistant
 face Information black,yellow
-face Error default,red
+
+face Error white,red
 face StatusLine 'cyan,default'
-face StatusLineMode $comment
+
+# Status line modes and prompts:
+# insert, prompt, enter key...
+face StatusLineMode rgb:ffd75f,default
+
 # 1 sel
 face StatusLineInfo blue,default
-face StatusLineValue $number
-face StatusCursor black,cyan
-face Prompt blue
-face MatchingChar default+b
 
-# buffer tildas (~) at the EOF
+# param=value, reg=value. ex: "ey
+face StatusLineValue green,default
+face StatusCursor black,cyan
+
+# :
+face Prompt blue
+
+# (), {}
+face MatchingChar cyan+b
+
+# EOF tildas (~)
 face BufferPadding blue,default
 
 FACES
