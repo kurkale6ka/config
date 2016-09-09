@@ -11,9 +11,17 @@ map global normal <ret> jgh
 
 hook global WinCreate .* %{
 
+    # auto cd to current file's working directory
+    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""'}
+
     # {}, <>, ...
     addhl show_matching
 
     # 1 lorem ipsum
     addhl number_lines -hlcursor -separator ' '
+}
+
+hook global WinDisplay .* %{
+
+    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""'}
 }
