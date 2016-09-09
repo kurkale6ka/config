@@ -41,8 +41,8 @@ face LineNumberCursor 'yellow,default+b'
 # Bottom menu:
 # text + background
 face MenuBackground 'black,rgb:c2bfa5+b'
-# selected entry in the menu
-face MenuForeground 'rgb:f0a0c0,rgb:302028'
+# selected entry in the menu (use 302028 when true color support is fixed)
+face MenuForeground 'rgb:f0a0c0,magenta'
 
 # completion menu info
 face MenuInfo 'white,rgb:445599'
