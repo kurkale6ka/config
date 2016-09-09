@@ -19,6 +19,8 @@ hook global WinCreate .* %{
 
     # 1 lorem ipsum
     addhl number_lines -hlcursor -separator ' '
+
+    map global normal <c-g> ':echo %val{buffile}<ret>'
 }
 
 hook global WinDisplay .* %{
