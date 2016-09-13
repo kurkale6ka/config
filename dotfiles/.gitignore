@@ -9,7 +9,10 @@
 *.swo
 .*.swp
 *.swp
+
+# tags
 tags
+.kak.tags.namecache
 cscope.*
 
 # Irc
