@@ -12,7 +12,7 @@ map global normal <ret> jgh
 hook global WinCreate .* %{
 
     # auto cd to current file's working directory
-    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""'}
+    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""' }
 
     # {}, <>, ...
     addhl show_matching
@@ -27,5 +27,13 @@ hook global WinCreate .* %{
 
 hook global WinDisplay .* %{
 
-    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""'}
+    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""' }
+}
+
+# Local settings
+%sh{
+if [ -f "$XDG_CONFIG_HOME"/kak/extra.kak ]
+then
+    echo "source '$XDG_CONFIG_HOME/kak/extra.kak'"
+fi
 }
