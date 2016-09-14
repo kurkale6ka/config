@@ -9,6 +9,11 @@ set global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column}
 
 map global normal <ret> jgh
 
+# Copy/paste interactions with the system clipboard
+map global user y '<a-|>xclip -f | xclip -selection clipboard<ret>'
+map global user P '!xclip -o<ret>'
+map global user p '<a-!>xclip -o<ret>'
+
 hook global WinCreate .* %{
 
     # auto cd to current file's working directory
