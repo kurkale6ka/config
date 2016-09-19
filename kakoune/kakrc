@@ -8,6 +8,7 @@ set global grepcmd 'ag -S --hidden --ignore=.git --ignore=.hg --ignore=.svn'
 set global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column} [%opt{filetype}]'
 
 map global normal <ret> jgh
+map global user s ':edit -scratch *scratch*<ret>'
 
 # Copy/paste interactions with the system clipboard
 map global user y '<a-|>xclip -f | xclip -selection clipboard<ret>'
@@ -30,6 +31,7 @@ hook global WinCreate .* %{
     addhl dynregex '%reg{/}' 0:default,rgb:373b41
 }
 
+# auto cd to current file's working directory
 hook global WinDisplay .* %{
 
     %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""' }
