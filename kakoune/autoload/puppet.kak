@@ -1,7 +1,18 @@
+# Puppet: reserved words and acceptable names
+# https://docs.puppet.com/puppet/latest/reference/lang_reserved.html
+
 hook global BufCreate .*\.pp %{
     set buffer mimetype ''
     set buffer filetype puppet
 }
+
+# Extra faces
+face function  identifier
+face resource  attribute
+face noderegex 'rgb:ffa54f'
+face pkeyword  'rgb:ee799f'
+face parens    'rgb:76eec6'
+face cname     'rgb:ffa54f'
 
 addhl -group / regions -default code puppet \
     double_string %{(?<!\\)(\\\\)*\K"} %{(?<!\\)(\\\\)*"} '' \
@@ -16,7 +27,13 @@ addhl -group /puppet/double_string regex \$(\w+|\{.+?\}) 0:identifier
 
 addhl -group /puppet/comment fill comment
 
-%sh{
+# class/define
+addhl -group /puppet/code regex [a-z][a-z0-9_]*(?=\s*(?:{|$)) 0:pkeyword
+addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*(?:{|$)) 0:pkeyword
+addhl -group /puppet/code regex (?:class|define)\s+\K[a-z][a-z0-9_]* 0:cname
+addhl -group /puppet/code regex (?:class|define)\s+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
+
+%sh[
 # Grammar
 booleans='false|true'
 operators='and|in|or'
@@ -56,15 +73,27 @@ printf %s\\n "hook global WinSetOption filetype=puppet %{
 }" | tr '|' ':'
 
 # Highlight keywords
-echo "addhl -group /puppet/code regex \b($keywords)\b 0:meta"
-echo "addhl -group /puppet/code regex \b($functions)\b 0:keyword"
-}
+echo "addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword"
+echo "addhl -group /puppet/code regex (?:^|\s+)\K($resources)(?=\s*\{) 0:resource"
+echo "addhl -group /puppet/code regex \b($functions)(?!\s*\{) 0:function"
+echo "addhl -group /puppet/code regex \b($booleans)\b 0:red"
+echo "addhl -group /puppet/code regex \b($operators)\b 0:red"
+echo "addhl -group /puppet/code regex \b($reserved)\b 0:red"
+echo "addhl -group /puppet/code regex \b($types)\b 0:red"
+]
 
-addhl -group /puppet/code regex [\[\]\(\)&|]{1,2} 0:operator
-addhl -group /puppet/code regex (\w+)= 1:identifier
-addhl -group /puppet/code regex ^\h*(\w+)\h*\(\) 1:identifier
+# Parens
+addhl -group /puppet/code regex (?<!=)[[\]()<>{}] 0:parens
 
-addhl -group /puppet/code regex \$(\w+|\{.+?\}|#|@|\?|\$|!|-|\*) 0:identifier
+# node regex
+addhl -group /puppet/code regex ^\h*node\h+\K/.*?/ 0:noderegex
+
+# Resource attributes
+addhl -group /puppet/code regex \S+(?=\s*=>) 0:attribute
+
+# Variables, short and qualified
+addhl -group /puppet/code regex \$[a-z0-9_][a-zA-Z0-9_]* 0:identifier
+addhl -group /puppet/code regex \$([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*::[a-z0-9_][a-zA-Z0-9_]* 0:identifier
 
 hook global WinSetOption filetype=puppet %{ addhl ref puppet }
 hook global WinSetOption filetype=(?!puppet).* %{ rmhl puppet }
