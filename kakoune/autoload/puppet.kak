@@ -8,7 +8,7 @@ hook global BufCreate .*\.pp %{
 
 # Extra faces
 face function  identifier
-face resource  attribute
+face resource  'rgb:ffa54f'
 face noderegex 'rgb:ffa54f'
 face pkeyword  'rgb:ee799f'
 face parens    'rgb:76eec6'
@@ -30,34 +30,31 @@ addhl -group /puppet/comment fill comment
 # class/define
 addhl -group /puppet/code regex [a-z][a-z0-9_]*(?=\s*(?:{|$)) 0:pkeyword
 addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*(?:{|$)) 0:pkeyword
+# addhl -group /puppet/code regex class\s*{\s*\K(['"]).+?\1 0:pkeyword
+
 addhl -group /puppet/code regex (?:class|define)\s+\K[a-z][a-z0-9_]* 0:cname
 addhl -group /puppet/code regex (?:class|define)\s+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
 
 %sh[
 # Grammar
-booleans='false|true'
-operators='and|in|or'
-keywords='import|case|class|default|define|else|elsif|function|if|inherits|node|unless'
-reserved='attr|private|type|application|consumes|produces|environment|undef'
-
 types='[aA]ny|[aA]rray|[bB]oolean|[cC]atalog[eE]ntry|[cC]lass|[cC]ollection'
 types="$types|[cC]allable|[dD]ata|[dD]efault|[eE]num|[fF]loat|[hH]ash|[iI]nteger"
 types="$types|[nN]umeric|[oO]ptional|[pP]attern|[rR]esource|[rR]untime|[sS]calar"
 types="$types|[sS]tring|[sS]truct|[tT]uple|[tT]ype|[uU]ndef|[vV]ariant"
 
-resources='[aA]ugeas|[cC]omputer|[cC]ron|[eE]xec|[fF]ile|[fF]ilebucket|[gG]roup'
-resources="$resources|[hH]ost|[iI]nterface|[kK]5login|[mM]acauthorization"
-resources="$resources|[mM]ailalias|[mM]aillist|[mM]cx|[mM]ount|[nN]agios_command"
-resources="$resources|[nN]agios_contact|[nN]agios_contactgroup|[nN]agios_host"
-resources="$resources|[nN]agios_hostdependency|[nN]agios_hostescalation"
-resources="$resources|[nN]agios_hostextinfo|[nN]agios_hostgroup|[nN]agios_service"
-resources="$resources|[nN]agios_servicedependency|[nN]agios_serviceescalation"
-resources="$resources|[nN]agios_serviceextinfo|[nN]agios_servicegroup"
-resources="$resources|[nN]agios_timeperiod|[nN]otify|[pP]ackage|[rR]esources"
-resources="$resources|[rR]outer|[sS]chedule|[sS]cheduled_task|[sS]elboolean"
-resources="$resources|[sS]elmodule|[sS]ervice|[sS]sh_authorized_key|[sS]shkey"
-resources="$resources|[sS]tage|[tT]idy|[uU]ser|[vV]lan|[yY]umrepo"
-resources="$resources|[zZ]fs|[zZ]one|[zZ]pool"
+resources='augeas|computer|cron|exec|file|filebucket|group'
+resources="$resources|host|interface|k5login|macauthorization"
+resources="$resources|mailalias|maillist|mcx|mount|nagios_command"
+resources="$resources|nagios_contact|nagios_contactgroup|nagios_host"
+resources="$resources|nagios_hostdependency|nagios_hostescalation"
+resources="$resources|nagios_hostextinfo|nagios_hostgroup|nagios_service"
+resources="$resources|nagios_servicedependency|nagios_serviceescalation"
+resources="$resources|nagios_serviceextinfo|nagios_servicegroup"
+resources="$resources|nagios_timeperiod|notify|package|resources"
+resources="$resources|router|schedule|scheduled_task|selboolean"
+resources="$resources|selmodule|service|ssh_authorized_key|sshkey"
+resources="$resources|stage|tidy|user|vlan|yumrepo"
+resources="$resources|zfs|zone|zpool"
 
 functions='alert|assert_type|contain|create_resources|crit|debug|defined|dig'
 functions="$functions|digest|each|emerg|epp|err|fail|file|filter|fqdn_rand"
@@ -67,20 +64,33 @@ functions="$functions|map|match|md5|new|notice|realize|reduce|regsubst"
 functions="$functions|require|reverse_each|scanf|sha1|shellquote|slice|split"
 functions="$functions|sprintf|step|tag|tagged|template|type|versioncmp|warning|with"
 
+booleans='false|true'
+operators='and|in|or'
+keywords='import|case|class|default|define|else|elsif|function|if|inherits|node|unless'
+reserved='attr|private|type|application|consumes|produces|environment|undef'
+
 # Add the language's grammar to the static completion list
 printf %s\\n "hook global WinSetOption filetype=puppet %{
     set window static_words '${keywords}'
 }" | tr '|' ':'
 
 # Highlight keywords
-echo "addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword"
+echo "addhl -group /puppet/code regex \b($types)\b 0:red"
 echo "addhl -group /puppet/code regex (?:^|\s+)\K($resources)(?=\s*\{) 0:resource"
 echo "addhl -group /puppet/code regex \b($functions)(?!\s*\{) 0:function"
 echo "addhl -group /puppet/code regex \b($booleans)\b 0:red"
 echo "addhl -group /puppet/code regex \b($operators)\b 0:red"
+echo "addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword"
 echo "addhl -group /puppet/code regex \b($reserved)\b 0:red"
-echo "addhl -group /puppet/code regex \b($types)\b 0:red"
 ]
+
+# TODO: ensure => directory, /regexes/
+
+# Resources for deps ~>
+addhl -group /puppet/code regex [A-Z][_a-z]+ 0:resource
+
+# Digits
+addhl -group /puppet/code regex \d+ 0:blue
 
 # Parens
 addhl -group /puppet/code regex (?<!=)[[\]()<>{}] 0:parens
