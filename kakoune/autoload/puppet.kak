@@ -16,8 +16,8 @@ face cname     'rgb:ffa54f'
 face constant  'rgb:5f5faf'
 
 addhl -group / regions -default code puppet \
-    cls_qstring  "class\s*{\s*\K'" "'" '' \
-    cls_qqstring 'class\s*{\s*\K"' '"' '' \
+    cls_qstring  "class\h*{\h*\K'" "'" '' \
+    cls_qqstring 'class\h*{\h*\K"' '"' '' \
     double_string %{(?<!\\)(\\\\)*\K"} %{(?<!\\)(\\\\)*"} '' \
     single_string %{(?<!\\)(\\\\)*\K'} %{'}               '' \
     comment '#' '$' ''
@@ -34,12 +34,14 @@ addhl -group /puppet/double_string regex \$([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)
 
 addhl -group /puppet/comment fill comment
 
-# class/define
-addhl -group /puppet/code regex [a-z][a-z0-9_]*(?=\s*(?:{|$)) 0:pkeyword
-addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*(?:{|$)) 0:pkeyword
+# my::define {...}
+addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*{) 0:pkeyword
 
-addhl -group /puppet/code regex (?:class|define)\s+\K[a-z][a-z0-9_]* 0:cname
-addhl -group /puppet/code regex (?:class|define)\s+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
+# include my::class
+addhl -group /puppet/code regex include\h+([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:pkeyword
+
+# class/define ... {
+addhl -group /puppet/code regex (?:class|define)\h+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
 
 %sh[
 # Grammar
@@ -72,7 +74,7 @@ functions="$functions|sprintf|step|tag|tagged|template|type|versioncmp|warning|w
 
 booleans='false|true'
 operators='and|in|or'
-attributes='present|absent|purged|latest|installed|running|stopped|(?:un)?mounted|role|configured|file|directory|link'
+attributes='present|absent|purged|latest|installed|running|stopped|(?:un)?mounted|role|configured|file|directory|link|on_failure'
 keywords='import|case|class|default|define|else|elsif|function|if|inherits|node|unless'
 reserved='attr|private|type|application|consumes|produces|environment|undef'
 
@@ -83,11 +85,11 @@ printf '%s\n' "hook global WinSetOption filetype=puppet %{
 
 cat << ADDHL
 addhl -group /puppet/code regex \b($types)\b 0:constant
-addhl -group /puppet/code regex (?:^|\s+)\K($resources)(?=\s*\{) 0:resource
-addhl -group /puppet/code regex \b($functions)(?!\s*\{) 0:function
+addhl -group /puppet/code regex (?:^|\h+)\K($resources)(?=\s*\{) 0:resource
+addhl -group /puppet/code regex \b($functions)[\h(](?!\s*\{) 0:function
 addhl -group /puppet/code regex \b($booleans)\b 0:constant
 addhl -group /puppet/code regex \b($operators)\b 0:constant
-addhl -group /puppet/code regex =>\s*\K($attributes)\b 0:constant
+addhl -group /puppet/code regex =>\h*\K($attributes)\b 0:constant
 addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword
 addhl -group /puppet/code regex \b($reserved)\b 0:constant
 ADDHL
@@ -108,11 +110,11 @@ addhl -group /puppet/code regex [[\](){}]|<?<\||\|>>? 0:parens
 # node regex
 addhl -group /puppet/code regex ^\h*node\h+\K/.*?/ 0:noderegex
 
-# /.../ in ifs or case switches
-addhl -group /puppet/code regex /.*?/(?=\s*:\s*{)|if.*?\K/.*?/(?=\s*{) 0:pkeyword
-
 # Resource attributes
-addhl -group /puppet/code regex \S+(?=\s*=>) 0:attribute
+addhl -group /puppet/code regex \S+(?=\h*=>) 0:attribute
+
+# /.../ in ifs or case switches
+addhl -group /puppet/code regex /.*?/(?=\h*(?::\s*{|\h*=>))|[=!]~\h*?\K/.*?/(?=.*?{) 0:pkeyword
 
 # Variables, short and qualified
 addhl -group /puppet/code regex \$[a-z0-9_][a-zA-Z0-9_]* 0:identifier
