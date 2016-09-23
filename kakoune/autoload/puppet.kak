@@ -37,6 +37,7 @@ addhl -group /puppet/comment fill comment
 # class/define
 addhl -group /puppet/code regex [a-z][a-z0-9_]*(?=\s*(?:{|$)) 0:pkeyword
 addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*(?:{|$)) 0:pkeyword
+
 addhl -group /puppet/code regex (?:class|define)\s+\K[a-z][a-z0-9_]* 0:cname
 addhl -group /puppet/code regex (?:class|define)\s+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
 
@@ -101,8 +102,8 @@ addhl -group /puppet/code regex [A-Z][_a-z]+ 0:resource
 # Digits
 addhl -group /puppet/code regex \d+ 0:constant
 
-# Parens
-addhl -group /puppet/code regex (?<!=)[[\]()<>{}] 0:parens
+# Parens + <<|...|>>
+addhl -group /puppet/code regex [[\](){}]|<?<\||\|>>? 0:parens
 
 # node regex
 addhl -group /puppet/code regex ^\h*node\h+\K/.*?/ 0:noderegex
