@@ -16,13 +16,13 @@ face cname     'rgb:ffa54f'
 face constant  'rgb:5f5faf'
 
 addhl -group / regions -default code puppet \
-    cls_qstring "class\s*{\s*\K'" "'" '' \
+    cls_qstring  "class\s*{\s*\K'" "'" '' \
     cls_qqstring 'class\s*{\s*\K"' '"' '' \
     double_string %{(?<!\\)(\\\\)*\K"} %{(?<!\\)(\\\\)*"} '' \
-    single_string %{(?<!\\)(\\\\)*\K'} %{'} '' \
+    single_string %{(?<!\\)(\\\\)*\K'} %{'}               '' \
     comment '#' '$' ''
 
-addhl -group /puppet/cls_qstring fill pkeyword
+addhl -group /puppet/cls_qstring  fill pkeyword
 addhl -group /puppet/cls_qqstring fill pkeyword
 
 addhl -group /puppet/double_string fill string
@@ -37,7 +37,6 @@ addhl -group /puppet/comment fill comment
 # class/define
 addhl -group /puppet/code regex [a-z][a-z0-9_]*(?=\s*(?:{|$)) 0:pkeyword
 addhl -group /puppet/code regex ([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*(?=\s*(?:{|$)) 0:pkeyword
-
 addhl -group /puppet/code regex (?:class|define)\s+\K[a-z][a-z0-9_]* 0:cname
 addhl -group /puppet/code regex (?:class|define)\s+\K([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)* 0:cname
 
@@ -78,19 +77,23 @@ reserved='attr|private|type|application|consumes|produces|environment|undef'
 
 # Add the language's grammar to the static completion list
 printf '%s\n' "hook global WinSetOption filetype=puppet %{
-    set window static_words '${keywords}'
+    set window static_words '$functions|$booleans|$attributes|$keywords'
 }" | tr '|' ':'
 
-# Highlight keywords
-echo "addhl -group /puppet/code regex \b($types)\b 0:constant"
-echo "addhl -group /puppet/code regex (?:^|\s+)\K($resources)(?=\s*\{) 0:resource"
-echo "addhl -group /puppet/code regex \b($functions)(?!\s*\{) 0:function"
-echo "addhl -group /puppet/code regex \b($booleans)\b 0:constant"
-echo "addhl -group /puppet/code regex \b($operators)\b 0:constant"
-echo "addhl -group /puppet/code regex =>\s*\K($attributes)\b 0:constant"
-echo "addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword"
-echo "addhl -group /puppet/code regex \b($reserved)\b 0:constant"
+cat << ADDHL
+addhl -group /puppet/code regex \b($types)\b 0:constant
+addhl -group /puppet/code regex (?:^|\s+)\K($resources)(?=\s*\{) 0:resource
+addhl -group /puppet/code regex \b($functions)(?!\s*\{) 0:function
+addhl -group /puppet/code regex \b($booleans)\b 0:constant
+addhl -group /puppet/code regex \b($operators)\b 0:constant
+addhl -group /puppet/code regex =>\s*\K($attributes)\b 0:constant
+addhl -group /puppet/code regex \b($keywords)\b 0:pkeyword
+addhl -group /puppet/code regex \b($reserved)\b 0:constant
+ADDHL
 ]
+
+# TODO: highlight as a function
+# addhl -group /puppet/code regex class(?=\h*{\h*['"]) 0:function
 
 # Resources in dependencies (ex: File[...] ~>)
 addhl -group /puppet/code regex [A-Z][_a-z]+ 0:resource
