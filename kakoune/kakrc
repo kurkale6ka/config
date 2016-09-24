@@ -9,11 +9,16 @@ set global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column}
 
 map global normal <ret> jgh
 map global user s ':edit -scratch *scratch*<ret>'
+map global normal '#' :comment-line<ret>
 
 # Copy/paste interactions with the system clipboard
 map global user y '<a-|>xclip -f | xclip -selection clipboard<ret>'
 map global user P '!xclip -o<ret>'
 map global user p '<a-!>xclip -o<ret>'
+map global user R '|xclip -o<ret>'
+
+hook global BufOpenFifo '\*grep\*' %{ map -- global normal - ':grep-next<ret>' }
+hook global BufOpenFifo '\*make\*' %{ map -- global normal - ':make-next<ret>' }
 
 hook global WinCreate .* %{
 
