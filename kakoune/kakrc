@@ -7,8 +7,6 @@ set global scrolloff 2,0
 set global grepcmd 'ag -S --hidden --ignore=.git --ignore=.hg --ignore=.svn'
 set global modelinefmt '%val{bufname} %val{cursor_line}:%val{cursor_char_column} [%opt{filetype}]'
 
-map global normal <ret> jgh
-map global user s ':edit -scratch *scratch*<ret>'
 map global normal '#' :comment-line<ret>
 
 # Copy/paste interactions with the system clipboard
@@ -17,13 +15,22 @@ map global user P '!xclip -o<ret>'
 map global user p '<a-!>xclip -o<ret>'
 map global user R '|xclip -o<ret>'
 
+# Buffer/file shortcuts
+map global user k ':e ~/.config/kak/kakrc<ret>'
+map global user d ':b *debug*<ret>'
+map global user s ':edit -scratch *scratch*<ret>'
+
+# cd to current file's working directory
+def c %{%sh{ bash -c 'echo cd "\"${kak_buffile%/*}\""' }}
+
+# Goto next grep/make
 hook global BufOpenFifo '\*grep\*' %{ map -- global normal - ':grep-next<ret>' }
 hook global BufOpenFifo '\*make\*' %{ map -- global normal - ':make-next<ret>' }
 
 hook global WinCreate .* %{
 
-    # auto cd to current file's working directory
-    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""' }
+    # <ret>: move downwards, on the first non-blank character
+    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo "map buffer normal <ret> jI<esc>"' }
 
     # {}, <>, ...
     addhl show_matching
@@ -34,12 +41,6 @@ hook global WinCreate .* %{
     map global normal <c-g> ':echo %val{buffile}<ret>'
 
     addhl dynregex '%reg{/}' 0:default,rgb:373b41
-}
-
-# auto cd to current file's working directory
-hook global WinDisplay .* %{
-
-    %sh{ bash -c '[[ $kak_buffile == */* ]] && echo cd "\"${kak_buffile%/*}\""' }
 }
 
 # Local settings
