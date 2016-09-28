@@ -44,6 +44,9 @@ hook global WinCreate .* %{
     map global normal <c-g> ':echo %val{buffile}<ret>'
 
     addhl dynregex '%reg{/}' 0:default,rgb:373b41
+
+    # auto indent
+    hook window InsertChar \n %{ exec -draft -itersel K1<a-&> }
 }
 
 # Local settings
