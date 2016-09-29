@@ -3,6 +3,7 @@ colorscheme desertex
 # Help on everything
 set global autoinfo command|onkey|normal
 
+set global tabstop 4
 set global scrolloff 2,0
 set global grepcmd 'ag -S --hidden --ignore=.git --ignore=.hg --ignore=.svn'
 set global modelinefmt '{type}%val{bufname}{StatusLine} %val{cursor_line}:%val{cursor_char_column} [{StatusLineValue}%opt{filetype}{StatusLine}]'
@@ -10,7 +11,7 @@ set global modelinefmt '{type}%val{bufname}{StatusLine} %val{cursor_line}:%val{c
 map global normal '#' :comment-line<ret>
 
 map global user f ':set buffer filetype '
-map global user o ':echo %opt{ '
+map global user o ':echo %opt{'
 
 # Copy/paste interactions with the system clipboard
 map global user y '<a-|>xclip -f | xclip -selection clipboard<ret>'
