@@ -39,8 +39,12 @@ addhl -group /sh/comment fill comment
 
 # Digits
 addhl -group /sh/code regex (?<![\$&=])\d+(?!>) 0:constant
-
 addhl -group /sh/code regex [\[\]\(\)&|]{1,2} 0:operator
+
+# digit if inside (( ))
+addhl -group /sh/code regex ==?\s*\K\S+ 0:string
+# addhl -group /sh/code regex <<-?\s*\K[\\']?\w+'?$ 0:blue+b
+
 addhl -group /sh/code regex (\w+)= 1:identifier
 addhl -group /sh/code regex ^\h*(\w+)\h*\(\) 1:identifier
 
