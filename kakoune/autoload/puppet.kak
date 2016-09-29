@@ -19,8 +19,8 @@ addhl -group / regions -default code puppet \
     cls_qstring  "class\h*{\h*\K'" "'" '' \
     cls_qqstring 'class\h*{\h*\K"' '"' '' \
     # must not be preceded by an odd number of backslashes
-    double_string %{(?<!\\)(\\\\)*\K"} %{(?<!\\)(\\\\)*"} '' \
-    single_string %{(?<!\\)(\\\\)*\K'} %{(?<!\\)(\\\\)*'} '' \
+    double_string %{(?<!\\)(?:\\\\)*\K"} %{(?<!\\)(?:\\\\)*"} '' \
+    single_string %{(?<!\\)(?:\\\\)*\K'} %{(?<!\\)(?:\\\\)*'} '' \
     comment '#' '$' ''
 
 addhl -group /puppet/cls_qstring  fill pkeyword
