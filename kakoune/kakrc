@@ -48,6 +48,14 @@ hook global WinCreate .* %{
 
     # auto indent
     hook window InsertChar \n %{ exec -draft -itersel K1<a-&> }
+    hook window InsertChar \t %{ exec -draft -itersel h@ }
+}
+
+def remove_spaces %{ exec -draft '%s\h+$<ret>d' }
+
+hook global BufWritePre .* %{
+
+    remove_spaces
 }
 
 # Local settings
