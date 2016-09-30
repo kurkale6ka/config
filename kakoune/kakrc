@@ -47,7 +47,9 @@ hook global WinCreate .* %{
     addhl dynregex '%reg{/}' 0:default,rgb:373b41
 
     # auto indent
-    hook window InsertChar \n %{ exec -draft -itersel K1<a-&> }
+    hook window InsertChar \n %{ exec -draft -itersel K<a-&> }
+
+    # Auto expand tabs into spaces
     hook window InsertChar \t %{ exec -draft -itersel h@ }
 }
 
