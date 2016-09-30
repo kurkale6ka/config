@@ -121,5 +121,19 @@ addhl -group /puppet/code regex /.*?/(?=\h*(?::\s*{|\h*=>))|[=!]~\h*?\K/.*?/(?=.
 addhl -group /puppet/code regex \$[a-z0-9_][a-zA-Z0-9_]* 0:identifier
 addhl -group /puppet/code regex \$([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*::[a-z0-9_][a-zA-Z0-9_]* 0:identifier
 
-hook global WinSetOption filetype=puppet %{ addhl ref puppet }
-hook global WinSetOption filetype=(?!puppet).* %{ rmhl puppet }
+hook global WinSetOption filetype=puppet %{
+    addhl ref puppet
+    set global tabstop 2
+    set global indentwidth 2
+    hook window -group puppet-indent InsertChar \n _puppet-indent-on-newline
+}
+
+hook global WinSetOption filetype=(?!puppet).* %{
+    rmhl puppet
+    rmhooks window puppet-family-indent
+}
+
+def -hidden _puppet-indent-on-newline %[
+    # indent after an opening brace
+    try %[ exec -draft K <a-&> s\{\h*$<ret> j <a-gt> ]
+]
