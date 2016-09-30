@@ -123,8 +123,8 @@ addhl -group /puppet/code regex \$([a-z][a-z0-9_]*)?(::[a-z][a-z0-9_]*)*::[a-z0-
 
 hook global WinSetOption filetype=puppet %{
     addhl ref puppet
-    set global tabstop 2
-    set global indentwidth 2
+    set buffer tabstop 2
+    set buffer indentwidth 2
     hook window -group puppet-indent InsertChar \n _puppet-indent-on-newline
 }
 
