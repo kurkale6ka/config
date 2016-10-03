@@ -24,6 +24,13 @@ map global user k ':e ~/.config/kak/kakrc<ret>'
 map global user d ':b *debug*<ret>'
 map global user s ':edit -scratch *scratch*<ret>'
 
+# Increment/decrement numbers
+map global normal <c-a> '"_/-?\d+<ret>|read; echo "$((++REPLY))"<ret>'
+map global normal <c-x> '"_/-?\d+<ret>|read; echo "$((--REPLY))"<ret>'
+
+map global user a "|gawk 'match($0, /(.*)(-?[0-9]+)(.*)/, a) {i+=1; print a[1] a[2]+i a[3]}'<ret>"
+map global user x "|gawk 'match($0, /(.*)(-?[0-9]+)(.*)/, a) {i-=1; print a[1] a[2]+i a[3]}'<ret>"
+
 # cd to current file's working directory
 def c %{%sh{ bash -c 'echo cd "\"${kak_buffile%/*}\""' }}
 
