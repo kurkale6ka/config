@@ -60,7 +60,7 @@ hook global WinCreate .* %{
     hook window InsertChar \t %{ exec -draft -itersel h@ }
 }
 
-def remove_spaces %{ exec -draft '%s\h+$<ret>d' }
+def remove_spaces %{ try %{ exec -draft '%s\h+$<ret>d' } }
 
 hook global BufWritePre .* %{
 
