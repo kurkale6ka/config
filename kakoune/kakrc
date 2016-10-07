@@ -64,6 +64,14 @@ hook global WinCreate .* %{
     hook window InsertChar \t %{ exec -draft -itersel h@ }
 }
 
+hook global WinSetOption filetype=sh %{
+    sh-enable-diagnostics
+    alias window lint sh-parse
+    alias window lint-next sh-diagnostics-next
+}
+
+map global user n ':lint-next<ret>'
+
 def remove_spaces %{ try %{ exec -draft '%s\h+$<ret>d' } }
 
 hook global BufWritePre .* %{
