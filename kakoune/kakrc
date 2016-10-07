@@ -21,6 +21,7 @@ map global user R '|xclip -o<ret>'
 
 # Buffer/file shortcuts
 map global user k ':e ~/.config/kak/kakrc<ret>'
+map global user <space> ':b *'
 map global user d ':b *debug*<ret>'
 map global user s ':edit -scratch *scratch*<ret>'
 
@@ -48,6 +49,9 @@ hook global WinCreate .* %{
 
     # 1 lorem ipsum
     addhl number_lines -hlcursor -separator ' '
+
+    # Highlight column 81 in red
+    addhl regex [^\n]{80}\K. 0:default,red
 
     map global normal <c-g> ':echo %val{buffile}<ret>'
 
