@@ -51,7 +51,7 @@ hook global WinCreate .* %{
     addhl number_lines -hlcursor -separator ' '
 
     # Highlight column 81 in red
-    addhl regex [^\n]{80}\K. 0:default,red
+    addhl regex ^[^\n]{80}\K. 0:default,red
 
     map global normal <c-g> ':echo %val{buffile}<ret>'
 
