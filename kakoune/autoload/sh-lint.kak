@@ -62,7 +62,7 @@ def sh-disable-diagnostics -docstring "Disable automatic diagnostics of the code
 }
 
 def sh-diagnostics-next -docstring "Jump to the next line that contains an error" %{ %sh{
-    printf "%s\n" "${kak_opt_sh_errors}" | (
+    printf "%s\n" "${kak_opt_sh_errors}" | {
         line=-1
         first_line=-1
         while read line_content; do
@@ -78,5 +78,5 @@ def sh-diagnostics-next -docstring "Jump to the next line that contains an error
         else
             echo 'echo -color Error no next sh diagnostic'
         fi
-    )
+    }
 } }
