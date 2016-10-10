@@ -1,3 +1,4 @@
+# ex: '-e SC2087'
 decl str sh_options
 
 decl -hidden line-flags sh_flags

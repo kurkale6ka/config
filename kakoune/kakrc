@@ -65,6 +65,7 @@ hook global WinCreate .* %{
 }
 
 hook global WinSetOption filetype=sh %{
+    set buffer sh_options '-e SC2087'
     sh-enable-diagnostics
     alias window lint sh-parse
     alias window lint-next sh-diagnostics-next
