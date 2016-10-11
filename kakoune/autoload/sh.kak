@@ -53,5 +53,8 @@ addhl -group /sh/code regex ^\h*(\w+)\h*\(\) 1:identifier
 
 addhl -group /sh/code regex \$(\w+|\{.+?\}|#|@|\?|\$|!|-|\*) 0:identifier
 
-hook global WinSetOption filetype=sh %{ addhl ref sh }
+hook global WinSetOption filetype=sh %{
+    addhl ref sh
+    set buffer comment_line_chars '#'
+}
 hook global WinSetOption filetype=(?!sh).* %{ rmhl sh }
