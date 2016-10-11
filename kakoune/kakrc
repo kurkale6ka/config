@@ -33,7 +33,7 @@ map global user a "|gawk 'match($0, /(.*)([0-9]+)(.*)/, a) {i+=1; print a[1] a[2
 map global user x "|gawk 'match($0, /(.*)([0-9]+)(.*)/, a) {i-=1; print a[1] a[2]+i a[3]}'<ret>"
 
 # cd to current file's working directory
-def c %{%sh{ bash -c 'echo cd "\"${kak_buffile%/*}\""' }}
+def c %{%sh{ echo "cd '${kak_buffile%/*}'" }}
 
 # Goto next grep/make
 hook global BufOpenFifo '\*grep\*' %{ map -- global normal - ':grep-next<ret>' }
@@ -65,7 +65,6 @@ hook global WinCreate .* %{
 }
 
 hook global WinSetOption filetype=sh %{
-    set buffer sh_options '-e SC2087'
     sh-enable-diagnostics
     alias window lint sh-parse
     alias window lint-next sh-diagnostics-next
@@ -78,6 +77,11 @@ def remove_spaces %{ try %{ exec -draft '%s\h+$<ret>d' } }
 hook global BufWritePre .* %{
 
     remove_spaces
+}
+
+hook global BufWritePre .*\.(?:z|ba|c|k)?sh(?:rc|_profile)? %{
+
+    lint
 }
 
 # Local settings
