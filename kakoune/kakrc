@@ -65,9 +65,13 @@ hook global WinCreate .* %{
 }
 
 hook global WinSetOption filetype=sh %{
-    sh-enable-diagnostics
-    alias window lint sh-parse
-    alias window lint-next sh-diagnostics-next
+    set buffer linter 'shellcheck -fgcc'
+    lint-enable
+}
+
+hook global WinSetOption filetype=puppet %{
+    set buffer linter 'puppet-lint --log-format "%{filename}:%{line}:%{column}: %{kind}: %{message} [%{check}]"'
+    lint-enable
 }
 
 map global user n ':lint-next<ret>'
@@ -79,7 +83,7 @@ hook global BufWritePre .* %{
     remove_spaces
 }
 
-hook global BufWritePre .*\.(?:z|ba|c|k)?sh(?:rc|_profile)? %{
+hook global BufWritePre .*\.(?:z|ba|c|k)?sh(?:rc|_profile)?|.*\.pp %{
 
     lint
 }
