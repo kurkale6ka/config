@@ -65,12 +65,12 @@ hook global WinCreate .* %{
 }
 
 hook global WinSetOption filetype=sh %{
-    set buffer linter 'shellcheck -fgcc'
+    set buffer lintercmd 'shellcheck -fgcc'
     lint-enable
 }
 
 hook global WinSetOption filetype=puppet %{
-    set buffer linter 'puppet-lint --log-format "%{filename}:%{line}:%{column}: %{kind}: %{message} [%{check}]"'
+    set buffer lintercmd 'puppet-lint --log-format "%{filename}:%{line}:%{column}: %{kind}: %{message} [%{check}]"'
     lint-enable
 }
 

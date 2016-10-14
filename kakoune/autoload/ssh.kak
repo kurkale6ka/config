@@ -67,12 +67,8 @@ addhl -group /ssh/code regex '[Hh]ost[Nn]ame\h+\K[^\n]+' 0:string
 
 hook global WinSetOption filetype=ssh %{
     addhl ref ssh
-    set buffer tabstop 2
-    set buffer indentwidth 2
-    hook window -group ssh-indent InsertChar \n _ssh-indent-on-newline
 }
 
 hook global WinSetOption filetype=(?!ssh).* %{
     rmhl ssh
-    rmhooks window ssh-family-indent
 }

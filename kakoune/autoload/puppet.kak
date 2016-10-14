@@ -130,7 +130,7 @@ hook global WinSetOption filetype=puppet %{
 
 hook global WinSetOption filetype=(?!puppet).* %{
     rmhl puppet
-    rmhooks window puppet-family-indent
+    rmhooks window puppet-indent
 }
 
 def -hidden _puppet-indent-on-newline %[
