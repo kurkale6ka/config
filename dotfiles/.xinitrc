@@ -26,4 +26,5 @@ then
    done
 fi
 
-exec startxfce4
+#exec startxfce4
+exec i3
