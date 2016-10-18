@@ -27,4 +27,5 @@ then
 fi
 
 #exec startxfce4
+compton -b
 exec i3
