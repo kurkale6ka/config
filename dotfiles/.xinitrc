@@ -26,6 +26,6 @@ then
    done
 fi
 
-#exec startxfce4
-compton -b
-exec i3
+exec startxfce4
+# compton -b
+# exec i3
