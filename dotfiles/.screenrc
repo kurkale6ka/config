@@ -30,7 +30,7 @@ termcapinfo xterm* ti@:te@
 altscreen on
 
 hardstatus on
-hardstatus alwayslastline
+hardstatus ignore
 # Color: %{ color modifier (+-!=) bg color modifier fg} => %{+b
 hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y}| %D %d %M, %C%a "
 # hardstatus string "%{.bW} %{.bG} %H | %-w%{.rW}%n %t%{-}%+w %=%{..G} Load: %l | %D %d %M, %c%a "
