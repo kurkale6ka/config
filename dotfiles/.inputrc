@@ -24,14 +24,8 @@
 ## Macros
 $if Bash
 
-# Array                                :: [ {{{1
-"\C-x[": "\"${[@]}\"\e5\C-b"
-
 # bc                                   :: = {{{1
-"\C-x=": "command bc <<< 'scale=20; '\C-b"
-
-# Extended globs: @?*+!(item1|item2)   :: @ {{{1
-"\C-x@": "\e @(|)\C-b\C-b"
+"\C-x=": "bc <<< 'scale=20; '\C-b"
 
 # find                                 :: / {{{1
 "\C-x/": "find . -iname '*\e ' -printf '%M %u %g %P\\n'\C-x\C-x"
@@ -67,8 +61,9 @@ $if Bash
 # Counting row occurrences in a stream :: c {{{1
 "\C-xc": " | sort | uniq -c | sort -rn"
 
-# Diff                                 :: d {{{1
-"\C-xd": "diff -uq\e  --from-file "
+# Diff                                 :: d, D {{{1
+# "\C-xd": "diff -u <() <(\e )\eb\e2\C-b"
+"\C-xD": "diff -uq\e  --from-file "
 
 # ed                                   :: e, E {{{1
 "\C-xe": "printf '%s\\n' H \e  wq | 'ed' -s "
@@ -80,24 +75,26 @@ $if Bash
 "\C-xu": "until \e ; do ; done\eb\e2\C-b"
 "\C-xw": "while \e ; do ; done\eb\e2\C-b"
 
-# groff                                :: g {{{1
-"\C-xg": " | groff -man -Tascii | less\C-M"
-
 # File renaming (mv)                   :: m, M {{{1
 "\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Tabularize/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
 
 # Directory statistics                 :: n, o, * {{{1
 "\C-xn": "(shopt -s nullglob; unset latest; for file in *; do [[ $file -nt $latest ]] && latest=\"$file\"; done; echo \"$latest\")\e9\eb\e2\C-b"
+
 "\C-xo": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
+
 "\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
 
 # printf                               :: p {{{1
 "\C-xp": "printf '%s\\n' "
 
-# Quotes                               :: q, ` {{{1
-"\C-xq": "\eb\"\ef\""
-"\C-x`": "\"$()\"\e2\C-b"
+# rsync                                :: r, R {{{1
+"\C-xr": "rsync -ai\e  -e'ssh -q' "
+"\C-xR": "-f'- '\C-b"
+
+# Backticks                            :: ` {{{1
+"\C-x`": "$()^b"
 
 # systemd                              :: s, S {{{1
 "\C-xs": "systemctl status"
@@ -107,7 +104,13 @@ $if Bash
 "\C-xt": "tcpdump -iany -s0 -nnq "
 
 # Test                                 :: T {{{1
-"\C-xT": " && echo 'This is a test'\C-x\C-x"
+"\C-xT": " && echo ok"
+
+# Array                                :: [ {{{1
+"\C-x[": "\"${[@]}\"\e5\C-b"
+
+# Extended globs: @?*+!(item1|item2)   :: @ {{{1
+"\C-x@": "\e @(|)\C-b\C-b"
 # }}}1
 
 $endif
