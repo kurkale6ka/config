@@ -62,7 +62,7 @@ $if Bash
 "\C-xc": " | sort | uniq -c | sort -rn"
 
 # Diff                                 :: d, D {{{1
-# "\C-xd": "diff -u <() <(\e )\eb\e2\C-b"
+"\C-xd": "diff -u <() <(\e )\e5\C-b"
 "\C-xD": "diff -uq\e  --from-file "
 
 # ed                                   :: e, E {{{1
@@ -79,12 +79,12 @@ $if Bash
 "\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Tabularize/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
 
-# Directory statistics                 :: n, o, * {{{1
-"\C-xn": "(shopt -s nullglob; unset latest; for file in *; do [[ $file -nt $latest ]] && latest=\"$file\"; done; echo \"$latest\")\e9\eb\e2\C-b"
+# Directory statistics                 :: n, o, @ {{{1
+"\C-xn": "echo 'Newest: '; (shopt -s nullglob; unset newest; for file in *\e ; do [[ $file -nt $newest ]] && newest=\"$file\"; done; echo \"$newest\")"
 
-"\C-xo": "(shopt -s nullglob; unset oldest; for file in *; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")\e10\eb\e2\C-b"
+"\C-xo": "echo 'Oldest: '; (shopt -s nullglob; unset oldest; for file in *\e ; do [[ $file -ot $oldest || ! $oldest ]] && oldest=\"$file\"; done; echo \"$oldest\")"
 
-"\C-x*": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*[^~]); echo There are \"${#inodes[@]}\" inodes)"
+"\C-x@": "(shopt -s nullglob dotglob; shopt -u failglob; inodes=(*\e ); echo There are \"${#inodes[@]}\" items)"
 
 # printf                               :: p {{{1
 "\C-xp": "printf '%s\\n' "
@@ -109,8 +109,8 @@ $if Bash
 # Array                                :: [ {{{1
 "\C-x[": "\"${[@]}\"\e5\C-b"
 
-# Extended globs: @?*+!(item1|item2)   :: @ {{{1
-"\C-x@": "\e @(|)\C-b\C-b"
+# Extended globs: @?*+!(item1|item2)   :: * {{{1
+"\C-x*": "\e @(|)\C-b\C-b"
 # }}}1
 
 $endif
