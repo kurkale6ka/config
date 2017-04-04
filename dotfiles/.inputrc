@@ -56,7 +56,7 @@ $if Bash
 # Braces                               :: b, B, ] {{{1
 "\C-xb": "(())\e2\C-b"
 "\C-xB": "{}\C-b"
-"\C-x]": "[[]]\e2\C-b"
+"\C-x]": "[[  ]]\e3\C-b"
 
 # Counting row occurrences in a stream :: c {{{1
 "\C-xc": " | sort | uniq -c | sort -rn"
@@ -100,11 +100,11 @@ $if Bash
 "\C-xs": "systemctl status"
 "\C-xS": "systemctl \e start\C-x\C-x"
 
-# tcpdump                              :: t {{{1
-"\C-xt": "tcpdump -iany -s0 -nnq "
+# Test                                 :: t {{{1
+"\C-xt": " && echo ok"
 
-# Test                                 :: T {{{1
-"\C-xT": " && echo ok"
+# tcpdump                              :: T {{{1
+"\C-xT": "tcpdump -iany -s0 -nnq "
 
 # Array                                :: [ {{{1
 "\C-x[": "\"${[@]}\"\e5\C-b"
