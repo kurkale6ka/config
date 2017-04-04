@@ -9,6 +9,7 @@
 --exclude=fla
 --exclude=.git
 --exclude=.svn
+--exclude=.hg
 
 --langdef=puppet
 --langmap=puppet:.pp
