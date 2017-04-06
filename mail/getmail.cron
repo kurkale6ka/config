@@ -2,4 +2,4 @@
 
 MAILTO=''
 SHELL=/bin/bash
-*/2 * * * 1-5 ~/github/config/mail/getm
+*/2 * * * 1-5 "$REPOS_BASE"/config/mail/getm
