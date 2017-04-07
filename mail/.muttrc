@@ -91,4 +91,4 @@ macro attach s "<save-entry><bol>/tmp/<eol>"
 # Lists and aliases
 subscribe vim[-_](dev|use)
 
-source ~/config/mail/aliases
+source $REPOS_BASE/config/mail/aliases
