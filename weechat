@@ -1,45 +1,65 @@
-Note: reset by removing ~/.weechat/
-      then rerun the following commands
+Note: remove ~/.weechat/ to reset
 
-1. Run this first block first and wait for the plugins to install
+/server add freenode chat.freenode.net
 
+# ssl
+/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"
+/set irc.server.freenode.addresses "chat.freenode.net/7000"
+/set irc.server.freenode.ssl on
+/connect freenode
 /set irc.server.freenode.autoconnect on
+
+# me
 /set irc.server.freenode.username kurkale6ka
 /set irc.server.freenode.nicks kurkale6ka
 /set irc.server.freenode.realname 'Dimitar Dimitrov'
+
+# channels
 /set irc.server.freenode.autojoin #archlinux,#git,##linux,#neovim,#vim,#zsh,#python
 
-/set irc.look.part_closes_buffer on
-/set irc.look.smart_filter on
-
+# Filters
 /filter add irc_smart * irc_smart_filter *
 /filter add irc_join_names * irc_366 *
 /filter add irc_join_topic_date * irc_332,irc_333 *
 
-/key missing
-/mouse enable
+# irc
+/set irc.look.part_closes_buffer on
+/set irc.look.smart_filter on
 
-/bar hide nicklist
-/alias nn /bar toggle nicklist
-
+# look
 /set weechat.look.mouse on
 /set weechat.look.buffer_time_format "%H:%M"
 /set weechat.look.prefix_align_max 11
 /set weechat.look.save_config_on_exit off
+/set weechat.look.prefix_suffix "│"
+/set weechat.look.read_marker_string "─"
+/set weechat.look.item_buffer_filter "•"
+/set weechat.look.bar_more_down "▼"
+/set weechat.look.bar_more_left "◀"
+/set weechat.look.bar_more_right "▶"
+/set weechat.look.bar_more_up "▲"
 
-/script install iset.pl buffers.pl lnotify.py urlserver.py
+# Plugins...
+/script install iset.pl buffers.pl urlserver.py histman.py lnotify.py
 
-2. Now we can configure buffer options
-
+# bars (...wait for plugins to finish installing)
 /set weechat.bar.buffers.size_max 11
 /set weechat.bar.input.size 0
+/set weechat.bar.status.color_bg 60
 /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
 /unset weechat.bar.input.items
 
+# nicks
+/notify add chichou
+/bar hide nicklist
+/alias nn /bar toggle nicklist
+/set weechat.color.chat_nick_colors "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue,31,35,38,40,49,63,70,80,92,99,112,126,130,138,142,148,160,162,167,169,174,176,178,184,186,210,212,215,247"
+
+/key missing
+/mouse enable
+
 /save
 
+# sasl
 /set irc.server.freenode.sasl_username kurkale6ka
-
-3. Password to be entered manually
-
-/set irc.server.freenode.sasl_password
+/set irc.server.freenode.sasl_password **********
