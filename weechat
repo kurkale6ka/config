@@ -45,7 +45,7 @@ Note: remove ~/.weechat/ to reset
 # bars (...wait for plugins to finish installing)
 /set weechat.bar.buffers.size_max 11
 /set weechat.bar.input.size 0
-/set weechat.bar.status.color_bg 60
+/set weechat.bar.title.color_bg 60
 /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
 /unset weechat.bar.input.items
 
