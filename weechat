@@ -42,8 +42,8 @@ Note: remove ~/.weechat/ to reset
 
 # Plugins...
 # TODO: replace buffers.pl with the buflist plugin when it lands in stable
-/script install iset.pl buffers.pl
-# /script install urlserver.py lnotify.py
+/script install iset.pl buffers.pl lnotify.py
+# /script install urlserver.py
 # /script install buffer_autoset.py histman.py
 
 # bars (...wait for plugins to finish installing)
