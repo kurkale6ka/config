@@ -28,9 +28,10 @@ Note: remove ~/.weechat/ to reset
 
 # look
 /set weechat.look.mouse on
-/set weechat.look.buffer_time_format "%H:%M"
+/set weechat.look.buffer_time_format "%H${color:3}:${color:245}%M"
 /set weechat.look.prefix_align_max 11
 /set weechat.look.save_config_on_exit off
+/set weechat.look.align_multiline_words on
 /set weechat.look.prefix_suffix "│"
 /set weechat.look.read_marker_string "─"
 /set weechat.look.item_buffer_filter "•"
@@ -40,7 +41,10 @@ Note: remove ~/.weechat/ to reset
 /set weechat.look.bar_more_up "▲"
 
 # Plugins...
-/script install iset.pl buffers.pl urlserver.py histman.py lnotify.py
+# TODO: replace buffers.pl with the buflist plugin when it lands in stable
+/script install iset.pl buffers.pl
+# /script install urlserver.py lnotify.py
+# /script install buffer_autoset.py histman.py
 
 # bars (...wait for plugins to finish installing)
 /set weechat.bar.buffers.size_max 11
@@ -52,7 +56,7 @@ Note: remove ~/.weechat/ to reset
 # nicks
 /notify add chichou
 /bar hide nicklist
-/alias nn /bar toggle nicklist
+/alias add nicks /bar toggle nicklist
 /set weechat.color.chat_nick_colors "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue,31,35,38,40,49,63,70,80,92,99,112,126,130,138,142,148,160,162,167,169,174,176,178,184,186,210,212,215,247"
 
 /key missing
