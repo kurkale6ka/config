@@ -54,7 +54,7 @@ Note: remove ~/.weechat/ to reset
 /unset weechat.bar.input.items
 
 # nicks
-/notify add chichou
+/notify add chichou starmix
 /bar hide nicklist
 /alias add nicks /bar toggle nicklist
 /set weechat.color.chat_nick_colors "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue,31,35,38,40,49,63,70,80,92,99,112,126,130,138,142,148,160,162,167,169,174,176,178,184,186,210,212,215,247"
