@@ -2,8 +2,9 @@ Note: remove ~/.weechat/ to reset
 
 /server add freenode chat.freenode.net
 
-# ssl
-/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"
+# ssl (Mac OS or Linux)
+/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
+# /set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"
 /set irc.server.freenode.addresses "chat.freenode.net/7000"
 /set irc.server.freenode.ssl on
 /connect freenode
