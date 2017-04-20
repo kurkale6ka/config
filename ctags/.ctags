@@ -1,7 +1,5 @@
 -R
 
---totals=yes
-
 --exclude=*~
 --exclude=*.html
 --exclude=img
