@@ -54,8 +54,14 @@ Note: remove ~/.weechat/ to reset
 /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
 /unset weechat.bar.input.items
 
+# Spelling
+/set aspell.check.enabled on
+/set aspell.check.real_time on
+/set aspell.check.default_dict en
+
 # nicks
-/notify add chichou starmix
+/notify add chichou
+/notify add starmix
 /bar hide nicklist
 /alias add nicks /bar toggle nicklist
 /set weechat.color.chat_nick_colors "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue,31,35,38,40,49,63,70,80,92,99,112,126,130,138,142,148,160,162,167,169,174,176,178,184,186,210,212,215,247"
