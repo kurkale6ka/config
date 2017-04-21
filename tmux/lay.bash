@@ -15,9 +15,9 @@ HELP
 exit 0
 fi
 
-_bld="$(tput bold)"
-_ylw="${_bld}$(tput setaf 3)"
-_res="$(tput sgr0)"
+_bld="$(tput bold || tput md)"
+_ylw="$_bld$(tput setaf 3 || tput AF 3)"
+_res="$(tput sgr0 || tput me)"
 
 nb_sessions="$(tmux ls -F#S 2>/dev/null | wc -l)"
 
