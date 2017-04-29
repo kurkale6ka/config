@@ -3,7 +3,7 @@
 git config --global user.name 'Dimitar Dimitrov'
 git config --global user.email mitkofr@yahoo.fr
 
-git config --global core.excludesfile "$REPOS_BASE"/config/dotfile/.gitignore
+git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
 git config --global core.editor "vim -u $REPOS_BASE/vim/.vimrc"
 git config --global color.ui true
 
