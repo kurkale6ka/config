@@ -3,7 +3,7 @@
 session=work
 
 tmux new-session -d -s${session} -nIRC
-tmux set-option -t${session} -g automatic-rename off
+tmux set-window-option -t${session}:IRC allow-rename off
 tmux send-keys -t${session}:IRC 'weechat' C-m
 
 # local
