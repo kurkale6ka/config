@@ -1,0 +1,32 @@
+#! /usr/bin/env bash
+
+## Local
+tmux new -d -s 'work' -n 'local'
+tmux split-window -h 'ssh x'
+tmux select-pane -t1
+
+tmux send-keys -t1 'clear' C-m
+tmux send-keys -t2 'clear' C-m
+
+## qa
+tmux new-window -n 'qa' 'ssh qa1'
+tmux split-window -v      'ssh qa3'
+tmux split-window -h -p33 'ssh qa5' \; select-pane -L
+tmux split-window -h -p50 'ssh qa4' \; select-pane -U
+tmux split-window -h      'ssh qa2'
+tmux select-pane -t1
+
+# Start/attach tmux
+tmux send-keys -t1 'clear; tmux attach -t int || tmux new -s int' C-m
+tmux send-keys -t2 'clear; tmux attach -t int || tmux new -s int' C-m
+tmux send-keys -t3 'clear; tmux attach -t int || tmux new -s int' C-m
+tmux send-keys -t4 'clear; tmux attach -t int || tmux new -s int' C-m
+tmux send-keys -t5 'clear; tmux attach -t int || tmux new -s int' C-m
+
+## Complete...
+tmux select-window -t1
+tmux set -g automatic-rename off
+
+tmux attach-session
+
+# vim: fdm=expr fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##\\+')-1)\:'='
