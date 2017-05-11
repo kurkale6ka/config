@@ -29,4 +29,26 @@ tmux set -g automatic-rename off
 
 tmux attach-session
 
+# #! /usr/bin/env zsh
+
+# session=work
+
+# tmux new -d -s${session} -nIRC
+# tmux send-keys -t${session}:IRC 'weechat' C-m
+
+# # local
+# tmux new-window -t${session} -nlocal
+# tmux split-window -t${session}:local -h
+# tmux select-pane -t${session}:local -L
+
+# # remote
+# tmux new-window -t${session} -nremote
+# tmux split-window -t${session}:remote -h
+# tmux select-pane -t${session}:remote -L
+# # lay host1 host2 ...
+# # tmux set-window-option -t${session}:multi synchronize-panes off
+# # tmux rename-window -t${session}:multi remote
+
+# tmux attach-session -t${session}
+
 # vim: fdm=expr fde=getline(v\:lnum)=~'^##'?'>'.(matchend(getline(v\:lnum),'##\\+')-1)\:'='
