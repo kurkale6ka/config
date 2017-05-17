@@ -42,8 +42,7 @@ Note: remove ~/.weechat/ to reset
 /set weechat.look.bar_more_up "▲"
 
 # Plugins...
-# TODO: replace buffers.pl with the buflist plugin when it lands in stable
-/script install iset.pl buffers.pl
+/script install iset.pl
 # /script install lnotify.py (requires notify-send)
 # /script install urlserver.py
 # /script install buffer_autoset.py histman.py
