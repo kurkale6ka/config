@@ -75,6 +75,9 @@ $if Bash
 "\C-xu": "until \e ; do ; done\eb\e2\C-b"
 "\C-xw": "while \e ; do ; done\eb\e2\C-b"
 
+# lsof                                 :: l {{{1
+"\C-xl": 'lsof -i :'
+
 # File renaming (mv)                   :: m, M {{{1
 "\C-xm": "find . -maxdepth 1 -iname '*\e ' ! -path . -printf \"mv '%P' '%P'\\n\" | v -c\"Tabularize/'.\\{-}'/l1l0\" -c'se ft=sh' -\C-x\C-x"
 "\C-xM": "parallel mv -- {} {.}.\e  ::: *."
