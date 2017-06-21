@@ -86,7 +86,7 @@ TERM xterm-debian
 # RESET               0        # reset to 'normal' color
 NORMAL                00       # no color code at all
 FILE                  00       # regular file: use no color at all
-DIR                   01;34
+DIR                   38;5;69
 SOCK                  00;35;40 # socket
 FIFO                  01;35;40 # pipe
 CHR                   00;33;40 # character device driver
