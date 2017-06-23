@@ -14,6 +14,10 @@
 --regex-puppet=/^[[:space:]]*class[[:space:]]+([[:lower:]]([_[:alnum:]]+|[_[:alnum:]]*(::[_[:alnum:]]+)+))/\1/c,class/
 --regex-puppet=/^[[:space:]]*define[[:space:]]+([[:lower:]]([_[:alnum:]]+|[_[:alnum:]]*(::[_[:alnum:]]+)+))/\1/d,define,defined resource type/
 
+--langdef=ansible
+--langmap=ansible:.yml.yaml
+--regex-ansible=/^[[:space:]]*-[[:space:]]+name:[[:space:]]+(.+)/\1/k,tasks/
+
 --regex-Vim=/^\s*function!?\s+(\w+(#\w+)?)/\1/
 
 --regex-PHP=/^\s*(abstract|final)\s+class\s+(\w+)/\2/
