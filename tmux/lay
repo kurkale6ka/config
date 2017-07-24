@@ -7,14 +7,7 @@
 #    lay host_prefix range (default: 1-3)
 #    lay host1 host2 ... hostn
 
-# needed for outputting colors with cecho
-if [[ -d $XDG_CONFIG_HOME/zsh/autoload ]]
-then
-   fpath=($XDG_CONFIG_HOME/zsh/autoload $XDG_CONFIG_HOME/zsh/autoload/*(N/) $fpath)
-   autoload $XDG_CONFIG_HOME/zsh/autoload/**/[^_]*~*~(N.:t)
-fi
-
-if [[ $1 == -(h|-h)* ]]
+if [[ $1 == -h|--help ]]
 then
 cat << 'HELP'
 Usage:
@@ -40,7 +33,7 @@ then
    else
       if [[ $2 == [01] ]]
       then
-         cecho -fred 'Abort. Number > 1 expected' 1>&2
+         print -P '%F{red}Abort. Number > 1 expected%f' 1>&2
          exit 1
       fi
       prefix=$1
@@ -52,11 +45,10 @@ then
    [[ $range != *-* ]] && range=1-$range
 
    _win_name=${prefix}_$range
-   cset -fpink:205 _wn $_win_name
 
    if tmux lsw -F'#W' | grep -q $_win_name
    then
-      echo "A window named $_wn already exists! Selecting it." 1>&2
+      print -P "A window named %F{205}$_win_name%f already exists! Selecting it." 1>&2
       [[ -z $TMUX ]] && tmux attach
       tmux select-window -t $_win_name
       exit 2
@@ -69,12 +61,12 @@ then
 
    if ((nb_hosts < 2))
    then
-      cecho -fred 'Invalid range. Number of hosts must be > 1' 1>&2
+      print -P '%F{red}Invalid range. Number of hosts must be > 1%f' 1>&2
       exit 3
    elif ((nb_hosts > 10))
    then
-      cset -sfred _nb_hosts $nb_hosts
-      read "answer?Are you sure you want to create $_nb_hosts panes? (y/n) "
+      print -P "Are you sure you want to create %F{red}$nb_hosts%f panes? (y/n) "
+      read answer
       [[ $answer == n* ]] && exit 4
    fi
 
@@ -150,8 +142,8 @@ then
    tmux kill-window -t1
    tmux attach -t 'tiles'
    echo -n 'New tmux session: '
-   cecho -fpink:205 "tiles:$_win_name.[${(j.,.)ssh_hosts}]"
+   print -P "%F{205}tiles:$_win_name.[${(j.,.)ssh_hosts}]%f"
 else
    [[ -z $TMUX ]] && tmux attach
-   cecho -fpink:205 "$_win_name.[${(j.,.)ssh_hosts}] "
+   print -P "%F{205}$_win_name.[${(j.,.)ssh_hosts}] %f"
 fi
