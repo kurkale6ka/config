@@ -10,8 +10,8 @@
 # needed for outputting colors with cecho
 if [[ -d $XDG_CONFIG_HOME/zsh/autoload ]]
 then
-   fpath=($XDG_CONFIG_HOME/zsh/autoload $XDG_CONFIG_HOME/zsh/autoload/*(/) $fpath)
-   autoload $XDG_CONFIG_HOME/zsh/autoload/**/[^_]*(.:t)
+   fpath=($XDG_CONFIG_HOME/zsh/autoload $XDG_CONFIG_HOME/zsh/autoload/*(N/) $fpath)
+   autoload $XDG_CONFIG_HOME/zsh/autoload/**/[^_]*~*~(N.:t)
 fi
 
 if [[ $1 == -(h|-h)* ]]
