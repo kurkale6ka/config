@@ -30,13 +30,16 @@ then
       read -p 'Common host prefix: ' prefix
       read -p 'Range or number of hosts (ex: [1-]3): ' range
    else
+      if [[ $2 == [01] ]]
+      then
+         echo 'Abort. Number > 1 expected' 1>&2
+         exit 1
+      fi
       prefix="$1"
       range="${2:-1-3}"
    fi
 
    _prefix="$prefix"
-
-   [[ $2 == [01] ]] && { echo 'Abort. Number > 1 expected' 1>&2; exit 1; }
 
    [[ $range != *-* ]] && range=1-"$range"
 
