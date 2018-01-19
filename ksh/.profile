@@ -1,0 +1,3 @@
+...
+export HISTFILE=~/.sh_history
+export ENV=~/.kshrc
