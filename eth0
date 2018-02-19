@@ -1,0 +1,28 @@
+Ethernet interfaces options:
+
+DEVICE=
+BOOTPROTO=
+IPADDR=
+PREFIX=
+GATEWAY=
+ONBOOT=
+
+HWADDR=
+MACADDR=
+SRCADDR=
+PEERDNS=
+DNS{1,2}=
+USERCTL=
+ETHTOOL_OPTS=
+
+## Bonding
+DEVICE=bond0
+BONDING_OPTS=
+
+# em1/2
+MASTER=bond0
+SLAVE=yes
+
+## Deprecated (auto with ifcalc)
+BROADCAST=
+NETWORK=
