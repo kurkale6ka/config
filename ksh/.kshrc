@@ -20,12 +20,18 @@ alias 9='cd ../../../../../../../../..'
 
 alias cp='cp -i'
 alias mv='mv -i'
+alias rm='rm -I'
 
-alias v=vim
+if command -v vim >/dev/null 2>&1
+then
+  alias v=vim
+else
+  alias v=vi
+fi
 alias m=man
 
 bind -m '^L'=clear'^J'
 
 # root
-# PS1='[$USER@$(hostname|cut -d. -f1) $PWD]\$ '
-PS1='[$USER@$(hostname|cut -d. -f1) $(pwd|sed "s:$HOME:~:")]\$ '
+# PS1='[$USER@$(hostname) $PWD]\$ '
+PS1='[$USER@$(hostname) $(pwd|sed "s:$HOME:~:")]\$ '
