@@ -32,6 +32,9 @@ alias m=man
 
 bind -m '^L'=clear'^J'
 
-# root
-# PS1='[$USER@$(hostname) $PWD]\$ '
-PS1='[$USER@$(hostname) $(pwd|sed "s:$HOME:~:")]\$ '
+if [[ $USER == root ]]
+then
+  PS1='[$USER@$(hostname) $PWD]\$ '
+else
+  PS1='[$USER@$(hostname) $(pwd|sed "s:$HOME:~:")]\$ '
+fi
