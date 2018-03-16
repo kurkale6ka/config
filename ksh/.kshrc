@@ -20,7 +20,6 @@ alias 9='cd ../../../../../../../../..'
 
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -I'
 
 if command -v vim >/dev/null 2>&1
 then
