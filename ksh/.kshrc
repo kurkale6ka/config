@@ -24,6 +24,7 @@ alias mv='mv -i'
 if command -v vim >/dev/null 2>&1
 then
   alias v=vim
+  alias vd=vimdiff
 else
   alias v=vi
 fi
