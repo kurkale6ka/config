@@ -1,22 +1,31 @@
-Note: remove ~/.weechat/ to reset
+# Paste this configuration into weechat using this command:
+# printf '%s\n' H '1,/sasl_username/p' q | 'ed' -s $REPOS_BASE/config/weechat | grep -v '^#\|^$' | xclip
 
-/server add freenode chat.freenode.net
-
-# ssl (Mac OS or Linux)
+# TLS
+# Mac OS and Linux
 /set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
+# Arch
 # /set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"
-/set irc.server.freenode.addresses "chat.freenode.net/7000"
-/set irc.server.freenode.ssl on
-/connect freenode
-/set irc.server.freenode.autoconnect on
 
-# me
+# Servers: freenode, OFTC
+/server add freenode chat.freenode.net/7000 -ssl -autoconnect
+/server add OFTC irc.oftc.net/6697 -ssl -autoconnect
+
+/set irc.server.OFTC.ssl_cert %h/certs/nick.pem
+
+/connect freenode OFTC
+
+# Identity
 /set irc.server.freenode.username kurkale6ka
 /set irc.server.freenode.nicks kurkale6ka
 /set irc.server.freenode.realname 'Dimitar Dimitrov'
+/set irc.server.OFTC.username kurkale6ka
+/set irc.server.OFTC.nicks kurkale6ka
+/set irc.server.OFTC.realname 'Dimitar Dimitrov'
 
-# channels
-/set irc.server.freenode.autojoin #archlinux,#git,##linux,#neovim,#vim,#zsh,#python
+# Channels
+/set irc.server.freenode.autojoin #git,##linux,#neovim,#vim,#zsh,#python,#postfix
+/set irc.server.OFTC.autojoin #debian,#awesome
 
 # Filters
 /filter add irc_smart * irc_smart_filter *
@@ -42,7 +51,6 @@ Note: remove ~/.weechat/ to reset
 /set weechat.look.bar_more_up "▲"
 
 # Plugins...
-/script install iset.pl
 # /script install lnotify.py (requires notify-send)
 # /script install urlserver.py
 # /script install buffer_autoset.py histman.py
@@ -60,8 +68,6 @@ Note: remove ~/.weechat/ to reset
 /set aspell.check.default_dict en
 
 # nicks
-/notify add chichou
-/notify add starmix
 /bar hide nicklist
 /alias add nicks /bar toggle nicklist
 /set weechat.color.chat_nick_colors "cyan,magenta,green,brown,lightblue,default,lightcyan,lightmagenta,lightgreen,blue,31,35,38,40,49,63,70,80,92,99,112,126,130,138,142,148,160,162,167,169,174,176,178,184,186,210,212,215,247"
@@ -74,3 +80,12 @@ Note: remove ~/.weechat/ to reset
 # sasl
 /set irc.server.freenode.sasl_username kurkale6ka
 /set irc.server.freenode.sasl_password **********
+
+# certificate authentication for OFTC
+mkdir ~/.weechat/certs && cd "$_"
+openssl req -nodes -newkey rsa:2048 -keyout nick.key -x509 -days 3650 -out nick.cert
+cat nick.cert nick.key > nick.pem
+chmod 400 nick.*
+/msg nickserv identify
+# openssl x509 -in nick.cert -noout -fingerprint
+/msg nickserv cert add
