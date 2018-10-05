@@ -1,10 +1,10 @@
 # Paste this configuration into weechat using this command:
-# printf '%s\n' H '1,/sasl_username/p' q | 'ed' -s $REPOS_BASE/config/weechat | grep -v '^#\|^$' | xclip
+# grep -v '^#\|^$' $REPOS_BASE/config/weechat | sed -n '1,/sasl_username/p' | xclip
 
 # TLS
-# Mac OS and Linux
+# Mac OS
 /set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"
-# Arch
+# Linux
 # /set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"
 
 # Servers: freenode, OFTC
