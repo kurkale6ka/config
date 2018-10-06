@@ -1,19 +1,12 @@
 ! Reload with: xrdb -merge ~/.Xresources
 
-!! Fonts
-xterm*faceName: DejaVu Sans Mono
-xterm*faceSize: 12
-
-xterm*underLine: true
+!! Colors
+xterm.termName: xterm-256color
 
 xterm*background: rgb:26/26/26
 xterm*foreground: rgb:be/be/be
 
-!! Cursor
-xterm*cursorColor: rgb:66/66/66
-xterm*cursorBlink: true
-
-!! Tango color palette (normal + light colors)
+! Tango palette: normal + light colors
 ! black
 xterm*color0:  rgb:00/00/00
 xterm*color8:  rgb:55/57/53
@@ -47,6 +40,16 @@ xterm*color7:  rgb:d3/d7/cf
 xterm*color15: rgb:ee/ee/ec
 
 xterm*dynamicColors: true
+
+!! Cursor
+xterm*cursorColor: rgb:66/66/66
+xterm*cursorBlink: true
+
+!! Fonts
+xterm*faceName: DejaVu Sans Mono
+xterm*faceSize: 12
+
+xterm*underLine: true
 
 !! 8-bit Characters
 xterm*eightBitControl: false
