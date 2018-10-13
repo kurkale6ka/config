@@ -26,7 +26,6 @@ then
    done
 fi
 
-exec awesome
+exec i3
 # exec startxfce4
-# exec i3
 # compton -b
