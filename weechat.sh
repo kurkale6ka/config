@@ -47,8 +47,8 @@ cat >> "$cb_file" << 'COPY'
 /set irc.server.OFTC.realname 'Dimitar Dimitrov'
 
 # Channels
-/set irc.server.freenode.autojoin #git,##linux,#neovim,#vim,#zsh,#python,#postfix
-/set irc.server.OFTC.autojoin #debian,#awesome
+/set irc.server.freenode.autojoin #git,##linux,#neovim,#vim,#zsh,#python,#postfix,#i3
+/set irc.server.OFTC.autojoin #debian
 
 # Filters
 /filter add irc_smart * irc_smart_filter *
@@ -105,6 +105,7 @@ COPY
 grep -v '^#\|^$' "$cb_file" | xclip
 
 cat << 'MSG'
+Please paste your configuration within weechat!
 
 Freenode
 /set irc.server.freenode.sasl_password **********
