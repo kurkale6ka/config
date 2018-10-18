@@ -1,27 +1,32 @@
 general {
-    output_format = "ibar"
+    output_format = "i3bar"
     colors = true
-    color_good = $green
-    color_degraded = $yellow
-    color_bad = $red
+    # i3wm.color2
+    color_good = "#4e9a06"
+    # i3wm.color3
+    color_degraded = "#c4a000"
+    # i3wm.color1
+    color_bad = "#cc0000"
     interval = 5
 }
 
 # order += "ipv6"
-order += "disk /"
+order += "disk /home"
 # order += "run_watch DHCP"
 # order += "run_watch VPNC"
 # order += "path_exists VPN"
-order += "wireless wlan0"
+order += "wireless wlo1"
 # order += "ethernet eth0"
 order += "battery 0"
-order += "cpu_temperature 0"
+# order += "cpu_temperature 0"
 order += "load"
 order += "tztime local"
 # order += "tztime paris"
 
-wireless wlan0 {
-    format_up = "W: (%quality at %essid, %bitrate) %ip"
+wireless wlo1 {
+    # format_up = "W: (%quality at %essid, %bitrate) %ip"
+    # TODO: wifi icon
+    format_up = "W: %ip - %bitrate(%quality)"
     format_down = "W: down"
 }
 
@@ -32,10 +37,13 @@ wireless wlan0 {
 # }
 
 battery 0 {
-    format = "%status %percentage %remaining %emptytime"
+    integer_battery_capacity = true
+    # format = "%status %percentage %remaining %emptytime"
+    format = "%status %percentage %remaining"
     format_down = "No battery"
     status_chr = "⚡CHR"
-    status_bat = "🔋 BAT"
+    # status_bat = "🔋 BAT"
+    status_bat = "BAT"
     status_unk = "? UNK"
     status_full = "☻ FULL"
     path = "/sys/class/power_supply/BAT%d/uevent"
@@ -70,11 +78,11 @@ load {
     format = "%5min"
 }
 
-cpu_temperature 0 {
-    format = "T: %degrees °C"
-    path = "/sys/devices/platform/coretemp.0/temp1_input"
-}
+# cpu_temperature 0 {
+#     format = "T: %degrees °C"
+#     path = "/sys/devices/platform/coretemp.0/temp1_input"
+# }
 
-disk "/" {
-    format = "%free"
+disk "/home" {
+    format = "Home: %free"
 }
