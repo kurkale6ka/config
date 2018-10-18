@@ -165,30 +165,28 @@ bindsym Group2+$mod+l exec setxkbmap us dvorak
 
 # Colors
 set_from_resource $black i3wm.color0 #000000
-set_from_resource $black i3wm.color8 #555753
+set_from_resource $lblack i3wm.color8 #555753
 
 set_from_resource $red i3wm.color1 #cc0000
-set_from_resource $red i3wm.color9 #ef2929
+set_from_resource $lred i3wm.color9 #ef2929
 
 set_from_resource $green i3wm.color2 #4e9a06
-set_from_resource $green i3wm.color10 #8ae234
+set_from_resource $lgreen i3wm.color10 #8ae234
 
-# brown
 set_from_resource $yellow i3wm.color3 #c4a000
-set_from_resource $yellow i3wm.color11 #fce94f
+set_from_resource $lyellow i3wm.color11 #fce94f
 
 set_from_resource $blue i3wm.color4 #3465a4
-set_from_resource $blue i3wm.color12 #729fcf
+set_from_resource $lblue i3wm.color12 #729fcf
 
 set_from_resource $magenta i3wm.color5 #75507b
-set_from_resource $magenta i3wm.color13 #ad7fa8
+set_from_resource $lmagenta i3wm.color13 #ad7fa8
 
 set_from_resource $cyan i3wm.color6 #06989a
-set_from_resource $cyan i3wm.color14 #34e2e2
+set_from_resource $lcyan i3wm.color14 #34e2e2
 
-# light grey
 set_from_resource $white i3wm.color7 #d3d7cf
-set_from_resource $white i3wm.color15 #eeeeec
+set_from_resource $lwhite i3wm.color15 #eeeeec
 
 assign [class="Navigator"] 2
 assign [class="xterm"] 1

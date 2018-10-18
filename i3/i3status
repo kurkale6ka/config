@@ -1,6 +1,9 @@
 general {
     output_format = "ibar"
     colors = true
+    color_good = $green
+    color_degraded = $yellow
+    color_bad = $red
     interval = 5
 }
 
