@@ -10,7 +10,6 @@ general {
     interval = 5
 }
 
-# order += "ipv6"
 order += "disk /home"
 # order += "run_watch DHCP"
 # order += "run_watch VPNC"
@@ -22,6 +21,13 @@ order += "battery 0"
 order += "load"
 order += "tztime local"
 # order += "tztime paris"
+
+disk "/home" {
+    prefix_type = binary
+    threshold_type = percentage_free
+    low_threshold = 10
+    format = "~: %percentage_used / %total"
+}
 
 wireless wlo1 {
     # format_up = "W: (%quality at %essid, %bitrate) %ip"
@@ -41,11 +47,10 @@ battery 0 {
     # format = "%status %percentage %remaining %emptytime"
     format = "%status %percentage %remaining"
     format_down = "No battery"
-    status_chr = "⚡CHR"
-    # status_bat = "🔋 BAT"
-    status_bat = "BAT"
-    status_unk = "? UNK"
-    status_full = "☻ FULL"
+    status_chr = "⚡ CHR"
+    status_bat = "🔋 BAT"
+    status_unk = "?"
+    status_full = "FULL"
     path = "/sys/class/power_supply/BAT%d/uevent"
     low_threshold = 10
 }
@@ -82,7 +87,3 @@ load {
 #     format = "T: %degrees °C"
 #     path = "/sys/devices/platform/coretemp.0/temp1_input"
 # }
-
-disk "/home" {
-    format = "Home: %free"
-}
