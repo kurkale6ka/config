@@ -56,7 +56,7 @@ xterm*eightBitControl: false
 xterm*eightBitInput:   false
 xterm*eightBitOutput:  true
 
-xterm*utf8: 1
+xterm*locale: true
 
 !! Scrolling and history
 xterm*scrollKey:       true
