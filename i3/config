@@ -191,3 +191,59 @@ set_from_resource $lwhite i3wm.color15 #eeeeec
 
 assign [class="^Firefox"] 2
 assign [class="xterm"] 1
+
+# bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+# bindsym --release button3 exec --no-startup-id import /tmp/latest-screenshot.png
+
+# # The right button toggles floating
+# # --whole-window
+# bindsym button3 floating toggle
+# bindsym $mod+button3 floating toggle
+
+# # The side buttons move the window around
+# bindsym button9 move left
+# bindsym button8 move right
+
+# # Press $mod+o followed by either f, t, Escape or Return to launch firefox,
+# # thunderbird or return to the default mode, respectively.
+# set $mode_launcher Launch: [f]irefox [t]hunderbird
+# bindsym $mod+o mode "$mode_launcher"
+
+# mode "$mode_launcher" {
+#     bindsym f exec firefox
+#     bindsym t exec thunderbird
+
+#     bindsym Escape mode "default"
+#     bindsym Return mode "default"
+# }
+
+# # enable floating mode for all XTerm windows
+# for_window [class="XTerm"] floating enable
+
+# # marks
+
+# # Toggle between stacking/tabbed/split:
+# bindsym $mod+x layout toggle
+# bindsym $mod+l layout toggle split
+
+# # Toggle between stacking/tabbed/splith/splitv:
+# bindsym $mod+x layout toggle all
+
+# # Focus firefox
+# bindsym $mod+F1 [class="Firefox"] focus
+
+# # Moves the container to the current position of the
+# # mouse cursor. Only affects floating containers.
+# move position mouse
+
+# # Move floating container to the center of all outputs
+# bindsym $mod+c move absolute position center
+
+# # make a terminal sticky that was started as a notepad
+# for_window [instance=notepad] sticky enable
+
+# # Make the currently focused window a scratchpad
+# bindsym $mod+Shift+minus move scratchpad
+
+# # Show the first scratchpad window
+# bindsym $mod+minus scratchpad show
