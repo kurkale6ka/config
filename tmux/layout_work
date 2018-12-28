@@ -1,5 +1,10 @@
 #! /usr/bin/env zsh
 
+fpath=($XDG_CONFIG_HOME/zsh/autoload/*(N/))
+autoload start_ssh_agent pg
+
+start_ssh_agent || exit 1
+
 session=work
 
 tmux new-session -d -s${session} -nIRC

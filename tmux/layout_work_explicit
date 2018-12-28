@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+fpath=($XDG_CONFIG_HOME/zsh/autoload/*(N/))
+autoload start_ssh_agent pg
+
+start_ssh_agent || exit 1
+
 ## Local
 tmux new -d -s 'work' -n 'local'
 tmux split-window -h 'ssh x'
