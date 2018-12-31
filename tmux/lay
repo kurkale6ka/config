@@ -1,5 +1,11 @@
 #! /usr/bin/env zsh
 
+if [[ $(ssh-add -l 2>/dev/null | wc -l) == 0 ]]
+then
+   print -P '%F{red}Please add your ssh key to your agent%f' 1>&2
+   exit 5
+fi
+
 if [[ $1 == -(h|-h)* ]]
 then
 cat << 'HELP'
