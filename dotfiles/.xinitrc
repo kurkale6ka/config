@@ -26,6 +26,8 @@ then
    done
 fi
 
-exec i3
+export GDK_BACKEND=x11
+exec gnome-session
+# exec i3
 # exec startxfce4
 # compton -b
