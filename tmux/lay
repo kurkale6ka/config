@@ -1,6 +1,6 @@
 #! /usr/bin/env zsh
 
-if [[ $(ssh-add -l 2>/dev/null | wc -l) == 0 ]]
+if ! ssh-add -l >/dev/null 2>&1
 then
    print -P '%F{red}Please add your ssh key to your agent%f' 1>&2
    exit 5
