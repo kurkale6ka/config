@@ -2,6 +2,12 @@
 
 shopt -s extglob
 
+if ! ssh-add -l >/dev/null 2>&1
+then
+   echo 'Please add your ssh key to your agent' 1>&2
+   exit 4
+fi
+
 if [[ $1 == -@(h|-h)* ]]
 then
 cat << 'HELP'
