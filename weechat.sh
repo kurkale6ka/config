@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 
+_bld="$(tput bold || tput md)"
+_cya="$(tput setaf 6 || tput AF 6)"
+_red="$(tput setaf 1 || tput AF 1)"
+_res="$(tput sgr0 || tput me)"
+
 cb_file="$(mktemp)"
 
 # TLS
@@ -12,20 +17,23 @@ elif [[ -r /etc/ssl/certs/ca-certificates.crt ]]
 then
    echo '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"' > "$cb_file"
 else
-   echo 'No valid certificates found' 1>&2
+   echo "${_red}No valid certificates found${_res}" 1>&2
    rm "$cb_file"
    exit 1
 fi
 
-# OFTC certificate
-echo 'Generating certificate for authentication on OFTC...'
+# Certificates
+printf '%s\n\n' "${_bld}Certificates${_res}"
 mkdir -p ~/.weechat/certs
 if cd ~/.weechat/certs
 then
-   openssl req -nodes -newkey rsa:2048 -keyout nick.key -x509 -days 3650 -out nick.cert
-   openssl x509 -in nick.cert -noout -fingerprint
-   cat nick.cert nick.key > nick.pem
-   chmod 400 nick.*
+   for c in freenode oftc
+   do
+      openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out "$c".pem -keyout "$c".pem -subj '/C=GB'
+      echo -n "${_cya}fingerprint${_res}: "
+      openssl x509 -in "$c".pem -outform der | sha1sum -b | cut -d' ' -f1
+      chmod 400 "$c".pem
+   done
 fi
 
 cat >> "$cb_file" << 'COPY'
@@ -34,7 +42,10 @@ cat >> "$cb_file" << 'COPY'
 /server add freenode chat.freenode.net/7000 -ssl -autoconnect
 /server add OFTC irc.oftc.net/6697 -ssl -autoconnect
 
-/set irc.server.OFTC.ssl_cert %h/certs/nick.pem
+/set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
+/set irc.server.freenode.ssl_cert %h/certs/freenode.pem
+
+/set irc.server.freenode.sasl_mechanism external
 
 /connect freenode OFTC
 
@@ -47,7 +58,7 @@ cat >> "$cb_file" << 'COPY'
 /set irc.server.OFTC.realname 'Dimitar Dimitrov'
 
 # Channels
-/set irc.server.freenode.autojoin #git,##linux,#neovim,#vim,#zsh,#python,#postfix,#i3
+/set irc.server.freenode.autojoin #git,##linux,#neovim,#perl,#postfix,#python,#vim,#zsh
 /set irc.server.OFTC.autojoin #debian
 
 # Filters
@@ -97,20 +108,20 @@ cat >> "$cb_file" << 'COPY'
 
 /key missing
 /mouse enable
-
-/set irc.server.freenode.sasl_username kurkale6ka
 COPY
 
 # Copy commands to clipboard
-grep -v '^#\|^$' "$cb_file" | xclip
+if [[ $(uname) == Darwin ]]
+then
+   grep -v '^#\|^$' "$cb_file" | pbcopy
+else
+   grep -v '^#\|^$' "$cb_file" | xclip
+fi
+
+printf '\n%s\n\n' "${_bld}Please paste your configuration within weechat!${_res}"
 
 cat << 'MSG'
-Please paste your configuration within weechat!
-
-Freenode
-/set irc.server.freenode.sasl_password **********
-
-OFTC
+Freenode & OFTC:
 /msg nickserv identify **********
 /msg nickserv cert add
 
