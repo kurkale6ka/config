@@ -1,42 +1,62 @@
-#! /usr/bin/env bash
+#! /usr/bin/env perl
 
-_bld="$(tput bold || tput md)"
-_cya="$(tput setaf 6 || tput AF 6)"
-_red="$(tput setaf 1 || tput AF 1)"
-_res="$(tput sgr0 || tput me)"
+use strict;
+use warnings;
+use Term::ANSIColor qw/:constants/;
 
-cb_file="$(mktemp)"
+# clipboard
+open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip';
 
 # TLS
 # Mac OS
-if [[ -r /usr/local/etc/openssl/cert.pem ]]
-then
-   echo '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"' > "$cb_file"
+if (-e '/usr/local/etc/openssl/cert.pem')
+{
+   print $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"', "\n"
 # Linux
-elif [[ -r /etc/ssl/certs/ca-certificates.crt ]]
-then
-   echo '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"' > "$cb_file"
-else
-   echo "${_red}No valid certificates found${_res}" 1>&2
-   rm "$cb_file"
-   exit 1
-fi
+} elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
+   print $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"', "\n"
+} else {
+   die "No valid certificates found\n"
+}
 
 # Certificates
-printf '%s\n\n' "${_bld}Certificates${_res}"
-mkdir -p ~/.weechat/certs
-if cd ~/.weechat/certs
-then
-   for c in freenode oftc
-   do
-      openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out "$c".pem -keyout "$c".pem -subj '/C=GB'
-      echo -n "${_cya}fingerprint${_res}: "
-      openssl x509 -in "$c".pem -outform der | sha1sum -b | cut -d' ' -f1
-      chmod 400 "$c".pem
-   done
-fi
+print BOLD, "Certificates\n\n", RESET;
 
-cat >> "$cb_file" << 'COPY'
+mkdir glob '~/.weechat/certs';
+chdir glob '~/.weechat/certs' or die;
+
+for (qw/freenode oftc/)
+{
+   if (-e "$_.pem")
+   {
+      print RED, "Regenerate certificate for $_?: ", RESET;
+      next unless <STDIN> =~ /y(es)?/in
+   }
+
+   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'";
+   print CYAN, 'fingerprint: ', RESET;
+   system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1";
+
+   chmod 0600, "$_.pem"
+}
+
+# copy IRC commands
+while (<DATA>) {
+   next unless m(^/);
+   print $cb $_
+}
+
+print BOLD, "\nPlease paste your configuration within weechat!\n\n", RESET;
+
+print <<'MSG'
+Freenode & OFTC:
+/msg nickserv identify **********
+/msg nickserv cert add
+
+/save
+MSG
+
+__DATA__
 
 # Servers
 /server add freenode chat.freenode.net/7000 -ssl -autoconnect
@@ -90,16 +110,15 @@ cat >> "$cb_file" << 'COPY'
 # /script install buffer_autoset.py histman.py
 
 # Bars (...wait for plugins to finish installing)
-/set weechat.bar.buffers.size_max 11
 /set weechat.bar.input.size 0
 /set weechat.bar.title.color_bg 60
 /set weechat.bar.status.items "buffer_number.,buffer_name,{buffer_nicklist_count}+buffer_filter,[buffer_plugin],[lag],completion,scroll"
 /unset weechat.bar.input.items
 
 # Spelling
-/set aspell.check.enabled on
-/set aspell.check.real_time on
-/set aspell.check.default_dict en
+/set spell.check.enabled on
+/set spell.check.real_time on
+/set spell.check.default_dict en
 
 # Nicks
 /bar hide nicklist
@@ -108,24 +127,3 @@ cat >> "$cb_file" << 'COPY'
 
 /key missing
 /mouse enable
-COPY
-
-# Copy commands to clipboard
-if [[ $(uname) == Darwin ]]
-then
-   grep -v '^#\|^$' "$cb_file" | pbcopy
-else
-   grep -v '^#\|^$' "$cb_file" | xclip
-fi
-
-printf '\n%s\n\n' "${_bld}Please paste your configuration within weechat!${_res}"
-
-cat << 'MSG'
-Freenode & OFTC:
-/msg nickserv identify **********
-/msg nickserv cert add
-
-/save
-MSG
-
-rm "$cb_file"
