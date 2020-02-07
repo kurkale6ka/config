@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use feature qw/say/;
 use Term::ANSIColor qw/:constants/;
 
 # clipboard
@@ -11,10 +12,10 @@ open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip';
 # Mac OS
 if (-e '/usr/local/etc/openssl/cert.pem')
 {
-   print $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"', "\n"
+   say $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"'
 # Linux
 } elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
-   print $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"', "\n"
+   say $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"'
 } else {
    die "No valid certificates found\n"
 }
