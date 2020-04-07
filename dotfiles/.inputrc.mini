@@ -1,0 +1,38 @@
+# GNU Readline Library
+# http://cnswww.cns.cwru.edu/php/chet/readline/rluserman.html
+#
+# Note: use ^x^r to re-read this file after modification
+
+# <up> and <down>
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# <Home> and <End>
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f)
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
+
+# Notifications
+set bell-style none
+set echo-control-characters off
+
+# link@, dir/...
+set visible-stats on
+
+# Don't show hidden files (unless .<tab>)
+set match-hidden-files off
+
+# Ignore case + treat - and _ as equivalent
+set completion-ignore-case on
+set completion-map-case on
+
+# Display all possible completions right away
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# no (y or n) + no less
+set completion-query-items 200
+set page-completions off
