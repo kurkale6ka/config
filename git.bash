@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+command -v git >/dev/null 2>&1 || exit 1
+
 git config --global user.name 'Dimitar Dimitrov'
 git config --global user.email mitkofr@yahoo.fr
 
