@@ -1,8 +1,11 @@
 #! /usr/bin/env bash
 
+_red="$(tput setaf 1 || tput AF 1)"
+_res="$(tput sgr0 || tput me)"
+
 if ! command -v git >/dev/null 2>&1
 then
-   echo 'git not found. abort.' 1>&2
+   echo "${_red}git not found. abort.${_res}" 1>&2
    exit 1
 fi
 
