@@ -1,6 +1,10 @@
 #! /usr/bin/env bash
 
-command -v git >/dev/null 2>&1 || exit 1
+if ! command -v git >/dev/null 2>&1
+then
+   echo 'git not found. abort.' 1>&2
+   exit 1
+fi
 
 git config --global user.name 'Dimitar Dimitrov'
 git config --global user.email mitkofr@yahoo.fr
