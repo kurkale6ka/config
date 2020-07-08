@@ -71,3 +71,36 @@ foreach (@ARGV)
 
 my @nb_sessions = `tmux ls -F#S`;
 say grep (/^\d/, @nb_sessions);
+
+system qw/tmux new-session -s tiles -d -n init/, 'ssh '. shift @hosts;
+
+my @children;
+
+foreach my $host (@hosts)
+{
+   # parent
+   my $pid = fork // die "failed to fork: $!";
+   if ($pid)
+   {
+      push @children, $pid;
+      next;
+   }
+
+   # kid
+   system qw/tmux split-window -t init -h -l 100%/, "ssh $host";
+   exit;
+}
+
+waitpid $_, 0 foreach @children;
+
+if (@hosts <= 2)
+{
+   system qw/tmux select-layout -t init even-horizontal/;
+} else {
+   system qw/tmux select-layout -t init tiled/;
+}
+
+system qw/tmux select-pane -t init.1/;
+system qw/tmux set-window-option -t init synchronize-panes on/;
+
+system qw/tmux attach-session -t tiles/;
