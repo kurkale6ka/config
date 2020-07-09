@@ -39,34 +39,39 @@ my @hosts;
 
 foreach (@ARGV)
 {
+   my ($host, $first, $last, $range, @numbers);
+
    # get host and range
-   my ($host, $first, $last) = /(.+?)(?:(\d+)?-(\d+))?$/;
-
-   unless (defined $last)
+   if (/(?<!\d)[-,]$/)
    {
-      # trailing range
-      if ($host =~ /(\d+)?-$/)
-      {
-         unless (defined $1)
-         {
-            chop $host;
-            push @hosts, $host.1, $host.2;
-         } else {
-            warn RED.'dash forbidden at end'.RESET, "\n";
-         }
-      } else {
-         push @hosts, $host;
-      }
+      chop ($host = $_);
+      push @hosts, $host.1, $host.2;
+      next;
+   }
+   elsif (/,\d+$/)
+   {
+      ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
 
+      $range = "1$range" if $range =~ /^,/;
+      @numbers = split /,/, $range;
+   }
+   elsif (/-\d+$/)
+   {
+      ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
+
+      $first //= 1;
+      $first < $last or die RED.'non ascending range detected'.RESET, "\n";
+
+      @numbers = $first..$last;
+   }
+   else
+   {
+      /[,-]$/ and warn RED.'garbage characters in host'.RESET, "\n";
+      push @hosts, $_;
       next;
    }
 
-   $first //= 1;
-   $last  //= 1;
-
-   $last > $first or die RED.'non ascending range detected'.RESET, "\n";
-
-   push @hosts, map $host.$_, $first..$last;
+   push @hosts, map $host.$_, @numbers;
 }
 
 my @nb_sessions = `tmux ls -F#S`;
