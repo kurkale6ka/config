@@ -34,7 +34,7 @@ GetOptions(
 
 @ARGV == 0 and help;
 
-unless (system qw/ssh-add -ql/ == 0)
+unless (system (qw/ssh-add -ql/) == 0)
 {
    die RED.'Please add your ssh key to your agent'.RESET, "\n";
 }
