@@ -34,20 +34,21 @@ GetOptions(
 
 @ARGV == 0 and help;
 
-# Arguments
 my @hosts;
 
+# Calculate Ranges
 foreach (@ARGV)
 {
    my ($host, $first, $last, $range, @numbers);
 
-   # get host and range
+   # final -
    if (/(?<!\d)[-,]$/)
    {
       chop ($host = $_);
       push @hosts, $host.1, $host.2;
       next;
    }
+   # x,y,z
    elsif (/,\d+$/)
    {
       ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
@@ -55,6 +56,7 @@ foreach (@ARGV)
       $range = "1$range" if $range =~ /^,/;
       @numbers = split /,/, $range;
    }
+   # 1-n
    elsif (/-\d+$/)
    {
       ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
@@ -66,7 +68,7 @@ foreach (@ARGV)
    }
    else
    {
-      /[,-]$/ and warn RED."garbage range detected: $_".RESET, "\n";
+      /[,-]$/ and die RED."garbage range detected: $_".RESET, "\n";
       push @hosts, $_;
       next;
    }
