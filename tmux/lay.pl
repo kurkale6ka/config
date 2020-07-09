@@ -66,7 +66,7 @@ foreach (@ARGV)
    }
    else
    {
-      /[,-]$/ and warn RED.'garbage characters in host'.RESET, "\n";
+      /[,-]$/ and warn RED."garbage range detected: $_".RESET, "\n";
       push @hosts, $_;
       next;
    }
