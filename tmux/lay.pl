@@ -34,6 +34,11 @@ GetOptions(
 
 @ARGV == 0 and help;
 
+unless (system qw/ssh-add -ql/ == 0)
+{
+   die RED.'Please add your ssh key to your agent'.RESET, "\n";
+}
+
 my @hosts;
 
 # Calculate Ranges
@@ -76,10 +81,25 @@ foreach (@ARGV)
    push @hosts, map $host.$_, @numbers;
 }
 
-my @nb_sessions = `tmux ls -F#S`;
-say grep (/^\d/, @nb_sessions);
+my $nb_sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
 
-system qw/tmux new-session -s tiles -d -n init/, 'ssh '. shift @hosts;
+# window name
+my $win = join '-', @hosts;
+
+if (any {/$win/} `tmux lsw -F'#W'`)
+{
+   system qw/tmux attach/ unless $ENV{TMUX};
+   $? == 0 and system qw/tmux select-window -t/, $win;
+   die RED."A window named %F{205}$win%f already exists! Selecting it.".RESET, "\n";
+}
+
+if (@hosts > 10)
+{
+   warn RED."Are you sure you want to create %F{red}\$nb_hosts%f panes? (y/n) ".RESET, "\n";
+   exit unless <STDIN> =~ /y(?:es)?/i;
+}
+
+system qw/tmux new-session -s ssh -d -n init/, 'ssh '. shift @hosts;
 
 my @children;
 
