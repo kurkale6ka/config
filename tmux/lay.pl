@@ -130,4 +130,4 @@ if (@hosts <= 2)
 system qw/tmux select-pane -t init.1/;
 system qw/tmux set-window-option -t init synchronize-panes on/;
 
-system qw/tmux attach-session -t tiles/;
+system qw/tmux attach-session -t ssh/;
