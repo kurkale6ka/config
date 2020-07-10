@@ -9,6 +9,7 @@ use File::Path 'make_path';
 use Term::ANSIColor qw/color :constants/;
 use List::Util 'any';
 
+my $PINK = color('ansi205');
 my $RED = color('red');
 my $S = color('bold');
 my $R = color('reset');
@@ -87,7 +88,7 @@ if ($panes > 10)
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
 
-my $nb_sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
+my $sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
 
 # window name
 my $win = join '-', @hosts;
@@ -96,10 +97,13 @@ if (any {/$win/} `tmux lsw -F'#W'`)
 {
    system qw/tmux attach/ unless $ENV{TMUX};
    $? == 0 and system qw/tmux select-window -t/, $win;
-   die RED."A window named %F{205}$win%f already exists! Selecting it.".RESET, "\n";
+   die "A window named ${PINK}$win${R} already exists! Selecting it.\n";
 }
 
-system qw/tmux new-session -s ssh -d -n init/, 'ssh '. shift @hosts;
+unless ($sessions)
+{
+   system qw/tmux new-session -s ssh -d -n/, $win, 'ssh '. shift @hosts;
+}
 
 my @children;
 
