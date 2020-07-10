@@ -9,8 +9,7 @@ use File::Path 'make_path';
 use Term::ANSIColor qw/color :constants/;
 use List::Util 'any';
 
-my $B = color('ansi69');
-my $C = color('ansi45');
+my $RED = color('red');
 my $S = color('bold');
 my $R = color('reset');
 
@@ -28,13 +27,13 @@ MSG
 exit;
 }
 
-GetOptions(
+GetOptions (
    'h|help' => \&help
 ) or die RED.'Error in command line arguments'.RESET, "\n";
 
 @ARGV == 0 and help;
 
-unless (system (qw/ssh-add -ql/) == 0)
+unless (system ('ssh-add -l >/dev/null') == 0)
 {
    die RED.'Please add your ssh key to your agent'.RESET, "\n";
 }
@@ -81,6 +80,13 @@ foreach (@ARGV)
    push @hosts, map $host.$_, @numbers;
 }
 
+my $panes = @hosts;
+if ($panes > 10)
+{
+   print "Are you sure you want to create ${RED}$panes${R} panes? (y/n) ";
+   exit unless <STDIN> =~ /y(?:es)?/i;
+}
+
 my $nb_sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
 
 # window name
@@ -91,12 +97,6 @@ if (any {/$win/} `tmux lsw -F'#W'`)
    system qw/tmux attach/ unless $ENV{TMUX};
    $? == 0 and system qw/tmux select-window -t/, $win;
    die RED."A window named %F{205}$win%f already exists! Selecting it.".RESET, "\n";
-}
-
-if (@hosts > 10)
-{
-   warn RED."Are you sure you want to create %F{red}\$nb_hosts%f panes? (y/n) ".RESET, "\n";
-   exit unless <STDIN> =~ /y(?:es)?/i;
 }
 
 system qw/tmux new-session -s ssh -d -n init/, 'ssh '. shift @hosts;
