@@ -41,8 +41,7 @@ unless (system ('ssh-add -l >/dev/null') == 0)
 }
 
 my $session = 'ssh';
-my @prefixes;
-my @hosts;
+my (%hosts, @hosts);
 
 # Calculate Ranges
 foreach (@ARGV)
@@ -54,7 +53,7 @@ foreach (@ARGV)
    {
       chop ($host = $_);
       push @hosts, $host.1, $host.2;
-      push @prefixes, $host;
+      $hosts{$host} = 2;
       next;
    }
    # x,y,z
@@ -79,12 +78,12 @@ foreach (@ARGV)
    {
       /[,-]$/ and die RED."garbage range detected: $_".RESET, "\n";
       push @hosts, $_;
-      push @prefixes, $_;
+      $hosts{$_} = 1;
       next;
    }
 
    push @hosts, map $host.$_, @numbers;
-   push @prefixes, $host;
+   $hosts{$host} = @numbers;
 }
 
 my $panes = @hosts;
@@ -95,7 +94,7 @@ if ($panes > 10)
 }
 
 # window name
-my $win = join '', map "($_)", @prefixes;
+my $win = join '', map "($_)", keys %hosts;
 
 my $sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
 
@@ -140,11 +139,3 @@ system qw/tmux select-pane -t/, "$win.1";
 system qw/tmux set-window-option -t/, $win, 'synchronize-panes', 'on';
 
 system qw/tmux attach-session -t/, $session unless $ENV{TMUX};
-
-unless ($sessions)
-{
-   print "Session(${YELLOW}$session${R}):${PINK}${win}${R}.";
-   say '[', join (',', map ($PINK.$_.$R, @hosts)), ']';
-} else {
-   # print -P "%F{205}$_win_name%f.[%F{205}${(j.%f,%F\{205\}.)ssh_hosts}%f]"
-}
