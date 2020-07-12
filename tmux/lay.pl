@@ -4,8 +4,6 @@ use strict;
 use warnings;
 use feature 'say';
 use Getopt::Long qw/GetOptions :config bundling/;
-use File::Basename 'basename';
-use File::Path 'make_path';
 use Term::ANSIColor qw/color :constants/;
 use List::Util 'any';
 
@@ -41,7 +39,7 @@ unless (system ('ssh-add -l >/dev/null') == 0)
 }
 
 my $session = 'ssh';
-my (%hosts, @hosts);
+my %hosts;
 
 # Calculate Ranges
 foreach (@ARGV)
@@ -52,8 +50,7 @@ foreach (@ARGV)
    if (/(?<!\d)[-,]$/)
    {
       chop ($host = $_);
-      push @hosts, $host.1, $host.2;
-      $hosts{$host} = 2;
+      $hosts{$host} = [1, 2];
       next;
    }
    # x,y,z
@@ -71,30 +68,41 @@ foreach (@ARGV)
 
       $first //= 1;
       $first < $last or die RED.'non ascending range detected'.RESET, "\n";
-
       @numbers = $first..$last;
    }
    else
    {
       /[,-]$/ and die RED."garbage range detected: $_".RESET, "\n";
-      push @hosts, $_;
-      $hosts{$_} = 1;
+      $hosts{$_} = [];
       next;
    }
 
-   push @hosts, map $host.$_, @numbers;
-   $hosts{$host} = @numbers;
+   $hosts{$host} = \@numbers;
 }
 
-my $panes = @hosts;
-if ($panes > 10)
+my (@clusters, @singles, @hosts);
+
+foreach my $host (sort keys %hosts)
 {
-   print "Are you sure you want to create ${RED}$panes${R} panes? (y/n) ";
+   if (@{$hosts{$host}} > 1)
+   {
+      push @clusters, $host;
+      push @hosts, map $host.$_, @{$hosts{$host}};
+   } else {
+      push @singles, $host;
+      push @hosts, $host;
+   }
+}
+
+my @win = map "($_)", @clusters;
+push @win, join '.', @singles;
+my $win = join '', @win;
+
+if (@hosts > 10)
+{
+   print RED, scalar @hosts, RESET, ' panes will be created. continue? (y/n) ';
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
-
-# window name
-my $win = join '', map "($_)", keys %hosts;
 
 my $sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
 
