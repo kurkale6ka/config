@@ -8,7 +8,6 @@ use Term::ANSIColor qw/color :constants/;
 use List::Util 'any';
 
 my $PINK = color('ansi205');
-my $YELLOW = color('yellow');
 my $RED = color('red');
 my $S = color('bold');
 my $R = color('reset');
@@ -80,23 +79,24 @@ foreach (@ARGV)
    $hosts{$host} = \@numbers;
 }
 
-my (@clusters, @singles, @hosts);
+my (@clusters, @cl_names, @singles);
 
-foreach my $host (sort keys %hosts)
+while (my ($host, $numbers) = each %hosts)
 {
-   if (@{$hosts{$host}} > 1)
+   if (@$numbers > 1)
    {
-      push @clusters, $host;
-      push @hosts, map $host.$_, @{$hosts{$host}};
+      push @clusters, map $host.$_, @$numbers;
+      push @cl_names, $host;
    } else {
       push @singles, $host;
-      push @hosts, $host;
    }
 }
 
-my @win = map "($_)", @clusters;
-push @win, join '.', @singles;
-my $win = join '', @win;
+my @hosts = sort @clusters;
+push @hosts, sort @singles;
+
+my $win = join '', map "($_)", sort @cl_names;
+$win .= join '.', sort @singles;
 
 if (@hosts > 10)
 {
@@ -117,24 +117,10 @@ elsif (any {/$win/} `tmux lsw -F'#W'`)
    die "A window named ${PINK}$win${R} already exists! Selecting it.\n";
 }
 
-my @children;
-
 foreach my $host (@hosts[1..$#hosts])
 {
-   # parent
-   my $pid = fork // die "failed to fork: $!";
-   if ($pid)
-   {
-      push @children, $pid;
-      next;
-   }
-
-   # kid
    system qw/tmux split-window -t/, $win, '-h', '-l', '100%', "ssh $host";
-   exit;
 }
-
-waitpid $_, 0 foreach @children;
 
 if (@hosts <= 2)
 {
