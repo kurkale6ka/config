@@ -104,31 +104,32 @@ if (@hosts > 10)
 }
 
 # todo: bm- failed ssh, // for parallel vs SYNC
-# can't find window ta, pane ta...
 system (qw/tmux has-session -t/, "$session:$win") == 0
    and die RED."$session:$win exists".RESET, "\n";
 
 unless (system (qw/tmux has-session -t/, $session) == 0)
 {
    system qw/tmux new-session -s/, $session, '-d', '-n', $win, "ssh $hosts[0]";
+} else {
+   system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
 }
-
-system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
 
 foreach my $host (@hosts[1..$#hosts])
 {
-   system qw/tmux split-window -t/, $win, '-h', '-l', '100%', "ssh $host";
+   system qw/tmux split-window -t/, "$session:$win", '-h', '-l', '100%', "ssh $host";
 }
 
-# todo: layout 2 & 3
-if (@hosts <= 2)
+# Layout
+if (@hosts <= 3)
 {
-   system qw/tmux select-layout -t/, $win, 'even-horizontal';
+   # vertical split for 2/3 panes
+   system qw/tmux select-layout -t/, "$session:$win", 'even-horizontal';
 } else {
-   system qw/tmux select-layout -t/, $win, 'tiled';
+   # tiles
+   system qw/tmux select-layout -t/, "$session:$win", 'tiled';
 }
 
-system qw/tmux set-window-option -t/, $win, 'synchronize-panes', 'on';
-system qw/tmux select-pane -t/, "$win.1";
+system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
+system qw/tmux select-pane -t/, "$session:$win.1";
 
 system qw/tmux attach-session -t/, $session unless $ENV{TMUX};
