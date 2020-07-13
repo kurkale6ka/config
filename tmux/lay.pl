@@ -104,16 +104,18 @@ if (@hosts > 10)
 }
 
 # todo: bm- failed ssh, // for parallel vs SYNC
-system (qw/tmux has-session -t/, "$session:$win") == 0
+system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0
    and die RED."$session:$win exists".RESET, "\n";
 
-unless (system (qw/tmux has-session -t/, $session) == 0)
+# New Session/Window
+unless (system ("tmux has-session -t '$session' 2>/dev/null") == 0)
 {
    system qw/tmux new-session -s/, $session, '-d', '-n', $win, "ssh $hosts[0]";
 } else {
    system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
 }
 
+# Split
 foreach my $host (@hosts[1..$#hosts])
 {
    system qw/tmux split-window -t/, "$session:$win", '-h', '-l', '100%', "ssh $host";
@@ -129,7 +131,10 @@ if (@hosts <= 3)
    system qw/tmux select-layout -t/, "$session:$win", 'tiled';
 }
 
-system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
 system qw/tmux select-pane -t/, "$session:$win.1";
 
+# Options
+system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
+
+# Attach
 system qw/tmux attach-session -t/, $session unless $ENV{TMUX};
