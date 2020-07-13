@@ -5,7 +5,6 @@ use warnings;
 use feature 'say';
 use Getopt::Long qw/GetOptions :config bundling/;
 use Term::ANSIColor qw/color :constants/;
-use List::Util 'any';
 
 my $PINK = color('ansi205');
 my $RED = color('red');
@@ -96,7 +95,7 @@ my @hosts = sort @clusters;
 push @hosts, sort @singles;
 
 my $win = join '', map "($_)", sort @cl_names;
-$win .= join '.', sort @singles;
+$win .= join '-', sort @singles;
 
 if (@hosts > 10)
 {
@@ -104,24 +103,24 @@ if (@hosts > 10)
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
 
-my $sessions = grep /^\d/, `tmux ls -F'#S' 2>/dev/null`;
+# todo: bm- failed ssh, // for parallel vs SYNC
+# can't find window ta, pane ta...
+system (qw/tmux has-session -t/, "$session:$win") == 0
+   and die RED."$session:$win exists".RESET, "\n";
 
-unless ($sessions)
+unless (system (qw/tmux has-session -t/, $session) == 0)
 {
    system qw/tmux new-session -s/, $session, '-d', '-n', $win, "ssh $hosts[0]";
 }
-elsif (any {/$win/} `tmux lsw -F'#W'`)
-{
-   system qw/tmux attach/ unless $ENV{TMUX};
-   $? == 0 and system qw/tmux select-window -t/, $win;
-   die "A window named ${PINK}$win${R} already exists! Selecting it.\n";
-}
+
+system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
 
 foreach my $host (@hosts[1..$#hosts])
 {
    system qw/tmux split-window -t/, $win, '-h', '-l', '100%', "ssh $host";
 }
 
+# todo: layout 2 & 3
 if (@hosts <= 2)
 {
    system qw/tmux select-layout -t/, $win, 'even-horizontal';
@@ -129,7 +128,7 @@ if (@hosts <= 2)
    system qw/tmux select-layout -t/, $win, 'tiled';
 }
 
-system qw/tmux select-pane -t/, "$win.1";
 system qw/tmux set-window-option -t/, $win, 'synchronize-panes', 'on';
+system qw/tmux select-pane -t/, "$win.1";
 
 system qw/tmux attach-session -t/, $session unless $ENV{TMUX};
