@@ -6,14 +6,19 @@ use feature 'say';
 use Getopt::Long qw/GetOptions :config bundling/;
 use Term::ANSIColor qw/color :constants/;
 
-my $PINK = color('ansi205');
-my $RED = color('red');
-my $S = color('bold');
-my $R = color('reset');
+my   $PINK = color('ansi205');
+my    $RED = color('red');
+my $YELLOW = color('yellow');
+my      $S = color('bold');
+my      $R = color('reset');
 
 # Help
 sub help() {
    print <<MSG;
+${S}DESCRIPTION${R}
+Split multiple ssh connections in separate tiles,
+tmux panes, for simultaneous operation
+
 ${S}SYNOPSIS${R}
 lay host[range] ...
 
@@ -23,12 +28,11 @@ ${S}RANGES${R}
       -3 : 1..3
   - or , : 1..2
 
-example:
-lay host- host3,5 hostY host4-6
-    host1 host2 host3 host5 hostY host4 host5 host6
-
-${S}DESCRIPTION${R}
-open ssh connections in tiles for simultaneous operation
+${YELLOW}example${R}:
+lay host${PINK}-${R} host${PINK}3,7${R} hostY host${PINK}4-6${R}
+    host1 host3   hostY host4
+    host2 host7         host5
+                        host6
 MSG
 exit;
 }
