@@ -1,9 +1,7 @@
 Linux configuration files and scripts
 =====================================
 
-Configuration files for:
-------------------------
-
+* [Split multiple ssh connections in separate tiles](tmux/lay.pl)
 * ctags
 * dig
 * dircolors
