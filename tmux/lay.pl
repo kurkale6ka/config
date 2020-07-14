@@ -1,11 +1,15 @@
 #! /usr/bin/env perl
 
+# Split multiple ssh connections in separate tmux panes,
+# for simultaneous operation
+
 use strict;
 use warnings;
 use feature 'say';
 use Getopt::Long qw/GetOptions :config bundling/;
 use Term::ANSIColor qw/color :constants/;
 
+# Colors
 my   $PINK = color('ansi205');
 my    $RED = color('red');
 my $YELLOW = color('yellow');
@@ -15,11 +19,9 @@ my      $R = color('reset');
 # Help
 sub help() {
    print <<MSG;
-${S}DESCRIPTION${R}
-Split multiple ssh connections in separate tiles,
-tmux panes, for simultaneous operation
-
 ${S}SYNOPSIS${R}
+Split multiple ssh connections in separate tiles
+
 lay host[range] ...
 
 ${S}RANGES${R}
@@ -37,12 +39,14 @@ MSG
 exit;
 }
 
+# add - to read from STDIN?
 GetOptions (
    'h|help' => \&help
 ) or die RED.'Error in command line arguments'.RESET, "\n";
 
 @ARGV == 0 and help;
 
+# Check if ssh keys have been registered with the agent
 unless (system ('ssh-add -l >/dev/null') == 0)
 {
    die RED.'Please add your ssh key to your agent'.RESET, "\n";
@@ -90,6 +94,7 @@ foreach (@ARGV)
    $hosts{$host} = \@numbers;
 }
 
+# List of hosts, clusters first
 my (@clusters, @cl_names, @singles);
 
 while (my ($host, $numbers) = each %hosts)
@@ -106,9 +111,11 @@ while (my ($host, $numbers) = each %hosts)
 my @hosts = sort @clusters;
 push @hosts, sort @singles;
 
+# Main window name
 my $win = join '', map "($_)", sort @cl_names;
 $win .= join '-', sort @singles;
 
+# Extra checks
 if (@hosts > 10)
 {
    print RED, scalar @hosts, RESET, ' panes will be created. continue? (y/n) ';
@@ -130,6 +137,8 @@ unless (system ("tmux has-session -t '$session' 2>/dev/null") == 0)
 # Split
 foreach my $host (@hosts[1..$#hosts])
 {
+   # without -l 100%, splitting errs after a few hosts:
+   # create pane failed: pane too small
    system qw/tmux split-window -t/, "$session:$win", '-h', '-l', '100%', "ssh $host";
 }
 
@@ -145,7 +154,7 @@ if (@hosts <= 3)
 
 system qw/tmux select-pane -t/, "$session:$win.1";
 
-# Options
+# Options: sync on
 system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
 
 # Attach
