@@ -15,12 +15,20 @@ my $R = color('reset');
 sub help() {
    print <<MSG;
 ${S}SYNOPSIS${R}
-lay host[n-z]
+lay host[range] ...
+
 ${S}RANGES${R}
-  - : 1..2
- -3 : 1..3
-3-6 : 3..6
+   3,5,9 : unchanged
+     3-6 : 3..6
+      -3 : 1..3
+  - or , : 1..2
+
+example:
+lay host- host3,5 hostY host4-6
+    host1 host2 host3 host5 hostY host4 host5 host6
+
 ${S}DESCRIPTION${R}
+open ssh connections in tiles for simultaneous operation
 MSG
 exit;
 }
