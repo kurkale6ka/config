@@ -1,7 +1,7 @@
 #! /usr/bin/env perl
 
 # ClusterShell nodes for lay.pl
-# faster than: nodeset -f @cluster | tr -d '[]' | tr , ' '
+# faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
 
 use strict;
 use warnings;
@@ -37,7 +37,7 @@ while (<$clush>)
 {
    next if /^\s*#/;
 
-   if (/$stack:\s*'(.+)'/)
+   if (/\b$stack:\s*'(.+)'/)
    {
       @hosts = map {
          if (/(.+)\[(\d+)-(\d+)\]/)
