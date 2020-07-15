@@ -15,21 +15,23 @@ my $help = 'Usage: nodes cluster [[-exclude_pattern] ...]';
 open my $clush, '<', "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml"
    or die "$!\n";
 
-my $stack;
+my ($cluster, $cluster_clean);
 my @exclusions;
 
 foreach (@ARGV)
 {
    unless (/^-/)
    {
-      $stack = $_;
+      $cluster = $_;
    } else {
       push @exclusions, substr $_, 1;
    }
 }
 
-$stack or die "$help\n";
-$stack = qr/$stack/;
+$cluster or die "$help\n";
+
+$cluster_clean = $cluster; # non compiled string
+$cluster = qr/$cluster/;
 
 my @hosts;
 
@@ -37,7 +39,8 @@ while (<$clush>)
 {
    next if /^\s*#/;
 
-   if (/\b$stack:\s*'(.+)'/)
+   # test: 'ha[1-3],hb[1-2]' # cluster test with hosts - ha1 ha2 ha3 hb1 hb2
+   if (/\b$cluster:\s*'(.+)'/)
    {
       @hosts = map {
          if (/(.+)\[(\d+)-(\d+)\]/)
@@ -55,6 +58,8 @@ while (<$clush>)
       last;
    }
 }
+
+@hosts or die "No cluster $cluster_clean found\n";
 
 close $clush or die "$!\n";
 
