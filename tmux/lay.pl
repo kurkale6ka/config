@@ -41,12 +41,20 @@ MSG
 exit;
 }
 
-# add - to read from STDIN?
+@ARGV == 0 and help;
+
+my $stdin;
 GetOptions (
+   ''       => \$stdin,
    'h|help' => \&help
 ) or die RED.'Error in command line arguments'.RESET, "\n";
 
-@ARGV == 0 and help;
+# todo: fix nodes ... | lay -
+#
+# if ($stdin)
+# {
+#    chomp (@ARGV = <>);
+# }
 
 # Check if ssh keys have been registered with the agent
 unless (system ('ssh-add -l >/dev/null') == 0)
