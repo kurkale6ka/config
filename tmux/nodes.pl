@@ -1,6 +1,6 @@
 #! /usr/bin/env perl
 
-# Get clustershell nodes for lay.pl
+# ClusterShell nodes for lay.pl
 # faster than: nodeset -f @... | tr -d '[]' | tr , ' '
 
 use strict;

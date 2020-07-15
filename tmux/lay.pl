@@ -2,6 +2,8 @@
 
 # Split multiple ssh connections in separate tmux panes,
 # for simultaneous operation
+#
+# check nodes.pl for ClusterShell nodes
 
 use strict;
 use warnings;
