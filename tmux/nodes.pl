@@ -1,14 +1,14 @@
 #! /usr/bin/env perl
 
 # ClusterShell nodes for lay.pl
-# faster than: nodeset -f @... | tr -d '[]' | tr , ' '
+# faster than: nodeset -f @cluster | tr -d '[]' | tr , ' '
 
 use strict;
 use warnings;
 use feature 'say';
 use List::Util 'none';
 
-@ARGV == 0 and die "Usage: nodes stack [[-exclude] ...]\n";
+@ARGV == 0 and die "Usage: nodes cluster [[-exclude_pattern] ...]\n";
 
 open my $clush, '<', "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml"
    or die "$!\n";
@@ -55,12 +55,11 @@ while (<$clush>)
 
 close $clush or die "$!\n";
 
-# todo: separate with newlines for nodes ... | lay -
 unless (@exclusions)
 {
-   say "@hosts";
+   say foreach @hosts;
 } else {
-   say join ' ', grep {
+   say foreach grep {
       my $host = $_;
       none {$host =~ /$_/} @exclusions;
    } @hosts;
