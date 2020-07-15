@@ -8,7 +8,9 @@ use warnings;
 use feature 'say';
 use List::Util 'none';
 
-@ARGV == 0 and die "Usage: nodes cluster [[-exclude_pattern] ...]\n";
+my $help = 'Usage: nodes cluster [[-exclude_pattern] ...]';
+
+@ARGV == 0 and die "$help\n";
 
 open my $clush, '<', "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml"
    or die "$!\n";
@@ -26,6 +28,7 @@ foreach (@ARGV)
    }
 }
 
+$stack or die "$help\n";
 $stack = qr/$stack/;
 
 my @hosts;
