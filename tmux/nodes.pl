@@ -31,7 +31,7 @@ foreach (@ARGV)
 $cluster or die "$help\n";
 
 $cluster_clean = $cluster; # non compiled string
-$cluster = qr/$cluster/;
+$cluster = qr/$cluster_clean/;
 
 my @hosts;
 
