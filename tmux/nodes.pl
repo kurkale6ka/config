@@ -33,6 +33,8 @@ $cluster or die "$help\n";
 $cluster_clean = $cluster; # non compiled string
 $cluster = qr/$cluster_clean/;
 
+@exclusions = map qr/$_/, @exclusions;
+
 my @hosts;
 
 while (<$clush>)
