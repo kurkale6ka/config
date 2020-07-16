@@ -126,7 +126,7 @@ my $win = join '', map "($_)", sort @cl_names;
 $win .= join '-', sort @singles;
 
 # Extra checks
-if (@hosts > 10)
+if (@hosts > 12)
 {
    print RED, scalar @hosts, RESET, ' panes will be created. continue? (y/n) ';
    exit unless <STDIN> =~ /y(?:es)?/i;
