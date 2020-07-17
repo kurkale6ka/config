@@ -132,7 +132,7 @@ if (@hosts > 12)
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
 
-# todo: bm- failed ssh, // for parallel vs SYNC
+# todo: notify about failed ssh panes
 system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0
    and die RED."$session:$win exists".RESET, "\n";
 
