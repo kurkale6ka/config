@@ -6,51 +6,56 @@ use feature qw/say/;
 use File::Glob ':bsd_glob';
 use Term::ANSIColor qw/:constants/;
 
-# clipboard
-open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip';
+# Clipboard
+open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
+   or die RED."$!".RESET, "\n";
 
 # TLS
 # Mac OS
 if (-e '/usr/local/etc/openssl/cert.pem')
 {
-   say $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"'
-# Linux
+   say $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"';
+   # Linux
 } elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
-   say $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"'
+   say $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"';
 } else {
-   die "No valid certificates found\n"
+   die "No valid certificates found\n";
 }
 
 # Certificates
 print BOLD, "Certificates\n\n", RESET;
 
 mkdir glob '~/.weechat/certs';
-chdir glob '~/.weechat/certs' or die;
+chdir glob '~/.weechat/certs' or die RED."$!".RESET, "\n";
 
-for (qw/freenode oftc/)
+foreach (qw/freenode oftc/)
 {
    if (-e "$_.pem")
    {
       print RED, "Regenerate certificate for $_?: ", RESET;
-      next unless <STDIN> =~ /y(es)?/in
+      next unless <STDIN> =~ /y(es)?/in;
    }
 
-   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'";
-   print CYAN, 'fingerprint: ', RESET;
-   system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1";
+   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'"
+      or die RED."$!".RESET, "\n";
 
-   chmod 0600, "$_.pem"
+   print CYAN, 'fingerprint: ', RESET;
+
+   system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1"
+      or die RED."$!".RESET, "\n";
+
+   chmod 0600, "$_.pem";
 }
 
-# copy IRC commands
+# Copy IRC commands
 while (<DATA>) {
    next unless m(^/);
-   print $cb $_
+   print $cb $_;
 }
 
 print BOLD, "\nPlease paste your configuration within weechat!\n\n", RESET;
 
-print <<'MSG'
+print << 'MSG';
 Freenode & OFTC:
 /msg nickserv identify **********
 /msg nickserv cert add
