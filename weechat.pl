@@ -11,12 +11,11 @@ open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
    or die RED."$!".RESET, "\n";
 
 # TLS
-# Mac OS
-if (-e '/usr/local/etc/openssl/cert.pem')
-{
+if (-e '/usr/local/etc/openssl/cert.pem') {
+   # Mac OS
    say $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"';
-   # Linux
 } elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
+   # Linux
    say $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"';
 } else {
    die "No valid certificates found\n";
