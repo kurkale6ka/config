@@ -12,11 +12,12 @@ use Getopt::Long qw/GetOptions :config bundling/;
 use Term::ANSIColor qw/color :constants/;
 
 # Colors
-my   $PINK = color('ansi205');
-my    $RED = color('red');
+my $GREEN  = color('green');
+my $PINK   = color('ansi205');
+my $RED    = color('red');
 my $YELLOW = color('yellow');
-my      $S = color('bold');
-my      $R = color('reset');
+my $S = color('bold');
+my $R = color('reset');
 
 # Help
 sub help() {
@@ -24,19 +25,19 @@ sub help() {
 ${S}SYNOPSIS${R}
 Split multiple ssh connections in separate tiles
 
-lay host[range] ...
+lay host[${PINK}range${R}] ...
 
 ${S}RANGES${R}
    3,5,9 : unchanged
-     3-6 : 3..6
-      -3 : 1..3
-  - or , : 1..2
+     3-6 : 3 ${GREEN}to${R} 6
+      -3 : 1 ${GREEN}to${R} 3
+  - or , : 1 ${GREEN}and${R} 2
 
 ${YELLOW}example${R}:
-lay host${PINK}-${R} host${PINK}3,7${R} hostY host${PINK}4-6${R}
-    host1 host3   hostY host4
-    host2 host7         host5
-                        host6
+lay host${PINK}-${R} host${PINK}3,7${R} host host${PINK}4-6${R}
+    host${GREEN}1${R} host${GREEN}3${R}   host host${GREEN}4${R}
+    host${GREEN}2${R} host${GREEN}7${R}        host${GREEN}5${R}
+                       host${GREEN}6${R}
 MSG
 exit;
 }
