@@ -23,7 +23,7 @@ my @exclusions;
 
 foreach (@ARGV)
 {
-   unless (/^-/)
+   unless (/^-./)
    {
       $cluster = $_;
    } else {
