@@ -8,14 +8,17 @@ use warnings;
 use feature 'say';
 use List::Util 'none';
 
-my $help = 'Usage: nodes cluster [[-exclude_pattern] ...]';
+my $help = << 'MSG';
+Usage: nodes cluster [[-exclude] ...]
+-xa, would remove any line matching this litteral (xa,)
+MSG
 
-@ARGV == 0 and die "$help\n";
+die $help if @ARGV == 0;
 
 open my $clush, '<', "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml"
    or die "$!\n";
 
-my ($cluster, $cluster_clean);
+my ($cluster, $cluster_reg);
 my @exclusions;
 
 foreach (@ARGV)
@@ -28,12 +31,10 @@ foreach (@ARGV)
    }
 }
 
-$cluster or die "$help\n";
+$cluster or die $help;
 
-$cluster_clean = $cluster; # non compiled string
-$cluster = qr/$cluster_clean/;
-
-@exclusions = map qr/$_/, @exclusions;
+$cluster_reg = qr/\Q$cluster\E/;
+@exclusions = map qr/\Q$_\E/, @exclusions;
 
 my @hosts;
 
@@ -41,8 +42,9 @@ while (<$clush>)
 {
    next if /^\s*#/;
 
-   # test: 'ha[1-3],hb[1-2]' # cluster test with hosts - ha1 ha2 ha3 hb1 hb2
-   if (/\b$cluster:\s*'(.+)'/)
+   # config example
+   # web: 'wa[1-3],wb[1-2]'
+   if (/\b$cluster_reg:\s*'(.+)'/)
    {
       @hosts = map {
          if (/(.+)\[(\d+)-(\d+)\]/)
@@ -61,9 +63,7 @@ while (<$clush>)
    }
 }
 
-@hosts or die "No cluster $cluster_clean found\n";
-
-close $clush or die "$!\n";
+@hosts or die "$cluster cluster not found\n";
 
 unless (@exclusions)
 {
