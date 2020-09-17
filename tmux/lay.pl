@@ -135,7 +135,7 @@ if system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0;
 # New Session/Window
 unless (system ("tmux has-session -t '$session' 2>/dev/null") == 0)
 {
-   system qw/tmux new-session -s/, $session, '-d', '-n', $win, "ssh $hosts[0]";
+   system qw/tmux new-session -d -s/, $session, '-n', $win, "ssh $hosts[0]";
 } else {
    system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
 }
@@ -145,7 +145,7 @@ foreach my $host (@hosts[1..$#hosts])
 {
    # without -l 100%, splitting errs after a few hosts:
    # create pane failed: pane too small
-   system qw/tmux split-window -t/, "$session:$win", '-h', '-l', '100%', "ssh $host";
+   system qw/tmux split-window -h -t/, "$session:$win", '-l', '100%', "ssh $host";
 }
 
 # Layout
