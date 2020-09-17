@@ -5,8 +5,6 @@
 
 use strict;
 use warnings;
-use feature 'say';
-use List::Util 'none';
 
 my $help = << 'MSG';
 Usage: nodes cluster [[-exclude] ...]
@@ -15,11 +13,10 @@ MSG
 
 die $help if @ARGV == 0;
 
-open my $clush, '<', "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml"
-   or die "$!\n";
+my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
+open my $clush, '<', $config or die "$config: $!\n";
 
-my ($cluster, $cluster_reg);
-my @exclusions;
+my ($cluster, $cluster_reg, @exclusions, @hosts);
 
 foreach (@ARGV)
 {
@@ -35,8 +32,6 @@ $cluster or die $help;
 
 $cluster_reg = qr/\Q$cluster\E/;
 @exclusions = map qr/\Q$_\E/, @exclusions;
-
-my @hosts;
 
 while (<$clush>)
 {
@@ -67,10 +62,10 @@ while (<$clush>)
 
 unless (@exclusions)
 {
-   say foreach @hosts;
+   print "$_\n" foreach @hosts;
 } else {
-   say foreach grep {
+   print "$_\n" foreach grep {
       my $host = $_;
-      none {$host =~ /$_/} @exclusions;
+      not grep {$host =~ /$_/} @exclusions;
    } @hosts;
 }
