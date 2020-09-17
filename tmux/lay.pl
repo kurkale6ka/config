@@ -166,5 +166,5 @@ if (-t STDIN)
 {
    exec qw/tmux attach-session -t/, $session unless $ENV{TMUX};
 } else {
-   say 'Use `tmux attach-session` to attach to the running session';
+   say "Use ${PINK}tmux attach-session -t$session${R} to attach to the running session";
 }
