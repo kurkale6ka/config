@@ -41,15 +41,9 @@ MSG
 exit;
 }
 
-help if @ARGV == 0;
-
-my $stdin;
 GetOptions (
-   ''       => \$stdin,
    'h|help' => \&help
 ) or die RED.'Error in command line arguments'.RESET, "\n";
-
-chomp (my @nodes = <STDIN>) if $stdin;
 
 # Check if ssh keys have been registered with the agent
 unless (system ('ssh-add -l >/dev/null') == 0)
@@ -57,11 +51,14 @@ unless (system ('ssh-add -l >/dev/null') == 0)
    die RED.'Please add your ssh key to your agent'.RESET, "\n";
 }
 
+# read hosts, UNIX-filter style
+chomp (my @nodes = <STDIN>) unless -t STDIN;
+
 my $session = 'ssh';
 my %hosts;
 
 # Calculate Ranges
-foreach ($stdin ? @nodes : @ARGV)
+foreach (-t STDIN ? @ARGV : @nodes)
 {
    my ($host, $first, $last, $range, @numbers);
 
@@ -98,6 +95,8 @@ foreach ($stdin ? @nodes : @ARGV)
 
    $hosts{$host} = \@numbers;
 }
+
+help unless %hosts;
 
 # List of hosts, clusters first
 my (@clusters, @cl_names, @singles);
