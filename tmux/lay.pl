@@ -14,7 +14,6 @@ use Term::ANSIColor qw/color :constants/;
 # Colors
 my $GREEN  = color('green');
 my $PINK   = color('ansi205');
-my $RED    = color('red');
 my $YELLOW = color('yellow');
 my $S = color('bold');
 my $R = color('reset');
@@ -92,7 +91,7 @@ foreach ($stdin ? @nodes : @ARGV)
    }
    else
    {
-      /[,-]$/ and die RED."garbage range detected: $_".RESET, "\n";
+      die RED."garbage range detected: $_".RESET, "\n" if /[,-]$/;
       $hosts{$_} = [];
       next;
    }
