@@ -3,8 +3,8 @@
 # ClusterShell nodes for lay.pl
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
 
-use strict;
-use warnings;
+# use strict;
+# use warnings;
 
 my $help = << 'MSG';
 Usage: nodes cluster [[-exclude] ...]
