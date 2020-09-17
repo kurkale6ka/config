@@ -162,4 +162,9 @@ system qw/tmux select-pane -t/, "$session:$win.1";
 system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
 
 # Attach
-exec qw/tmux attach-session -t/, $session unless $ENV{TMUX};
+if (-t STDIN)
+{
+   exec qw/tmux attach-session -t/, $session unless $ENV{TMUX};
+} else {
+   say 'Use `tmux attach-session` to attach to the running session';
+}
