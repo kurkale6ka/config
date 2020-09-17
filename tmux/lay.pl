@@ -145,7 +145,7 @@ foreach my $host (@hosts[1..$#hosts])
 {
    # without -l 100%, splitting errs after a few hosts:
    # create pane failed: pane too small
-   system qw/tmux split-window -h -t/, "$session:$win", '-l', '100%', "ssh $host";
+   system qw/tmux split-window -h -t/, "$session:$win", '-l100%', "ssh $host";
 }
 
 # Layout
