@@ -42,7 +42,7 @@ MSG
 exit;
 }
 
-@ARGV == 0 and help;
+help if @ARGV == 0;
 
 my $stdin;
 GetOptions (
@@ -50,12 +50,7 @@ GetOptions (
    'h|help' => \&help
 ) or die RED.'Error in command line arguments'.RESET, "\n";
 
-# todo: fix nodes ... | lay -
-#
-# if ($stdin)
-# {
-#    chomp (@ARGV = <>);
-# }
+chomp (my @nodes = <STDIN>) if $stdin;
 
 # Check if ssh keys have been registered with the agent
 unless (system ('ssh-add -l >/dev/null') == 0)
@@ -67,7 +62,7 @@ my $session = 'ssh';
 my %hosts;
 
 # Calculate Ranges
-foreach (@ARGV)
+foreach ($stdin ? @nodes : @ARGV)
 {
    my ($host, $first, $last, $range, @numbers);
 
@@ -134,8 +129,8 @@ if (@hosts > 12)
 }
 
 # todo: notify about failed ssh panes
-system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0
-   and die RED."$session:$win exists".RESET, "\n";
+die RED."$session:$win exists".RESET, "\n"
+if system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0;
 
 # New Session/Window
 unless (system ("tmux has-session -t '$session' 2>/dev/null") == 0)
@@ -169,4 +164,4 @@ system qw/tmux select-pane -t/, "$session:$win.1";
 system qw/tmux set-window-option -t/, "$session:$win", 'synchronize-panes', 'on';
 
 # Attach
-system qw/tmux attach-session -t/, $session unless $ENV{TMUX};
+exec qw/tmux attach-session -t/, $session unless $ENV{TMUX};
