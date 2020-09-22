@@ -64,8 +64,8 @@ unless (@exclusions)
 {
    print "$_\n" foreach @hosts;
 } else {
-   print "$_\n" foreach grep {
-      my $host = $_;
-      not grep {$host =~ /$_/} @exclusions;
-   } @hosts;
+   foreach my $host (@hosts)
+   {
+      print "$host\n" unless grep {$host =~ /$_/} @exclusions;
+   }
 }
