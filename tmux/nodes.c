@@ -10,16 +10,25 @@ int main (int argc, char* argv[])
 
    if (argc == 1) puts (help);
 
+   // char *cluster, exclusions[];
+
+   for (int i = 1; i < argc; i++)
+   {
+      if (argv[i][0] == '-')
+         puts (argv[i]);
+   }
+
    char* config = getenv ("XDG_CONFIG_HOME");
    strcat (config, "/clustershell/groups.d/cluster.yaml");
 
-   puts (config);
-
    FILE* clusters = fopen (config, "r");
 
-   char cluster[100];
-   fscanf (clusters, "%s", cluster);
-   puts (cluster);
+   char buff[255];
+
+   while (fgets(buff, sizeof(buff), clusters))
+   {
+      printf ("%s", buff);
+   }
 
    fclose (clusters);
 
