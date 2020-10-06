@@ -88,11 +88,23 @@ foreach (-t STDIN ? @ARGV : @nodes)
    }
    else
    {
-      die RED."garbage range detected: $_".RESET, "\n" if /[,-]$/;
-      $hosts{$_} = [];
+      if (/[,-]$/)
+      {
+         die RED."garbage range detected: $_".RESET, "\n";
+      }
+
+      # single hosts
+      unless (exists $hosts{$_})
+      {
+         $hosts{$_} = [0];
+      } else {
+         push $hosts{$_}->@*, 0;
+      }
+
       next;
    }
 
+   # x,y,z and 1-n cases
    $hosts{$host} = \@numbers;
 }
 
@@ -105,7 +117,7 @@ while (my ($host, $numbers) = each %hosts)
 {
    if (@$numbers > 1)
    {
-      push @clusters, map $host.$_, @$numbers;
+      push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
       push @cl_names, $host;
    } else {
       push @singles, $host;
