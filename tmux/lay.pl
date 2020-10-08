@@ -33,10 +33,10 @@ ${S}RANGES${R}
   - or , : 1 ${GREEN}and${R} 2
 
 ${YELLOW}example${R}:
-lay host${PINK}-${R} host${PINK}3,7${R} host host${PINK}4-6${R}
-    host${GREEN}1${R} host${GREEN}3${R}   host host${GREEN}4${R}
-    host${GREEN}2${R} host${GREEN}7${R}        host${GREEN}5${R}
-                       host${GREEN}6${R}
+lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}4-6${R} 3
+    host${GREEN}1${R} host${GREEN}1${R}    host host${GREEN}4${R}   +- shell tiles
+    host${GREEN}2${R} host${GREEN}3${R}         host${GREEN}5${R}
+          host${GREEN}7${R}         host${GREEN}6${R}
 MSG
 exit;
 }
