@@ -60,14 +60,13 @@ my %hosts;
 # Calculate Ranges
 foreach (-t STDIN ? @ARGV : @nodes)
 {
-   my ($host, $first, $last, $range, @numbers);
+   my ($host, $first, $last, $range);
 
    # final -
    if (/(?<!\d)[-,]$/)
    {
       chop ($host = $_);
       $hosts{$host} = [1, 2];
-      next;
    }
    # x,y,z
    elsif (/,\d+$/)
@@ -75,7 +74,7 @@ foreach (-t STDIN ? @ARGV : @nodes)
       ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
 
       $range = "1$range" if $range =~ /^,/;
-      @numbers = split /,/, $range;
+      $hosts{$host} = [split /,/, $range];
    }
    # 1-n
    elsif (/-\d+$/)
@@ -84,7 +83,7 @@ foreach (-t STDIN ? @ARGV : @nodes)
 
       $first //= 1;
       $first < $last or die RED.'non ascending range detected'.RESET, "\n";
-      @numbers = $first..$last;
+      $hosts{$host} = [$first..$last];
    }
    else
    {
@@ -100,12 +99,7 @@ foreach (-t STDIN ? @ARGV : @nodes)
       } else {
          push $hosts{$_}->@*, 0;
       }
-
-      next;
    }
-
-   # x,y,z and 1-n cases
-   $hosts{$host} = \@numbers;
 }
 
 help unless %hosts;
