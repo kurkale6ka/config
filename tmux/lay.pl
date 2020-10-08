@@ -85,12 +85,18 @@ foreach (-t STDIN ? @ARGV : @nodes)
       $first < $last or die RED.'non ascending range detected'.RESET, "\n";
       $hosts{$host} = [$first..$last];
    }
-   # single hosts
+   # no range
    else
    {
       if (/[,-]$/)
       {
          die RED."garbage range detected: $_".RESET, "\n";
+      }
+
+      if (/^\d+$/)
+      {
+         $hosts{empty} = [(0) x $&];
+         next;
       }
 
       unless (exists $hosts{$_})
@@ -137,11 +143,13 @@ die RED."$session:$win exists".RESET, "\n"
 if system ("tmux has-session -t '$session:$win' 2>/dev/null") == 0;
 
 # New Session/Window
+my $cmd = $hosts[0] ne 'empty' ? "ssh $hosts[0]" : $ENV{SHELL};
+
 unless (system ("tmux has-session -t '$session' 2>/dev/null") == 0)
 {
-   system qw/tmux new-session -d -s/, $session, '-n', $win, "ssh $hosts[0]";
+   system qw/tmux new-session -d -s/, $session, '-n', $win, $cmd;
 } else {
-   system qw/tmux new-window -n/, $win, '-t', "$session:", "ssh $hosts[0]";
+   system qw/tmux new-window -n/, $win, '-t', "$session:", $cmd;
 }
 
 # Split
@@ -149,7 +157,12 @@ foreach my $host (@hosts[1..$#hosts])
 {
    # without -l 100%, splitting errs after a few hosts:
    # create pane failed: pane too small
-   system qw/tmux split-window -h -t/, "$session:$win", '-l100%', "ssh $host";
+   unless ($host eq 'empty')
+   {
+      system qw/tmux split-window -h -t/, "$session:$win", '-l100%', "ssh $host";
+   } else {
+      system qw/tmux split-window -h -t/, "$session:$win", '-l100%', $ENV{SHELL};
+   }
 }
 
 # Layout
