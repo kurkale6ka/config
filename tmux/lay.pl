@@ -85,6 +85,7 @@ foreach (-t STDIN ? @ARGV : @nodes)
       $first < $last or die RED.'non ascending range detected'.RESET, "\n";
       $hosts{$host} = [$first..$last];
    }
+   # single hosts
    else
    {
       if (/[,-]$/)
@@ -92,7 +93,6 @@ foreach (-t STDIN ? @ARGV : @nodes)
          die RED."garbage range detected: $_".RESET, "\n";
       }
 
-      # single hosts
       unless (exists $hosts{$_})
       {
          $hosts{$_} = [0];
