@@ -33,10 +33,10 @@ ${S}RANGES${R}
   - or , : 1 ${GREEN}and${R} 2
 
 ${YELLOW}example${R}:
-lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}4-6${R} 3
-    host${GREEN}1${R} host${GREEN}1${R}    host host${GREEN}4${R}   +- shell tiles
-    host${GREEN}2${R} host${GREEN}3${R}         host${GREEN}5${R}
-          host${GREEN}7${R}         host${GREEN}6${R}
+lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}=2${R} host${PINK}4-6${R} ${PINK}3${R}
+    host${GREEN}1${R} host${GREEN}1${R}    host host   host${GREEN}4${R}   +- shell tiles
+    host${GREEN}2${R} host${GREEN}3${R}         host   host${GREEN}5${R}
+          host${GREEN}7${R}                host${GREEN}6${R}
 MSG
 exit;
 }
@@ -93,17 +93,26 @@ foreach (-t STDIN ? @ARGV : @nodes)
          die RED."garbage range detected: $_".RESET, "\n";
       }
 
+      # single digit
       if (/^\d+$/)
       {
          $hosts{empty} = [(0) x $&];
-         next;
       }
-
-      unless (exists $hosts{$_})
+      # host=count
+      elsif (/.+=\d+$/)
       {
-         $hosts{$_} = [0];
-      } else {
-         push $hosts{$_}->@*, 0;
+         my ($host, $count) = split /=/;
+         $hosts{$host} = [(0) x $count];
+      }
+      # host
+      else
+      {
+         unless (exists $hosts{$_})
+         {
+            $hosts{$_} = [0];
+         } else {
+            push $hosts{$_}->@*, 0;
+         }
       }
    }
 }
