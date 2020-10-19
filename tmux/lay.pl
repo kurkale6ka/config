@@ -133,7 +133,8 @@ while (my ($host, $numbers) = each %hosts)
    }
 }
 
-my @hosts = sort @clusters;
+my @hosts;
+push @hosts, sort @clusters;
 push @hosts, sort @singles;
 
 # Main window name
