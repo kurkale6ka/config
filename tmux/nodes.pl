@@ -2,6 +2,7 @@
 
 # ClusterShell nodes for lay.pl
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
+# TODO: package + help
 
 use strict;
 use warnings;
@@ -162,14 +163,13 @@ foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
 }
 
 # List of hosts, clusters first
-my (@clusters, @cluster_names, @singles);
+my (@clusters, @singles);
 
 while (my ($host, $numbers) = each %hosts)
 {
    if (@$numbers > 1)
    {
       push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
-      push @cluster_names, $host;
    } else {
       push @singles, $host;
    }
