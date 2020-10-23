@@ -119,7 +119,7 @@ foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
       ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
 
       $range = "1$range" if $range =~ /^,/;
-      $hosts{$host} = [split /,/, $range];
+      $hosts{$host} = [sort split /,/, $range];
    }
    # 1-n
    elsif (/-\d+$/)
@@ -165,26 +165,23 @@ foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
 # List of hosts, clusters first
 my (@clusters, @singles);
 
-while (my ($host, $numbers) = each %hosts)
+foreach my $host (sort keys %hosts)
 {
+   my $numbers = $hosts{$host};
+
    if (@$numbers > 1)
    {
-      # sort might be needed for a x,y,z range
-      push @clusters, map {$_ != 0 ? $host.$_ : $host} sort @$numbers;
+      push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
    } else {
       push @singles, $host;
    }
 }
 
-my @nodes;
-push @nodes, sort @clusters;
-push @nodes, sort @singles;
-
 unless (@exclusions)
 {
-   say foreach @nodes;
+   say foreach @clusters, @singles;
 } else {
-   foreach my $node (@nodes)
+   foreach my $node (@clusters, @singles)
    {
       say $node unless grep {$node =~ /$_/} @exclusions;
    }
