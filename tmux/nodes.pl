@@ -169,7 +169,8 @@ while (my ($host, $numbers) = each %hosts)
 {
    if (@$numbers > 1)
    {
-      push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
+      # sort might be needed for a x,y,z range
+      push @clusters, map {$_ != 0 ? $host.$_ : $host} sort @$numbers;
    } else {
       push @singles, $host;
    }
