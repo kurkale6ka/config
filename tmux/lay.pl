@@ -38,16 +38,10 @@ lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}=2${R} host${PINK}4-6${
 MSG
 
 die $help if @ARGV == 0;
-
-# Check if ssh keys have been registered with the agent
-unless (system ('ssh-add -l >/dev/null') == 0)
-{
-   die RED.'Please add your ssh key to your agent'.RESET, "\n";
-}
-
 die $help if @ARGV == 1 and $ARGV[0] eq '-h';
 
-my (@cl_names, @singles);
+# Calculate hosts
+my (@clusters, @singles, @hosts);
 
 foreach (@ARGV)
 {
@@ -55,16 +49,13 @@ foreach (@ARGV)
 
    if (/^@/)
    {
-      push @cl_names, substr $_, 1;
+      push @clusters, substr $_, 1;
    } else {
       push @singles, $_ unless /^-./;
    }
 }
 
-# Calculate hosts
 # call nodes.pl, todo: turn into a module
-my @hosts;
-
 if (-t STDIN)
 {
    @hosts = `./nodes.pl @ARGV`;
@@ -75,12 +66,9 @@ if (-t STDIN)
    @hosts = `./nodes.pl @nodes`;
 }
 
-# $@ ?
+# todo: $@ ?
+# error messages from nodes.pl ?
 exit unless @hosts;
-
-# Main window name
-my $win = join '', map "($_)", sort @cl_names;
-$win .= join '-', sort @singles;
 
 # Extra checks
 if (@hosts > 12)
@@ -89,7 +77,17 @@ if (@hosts > 12)
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
 
+# Check if ssh keys have been registered with the agent
+unless (system ('ssh-add -l >/dev/null') == 0)
+{
+   die RED.'Please add your ssh key to your agent'.RESET, "\n";
+}
+
 my $session = 'ssh';
+
+# Main window name
+my $win = join '', map "($_)", sort @clusters;
+$win .= join '-', sort @singles;
 
 # todo: notify about failed ssh panes
 die RED."$session:$win exists".RESET, "\n"
