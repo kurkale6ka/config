@@ -51,9 +51,10 @@ if (%clusters)
    {
       next if /^\s*#/;
 
-      # config example
       foreach my $key (keys %clusters)
       {
+         # config example
+         # web: 'wa[1-3],wb[1-2]'
          if (/\b$clusters{$key}->[0]:\s*'(.+)'/)
          {
             push $clusters{$key}->@*, map {
@@ -68,11 +69,12 @@ if (%clusters)
                } else {
                   $_;
                }
-            } split /,/, $1; # web: 'wa[1-3],wb[1-2]'
+            } split /,/, $1;
 
             $cluster_found{$key} = 1;
          }
       }
+
       goto RANGES if $cluster_count == keys %cluster_found;
    }
 
