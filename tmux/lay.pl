@@ -8,7 +8,6 @@
 use strict;
 use warnings;
 use feature 'say';
-use Getopt::Long qw/GetOptions :config bundling/;
 use Term::ANSIColor qw/color :constants/;
 
 # Colors
@@ -19,8 +18,7 @@ my $S = color('bold');
 my $R = color('reset');
 
 # Help
-sub help() {
-   print <<MSG;
+my $help = <<MSG;
 ${S}SYNOPSIS${R}
 Split multiple ssh connections in separate tiles
 
@@ -38,12 +36,8 @@ lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}=2${R} host${PINK}4-6${
     host${GREEN}2${R} host${GREEN}3${R}         host   host${GREEN}5${R}
           host${GREEN}7${R}                host${GREEN}6${R}
 MSG
-exit;
-}
 
-GetOptions (
-   'h|help' => \&help
-) or die RED.'Error in command line arguments'.RESET, "\n";
+die $help if @ARGV == 0;
 
 # Check if ssh keys have been registered with the agent
 unless (system ('ssh-add -l >/dev/null') == 0)
@@ -51,91 +45,38 @@ unless (system ('ssh-add -l >/dev/null') == 0)
    die RED.'Please add your ssh key to your agent'.RESET, "\n";
 }
 
-# read hosts, UNIX-filter style
-chomp (my @nodes = <STDIN>) unless -t STDIN;
+die $help if @ARGV == 1 and $ARGV[0] eq '-h';
 
-my $session = 'ssh';
-my %hosts;
+my (@cl_names, @singles);
 
-# Calculate Ranges
-foreach (-t STDIN ? @ARGV : @nodes)
+foreach (@ARGV)
 {
-   my ($host, $first, $last, $range);
+   die $help if /--help/;
 
-   # final -
-   if (/(?<!\d)[-,]$/)
+   if (/^@/)
    {
-      chop ($host = $_);
-      $hosts{$host} = [1, 2];
-   }
-   # x,y,z
-   elsif (/,\d+$/)
-   {
-      ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
-
-      $range = "1$range" if $range =~ /^,/;
-      $hosts{$host} = [split /,/, $range];
-   }
-   # 1-n
-   elsif (/-\d+$/)
-   {
-      ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
-
-      $first //= 1;
-      $first < $last or die RED.'non ascending range detected'.RESET, "\n";
-      $hosts{$host} = [$first..$last];
-   }
-   # no range
-   else
-   {
-      if (/[,-]$/)
-      {
-         die RED."garbage range detected: $_".RESET, "\n";
-      }
-
-      # single digit
-      if (/^\d+$/)
-      {
-         $hosts{empty} = [(0) x $&];
-      }
-      # host=count
-      elsif (/.+=\d+$/)
-      {
-         my ($host, $count) = split /=/;
-         $hosts{$host} = [(0) x $count];
-      }
-      # host
-      else
-      {
-         unless (exists $hosts{$_})
-         {
-            $hosts{$_} = [0];
-         } else {
-            push $hosts{$_}->@*, 0;
-         }
-      }
-   }
-}
-
-help unless %hosts;
-
-# List of hosts, clusters first
-my (@clusters, @cl_names, @singles);
-
-while (my ($host, $numbers) = each %hosts)
-{
-   if (@$numbers > 1)
-   {
-      push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
-      push @cl_names, $host;
+      push @cl_names, substr $_, 1;
    } else {
-      push @singles, $host;
+      push @singles, $_ unless /^-./;
    }
 }
 
+# Calculate hosts
+# call nodes.pl, todo: turn into a module
 my @hosts;
-push @hosts, sort @clusters;
-push @hosts, sort @singles;
+
+if (-t STDIN)
+{
+   @hosts = `./nodes.pl @ARGV`;
+} else {
+   # read hosts, UNIX-filter style
+   chomp (my @nodes = <STDIN>);
+
+   @hosts = `./nodes.pl @nodes`;
+}
+
+# $@ ?
+exit unless @hosts;
 
 # Main window name
 my $win = join '', map "($_)", sort @cl_names;
@@ -147,6 +88,8 @@ if (@hosts > 12)
    print RED, scalar @hosts, RESET, ' panes will be created. continue? (y/n) ';
    exit unless <STDIN> =~ /y(?:es)?/i;
 }
+
+my $session = 'ssh';
 
 # todo: notify about failed ssh panes
 die RED."$session:$win exists".RESET, "\n"
