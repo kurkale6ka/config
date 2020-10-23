@@ -2,15 +2,32 @@
 
 # ClusterShell nodes for lay.pl
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
-# TODO: package + help
+# TODO: package
 
-use strict;
-use warnings;
+# use strict;
+# use warnings;
 use feature 'say';
 
+# Help
 my $help = << 'MSG';
-Usage: nodes cluster [[-exclude] ...]
--xa, would remove any line matching this litteral (xa,)
+Expand nodes with ranges
+
+nodes @cluster ... node[range] ... [-exclude] ...
+-xa would remove any line matching this litteral (xa)
+
+Ranges:
+  - or , : 1 and 2
+      -3 : 1 to 3
+     3-6 : 3 to 6
+   3,5,9 : unchanged
+      =2 : 2 instances
+       4 : 4 'empty' nodes (for shell tiles with 'lay')
+
+Example:
+lay node node- node,3,7 node=2 node4-6 3
+    node node1 node1    node   node4   +- shell tiles
+         node2 node3    node   node5
+               node7           node6
 MSG
 
 die $help if @ARGV == 0;
@@ -91,10 +108,7 @@ if (%clusters)
    } else {
       foreach (keys %clusters)
       {
-         unless (exists $cluster_found{$_})
-         {
-            warn "$_ cluster not found\n";
-         }
+         warn "$_ cluster not found\n" unless exists $cluster_found{$_};
       }
    }
 }
@@ -133,10 +147,7 @@ foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
    # no range
    else
    {
-      if (/[,-]$/)
-      {
-         die "garbage range detected: $_\n";
-      }
+      die "garbage range detected: $_\n" if /[,-]$/;
 
       # single digit
       if (/^\d+$/)

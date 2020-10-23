@@ -11,30 +11,15 @@ use feature 'say';
 use Term::ANSIColor qw/color :constants/;
 
 # Colors
-my $GREEN  = color('green');
-my $PINK   = color('ansi205');
-my $YELLOW = color('yellow');
+my $PINK = color('ansi205');
 my $S = color('bold');
 my $R = color('reset');
 
 # Help
 my $help = <<MSG;
-${S}SYNOPSIS${R}
-Split multiple ssh connections in separate tiles
+${S}Split multiple ssh connections in separate tiles${R}
 
-lay host[${PINK}range${R}] ...
-
-${S}RANGES${R}
-   3,5,9 : unchanged
-     3-6 : 3 ${GREEN}to${R} 6
-      -3 : 1 ${GREEN}to${R} 3
-  - or , : 1 ${GREEN}and${R} 2
-
-${YELLOW}example${R}:
-lay host${PINK}-${R} host${PINK},3,7${R} host host${PINK}=2${R} host${PINK}4-6${R} ${PINK}3${R}
-    host${GREEN}1${R} host${GREEN}1${R}    host host   host${GREEN}4${R}   +- shell tiles
-    host${GREEN}2${R} host${GREEN}3${R}         host   host${GREEN}5${R}
-          host${GREEN}7${R}                host${GREEN}6${R}
+lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ...
 MSG
 
 die $help if @ARGV == 0;
