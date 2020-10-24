@@ -1,9 +1,9 @@
 #! /usr/bin/env perl
 
-package Nodes;
-
 # ClusterShell nodes for lay.pl
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
+
+package Nodes;
 
 # use strict;
 # use warnings;
@@ -41,8 +41,9 @@ my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
 my (%clusters, @hosts, @exclusions);
 
-foreach (-t STDIN ? @ARGV : chomp (my @ARGS = <STDIN>))
+foreach (-t STDIN ? @ARGV : <STDIN>)
 {
+   chomp;
    unless (/^-./)
    {
       if (/^@\w/)
@@ -193,6 +194,7 @@ foreach my $host (sort keys %hosts)
    }
 }
 
+# Public interface
 sub nodes()
 {
    unless (@exclusions)
