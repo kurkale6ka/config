@@ -9,6 +9,8 @@ use strict;
 use warnings;
 use feature 'say';
 use Term::ANSIColor qw/color :constants/;
+use lib "$ENV{REPOS_BASE}/config/tmux";
+use Nodes;
 
 # Colors
 my $PINK = color('ansi205');
@@ -25,8 +27,7 @@ MSG
 die $help if @ARGV == 0;
 die $help if @ARGV == 1 and $ARGV[0] eq '-h';
 
-# Calculate hosts
-my (@clusters, @singles, @hosts);
+my (@clusters, @singles);
 
 foreach (@ARGV)
 {
@@ -40,16 +41,8 @@ foreach (@ARGV)
    }
 }
 
-# call nodes.pl, todo: turn into a module
-if (-t STDIN)
-{
-   @hosts = `./nodes.pl @ARGV`;
-} else {
-   # read hosts, UNIX-filter style
-   chomp (my @nodes = <STDIN>);
-
-   @hosts = `./nodes.pl @nodes`;
-}
+# Calculate hosts
+my @hosts = nodes();
 
 # todo: $@ ?
 # error messages from nodes.pl ?

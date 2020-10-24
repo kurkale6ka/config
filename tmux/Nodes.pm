@@ -1,12 +1,17 @@
 #! /usr/bin/env perl
 
+package Nodes;
+
 # ClusterShell nodes for lay.pl
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
-# TODO: package
 
 # use strict;
 # use warnings;
 use feature 'say';
+
+require Exporter;
+our @ISA = ('Exporter');
+our @EXPORT = ('nodes');
 
 # Help
 my $help = << 'MSG';
@@ -36,7 +41,7 @@ my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
 my (%clusters, @hosts, @exclusions);
 
-foreach (@ARGV)
+foreach (-t STDIN ? @ARGV : chomp (my @ARGS = <STDIN>))
 {
    unless (/^-./)
    {
@@ -188,12 +193,24 @@ foreach my $host (sort keys %hosts)
    }
 }
 
-unless (@exclusions)
+sub nodes()
 {
-   say foreach @clusters, @singles;
-} else {
-   foreach my $node (@clusters, @singles)
+   unless (@exclusions)
    {
-      say $node unless grep {$node =~ /$_/} @exclusions;
+      return @clusters, @singles;
+   } else {
+      my @nodes;
+      foreach my $node (@clusters, @singles)
+      {
+         push @nodes, $node unless grep {$node =~ /$_/} @exclusions;
+      }
+      return @nodes;
    }
 }
+
+if (not caller and -t STDIN)
+{
+   say foreach nodes();
+}
+
+1;
