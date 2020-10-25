@@ -5,8 +5,8 @@
 #
 # The Nodes module is used to calculate ranges and ClusterShell nodes
 
-use strict;
-use warnings;
+# use strict;
+# use warnings;
 use feature 'say';
 use Term::ANSIColor qw/color :constants/;
 use lib "$ENV{REPOS_BASE}/config/tmux";
@@ -22,7 +22,6 @@ sub help
 {
    my $msg = <<MSG;
 ${S}Split multiple ssh connections in separate tiles${R}
-
 lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ...
 
 MSG

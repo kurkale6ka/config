@@ -25,13 +25,13 @@ sub help()
 {
    my $h_nodes = << 'MSG';
 Expand nodes with ranges
-
 nodes @cluster ... node[range] ... [-exclude] ...
--xa would remove any line matching this litteral (xa)
 
 MSG
 
    my $h_ranges = << 'MSG';
+-xa would remove any line matching the litteral 'xa'
+
 Ranges:
   - or , : 1 and 2
       -3 : 1 to 3
