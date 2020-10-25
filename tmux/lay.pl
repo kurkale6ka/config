@@ -3,7 +3,7 @@
 # Split multiple ssh connections in separate tmux panes,
 # for simultaneous operation
 #
-# check nodes.pl for ClusterShell nodes
+# The Nodes module is used to calculate ranges and ClusterShell nodes
 
 use strict;
 use warnings;
@@ -18,20 +18,25 @@ my $S = color('bold');
 my $R = color('reset');
 
 # Help
-my $help = <<MSG;
+sub help
+{
+   my $msg = <<MSG;
 ${S}Split multiple ssh connections in separate tiles${R}
 
 lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ...
-MSG
 
-die $help if @ARGV == 0;
-die $help if @ARGV == 1 and $ARGV[0] eq '-h';
+MSG
+   die $msg.Nodes::help();
+}
+
+help if @ARGV == 0;
+help if @ARGV == 1 and $ARGV[0] eq '-h';
 
 my (@clusters, @singles);
 
 foreach (@ARGV)
 {
-   die $help if /--help/;
+   help if /--help/;
 
    if (/^@/)
    {
@@ -42,11 +47,7 @@ foreach (@ARGV)
 }
 
 # Calculate hosts
-my @hosts = nodes();
-
-# todo: $@ ?
-# error messages from nodes.pl ?
-exit unless @hosts;
+exit unless my @hosts = nodes();
 
 # Extra checks
 if (@hosts > 12)

@@ -13,13 +13,25 @@ require Exporter;
 our @ISA = ('Exporter');
 our @EXPORT = ('nodes');
 
+my $called = caller;
+
+sub abort
+{
+   $called ? warn @_ : die @_;
+}
+
 # Help
-my $help = << 'MSG';
+sub help()
+{
+   my $h_nodes = << 'MSG';
 Expand nodes with ranges
 
 nodes @cluster ... node[range] ... [-exclude] ...
 -xa would remove any line matching this litteral (xa)
 
+MSG
+
+   my $h_ranges = << 'MSG';
 Ranges:
   - or , : 1 and 2
       -3 : 1 to 3
@@ -28,14 +40,19 @@ Ranges:
       =2 : 2 instances
        4 : 4 'empty' nodes (for shell tiles with 'lay')
 
-Example:
-lay node node- node,3,7 node=2 node4-6 3
-    node node1 node1    node   node4   +- shell tiles
-         node2 node3    node   node5
-               node7           node6
+ In: node- node,3,7 node=2 node4-6 3
+Out: node1 node1    node   node4   +- shell tiles
+     node2 node3    node   node5
+           node7           node6
 MSG
 
-die $help if @ARGV == 0;
+   return $called ? $h_ranges : $h_nodes.$h_ranges;
+}
+
+if (@ARGV == 0)
+{
+   die help unless $called;
+}
 
 my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
@@ -62,11 +79,14 @@ foreach (-t STDIN ? @ARGV : <STDIN>)
    }
 }
 
-die $help unless %clusters or @hosts;
+unless (%clusters or @hosts)
+{
+   die help unless $called;
+}
 
 if (%clusters)
 {
-   open my $clush, '<', $config or die "$config: $!\n";
+   open my $clush, '<', $config or abort "$config: $!\n";
 
    my $cluster_count = keys %clusters;
    my %cluster_found;
@@ -107,7 +127,7 @@ if (%clusters)
       my $s = $cluster_count > 1 ? 's' : '';
       unless (@hosts)
       {
-         die join (', ', keys %clusters), " cluster$s not found\n";
+         abort join (', ', keys %clusters), " cluster$s not found\n";
       } else {
          warn join (', ', keys %clusters), " cluster$s not found\n";
       }
@@ -147,13 +167,13 @@ foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
       ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
 
       $first //= 1;
-      $first < $last or die "non ascending range detected\n";
+      $first < $last or abort "non ascending range detected\n";
       $hosts{$host} = [$first..$last];
    }
    # no range
    else
    {
-      die "garbage range detected: $_\n" if /[,-]$/;
+      abort "garbage range detected: $_\n" if /[,-]$/;
 
       # single digit
       if (/^\d+$/)
@@ -210,7 +230,7 @@ sub nodes()
    }
 }
 
-if (not caller and -t STDIN)
+if (not $called and -t STDIN)
 {
    say foreach nodes();
 }
