@@ -72,6 +72,8 @@ foreach (-t STDIN ? @ARGV : <STDIN>)
       elsif (/^\w/)
       {
          push @hosts, $_;
+      } else {
+         warn "Wrong host $_\n";
       }
    } else {
       my $exclusion = substr $_, 1;
