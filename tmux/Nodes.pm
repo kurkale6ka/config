@@ -40,9 +40,9 @@ Ranges:
       =2 : 2 instances
        4 : 4 'empty' nodes (for shell tiles with 'lay')
 
- In: node- node,3,7 node=2 node4-6 3
-Out: node1 node1    node   node4   +- shell tiles
-     node2 node3    node   node5
+ In: node- node,3,7 node=2 node4-6 2
+Out: node1 node1    node   node4   empty
+     node2 node3    node   node5   empty
            node7           node6
 MSG
 
