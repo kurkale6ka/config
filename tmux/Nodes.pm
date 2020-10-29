@@ -59,7 +59,7 @@ if (@ARGV == 0) {
 my (%clusters, @hosts, @exclusions);
 
 # Sort arguments into clusters, hosts and exclusions
-sub arguments
+sub arguments()
 {
    foreach (-t STDIN ? @ARGV : <STDIN>)
    {
@@ -225,7 +225,7 @@ sub hosts()
 # Public interface
 sub nodes()
 {
-   arguments(@_);
+   arguments();
    cluster_ranges() if %clusters;
    hosts();
 
