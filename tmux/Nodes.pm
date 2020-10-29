@@ -13,10 +13,13 @@ require Exporter;
 our @ISA = ('Exporter');
 our @EXPORT = ('nodes');
 
+# clustershell groups
+my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
+
 my $called = caller;
 
-sub abort
-{
+# no die with 'use'
+sub abort($) {
    $called ? warn @_ : die @_;
 }
 
@@ -49,44 +52,46 @@ MSG
    return $called ? $h_ranges : $h_nodes.$h_ranges;
 }
 
-if (@ARGV == 0)
-{
+if (@ARGV == 0) {
    die help unless $called;
 }
-
-my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
 my (%clusters, @hosts, @exclusions);
 
-foreach (-t STDIN ? @ARGV : <STDIN>)
+# Sort arguments into clusters, hosts and exclusions
+sub arguments
 {
-   chomp;
-   unless (/^-./)
+   foreach (-t STDIN ? @ARGV : <STDIN>)
    {
-      if (/^@\w/)
+      chomp;
+      unless (/^-./)
       {
-         my $cluster = substr $_, 1;
-         # cluster -> [regex, ranges]
-         $clusters{$cluster} = [qr/\Q$cluster\E/];
-      }
-      elsif (/^\w/)
-      {
-         push @hosts, $_;
+         if (/^@\w/)
+         {
+            my $cluster = substr $_, 1;
+            # cluster -> [regex, ranges]
+            $clusters{$cluster} = [qr/\Q$cluster\E/];
+         }
+         elsif (/^\w/)
+         {
+            push @hosts, $_;
+         } else {
+            warn "Wrong host $_\n";
+         }
       } else {
-         warn "Wrong host $_\n";
+         my $exclusion = substr $_, 1;
+         push @exclusions, qr/\Q$exclusion\E/;
       }
-   } else {
-      my $exclusion = substr $_, 1;
-      push @exclusions, qr/\Q$exclusion\E/;
+   }
+
+   unless (%clusters or @hosts)
+   {
+      die help unless $called;
    }
 }
 
-unless (%clusters or @hosts)
-{
-   die help unless $called;
-}
-
-if (%clusters)
+# Calculate cluster ranges
+sub cluster_ranges()
 {
    open my $clush, '<', $config or abort "$config: $!\n";
 
@@ -121,7 +126,7 @@ if (%clusters)
          }
       }
 
-      goto RANGES if $cluster_count == keys %cluster_found;
+      last if $cluster_count == keys %cluster_found;
    }
 
    unless (keys %cluster_found)
@@ -141,84 +146,89 @@ if (%clusters)
    }
 }
 
-# Calculate Ranges
-RANGES:
-my %hosts;
+my (%hosts, @clusters, @singles);
 
-foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
+# Get hosts
+sub hosts()
 {
-   my ($host, $first, $last, $range);
-
-   # final -
-   if (/(?<!\d)[-,]$/)
+   # expand ranges
+   foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
    {
-      chop ($host = $_);
-      $hosts{$host} = [1, 2];
-   }
-   # x,y,z
-   elsif (/,\d+$/)
-   {
-      ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
+      my ($host, $first, $last, $range);
 
-      $range = "1$range" if $range =~ /^,/;
-      $hosts{$host} = [sort split /,/, $range];
-   }
-   # 1-n
-   elsif (/-\d+$/)
-   {
-      ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
-
-      $first //= 1;
-      $first < $last or abort "non ascending range detected\n";
-      $hosts{$host} = [$first..$last];
-   }
-   # no range
-   else
-   {
-      abort "garbage range detected: $_\n" if /[,-]$/;
-
-      # single digit
-      if (/^\d+$/)
+      # final -
+      if (/(?<!\d)[-,]$/)
       {
-         $hosts{empty} = [(0) x $&];
+         chop ($host = $_);
+         $hosts{$host} = [1, 2];
       }
-      # host=count
-      elsif (/.+=\d+$/)
+      # x,y,z
+      elsif (/,\d+$/)
       {
-         my ($host, $count) = split /=/;
-         $hosts{$host} = [(0) x $count];
+         ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
+
+         $range = "1$range" if $range =~ /^,/;
+         $hosts{$host} = [sort split /,/, $range];
       }
-      # host
+      # 1-n
+      elsif (/-\d+$/)
+      {
+         ($host, $first, $last) = /(.+?)(\d+)?-(\d+)$/;
+
+         $first //= 1;
+         $first < $last or abort "non ascending range detected\n";
+         $hosts{$host} = [$first..$last];
+      }
+      # no range
       else
       {
-         unless (exists $hosts{$_})
+         abort "garbage range detected: $_\n" if /[,-]$/;
+
+         # single digit
+         if (/^\d+$/)
          {
-            $hosts{$_} = [0];
-         } else {
-            push $hosts{$_}->@*, 0;
+            $hosts{empty} = [(0) x $&];
+         }
+         # host=count
+         elsif (/.+=\d+$/)
+         {
+            my ($host, $count) = split /=/;
+            $hosts{$host} = [(0) x $count];
+         }
+         # host
+         else
+         {
+            unless (exists $hosts{$_})
+            {
+               $hosts{$_} = [0];
+            } else {
+               push $hosts{$_}->@*, 0;
+            }
          }
       }
    }
-}
 
-# List of hosts, clusters first
-my (@clusters, @singles);
-
-foreach my $host (sort keys %hosts)
-{
-   my $numbers = $hosts{$host};
-
-   if (@$numbers > 1)
+   # hosts: clusters and single hosts
+   foreach my $host (sort keys %hosts)
    {
-      push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
-   } else {
-      push @singles, $host;
+      my $numbers = $hosts{$host};
+
+      if (@$numbers > 1)
+      {
+         push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
+      } else {
+         push @singles, $host;
+      }
    }
 }
 
 # Public interface
 sub nodes()
 {
+   arguments(@_);
+   cluster_ranges() if %clusters;
+   hosts();
+
    unless (@exclusions)
    {
       return @clusters, @singles;
