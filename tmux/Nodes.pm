@@ -28,13 +28,12 @@ sub help()
 {
    my $h_nodes = << 'MSG';
 Expand nodes with ranges
+
 nodes @cluster ... node[range] ... [-exclude] ...
 
 MSG
 
    my $h_ranges = << 'MSG';
--xa would remove any line matching the litteral 'xa'
-
 Ranges:
   - or , : 1 and 2
       -3 : 1 to 3
@@ -47,6 +46,9 @@ Ranges:
 Out: node1 node1    node   node4   empty
      node2 node3    node   node5   empty
            node7           node6
+
+Excludes:
+-xa would remove any line matching the litteral 'xa'
 MSG
 
    return $called ? $h_ranges : $h_nodes.$h_ranges;
@@ -84,10 +86,7 @@ sub arguments()
       }
    }
 
-   unless (%clusters or @hosts)
-   {
-      die help unless $called;
-   }
+   abort help unless %clusters or @hosts;
 }
 
 # Calculate cluster ranges
