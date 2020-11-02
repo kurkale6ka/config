@@ -133,9 +133,9 @@ sub cluster_ranges()
       my $s = $cluster_count > 1 ? 's' : '';
       unless (@hosts)
       {
-         abort join (', ', keys %clusters), " cluster$s not found\n";
+         abort join (', ', keys %clusters) . " cluster$s not found\n";
       } else {
-         warn join (', ', keys %clusters), " cluster$s not found\n";
+         warn join (', ', keys %clusters) . " cluster$s not found\n";
       }
    } else {
       foreach (keys %clusters)
