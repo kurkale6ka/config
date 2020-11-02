@@ -71,8 +71,13 @@ sub arguments()
          if (/^@\w/)
          {
             my $cluster = substr $_, 1;
-            # cluster -> [regex, ranges]
-            $clusters{$cluster} = [qr/\Q$cluster\E/];
+            if ($cluster eq 'all')
+            {
+               # cluster -> [regex, ranges]
+               $clusters{$cluster} = [qr/\w+/];
+            } else {
+               $clusters{$cluster} = [qr/\Q$cluster\E/];
+            }
          }
          elsif (/^\w/)
          {
@@ -121,12 +126,14 @@ sub cluster_ranges()
                }
             } split /,/, $1;
 
-            $cluster_found{$key} = 1;
+            $cluster_found{$key} = 1 unless $key eq 'all';
          }
       }
 
       last if $cluster_count == keys %cluster_found;
    }
+
+   return if exists $clusters{all};
 
    unless (keys %cluster_found)
    {
