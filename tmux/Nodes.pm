@@ -126,7 +126,7 @@ sub cluster_ranges()
                } else {
                   $_;
                }
-            } split /,/, $1;
+            } split /[[:blank:],]/, $1;
 
             $cluster_found{$key} = 1 unless $key eq 'all';
          }
