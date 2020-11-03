@@ -34,6 +34,8 @@ nodes @cluster ... node[range] ... [-exclude] ...
 MSG
 
    my $h_ranges = << 'MSG';
+Use ClusterShell @all cluster to get all nodes
+
 Ranges:
   - or , : 1 and 2
       -3 : 1 to 3
