@@ -73,13 +73,8 @@ sub arguments()
          if (/^@\w/)
          {
             my $cluster = substr $_, 1;
-            if ($cluster eq 'all')
-            {
-               # cluster -> [regex, ranges]
-               $clusters{$cluster} = [qr/\w+/];
-            } else {
-               $clusters{$cluster} = [qr/\Q$cluster\E/];
-            }
+            # cluster -> [regex, ranges]
+            $clusters{$cluster} = $cluster ne 'all' ? [qr/\Q$cluster\E/] : [qr/\w+/];
          }
          elsif (/^\w/)
          {
