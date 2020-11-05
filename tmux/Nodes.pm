@@ -111,18 +111,28 @@ sub groups()
    }
 
    # expand nested groups
-   foreach my $nodes (values %groups)
+   while (my ($group, $nodes) = each %groups)
    {
       next unless grep /^@/, @$nodes;
       for (my $i = 0; $i < @$nodes; $i++)
       {
-         if ($nodes->[$i] =~ /^@/)
+         my $node = $nodes->[$i];
+         if ($node =~ /^@/)
          {
-            if (exists $groups{substr $nodes->[$i], 1})
+            if (exists $groups{substr $node, 1})
             {
-               splice @$nodes, $i, 1, $groups{substr $nodes->[$i], 1}->@*;
+               splice @$nodes, $i, 1, $groups{substr $node, 1}->@*;
+               # remove duplicate clusters
+               if (exists $clusters{all})
+               {
+                  delete $groups{substr $node, 1};
+               }
+               elsif (exists $clusters{$group} and exists $clusters{substr $node, 1})
+               {
+                  delete $clusters{substr $node, 1};
+               }
             } else {
-               abort "$config: $nodes->[$i] cluster not found. Typo?\n";
+               abort "$config: $node cluster not found. Typo?\n";
             }
          }
       }
