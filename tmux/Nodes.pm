@@ -7,9 +7,9 @@
 
 package Nodes;
 
-# use strict;
+use v5.32.0;
+no strict;
 # use warnings;
-use feature 'say';
 
 require Exporter;
 our @ISA = ('Exporter');
