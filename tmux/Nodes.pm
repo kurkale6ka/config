@@ -1,6 +1,8 @@
 #! /usr/bin/env perl
 
-# ClusterShell nodes for lay.pl
+# ClusterShell groups/nodes
+# https://clustershell.readthedocs.io/en/latest/config.html#yaml-group-files
+#
 # faster than: nodeset -f @cluster | tr -d '[]' | tr , '\n'
 
 package Nodes;
@@ -13,13 +15,14 @@ require Exporter;
 our @ISA = ('Exporter');
 our @EXPORT = ('nodes');
 
-# clustershell groups
+# ClusterShell groups
 my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
 my $called = caller;
 
-# no die with 'use'
-sub abort($) {
+# never die when including Nodes with 'use'!
+sub abort($)
+{
    $called ? warn @_ : die @_;
 }
 
@@ -56,7 +59,8 @@ MSG
    return $called ? $h_ranges : $h_nodes.$h_ranges;
 }
 
-if (@ARGV == 0) {
+if (@ARGV == 0)
+{
    die help unless $called;
 }
 
@@ -70,17 +74,15 @@ sub arguments()
       chomp;
       unless (/^-./)
       {
-         if (/^@\w/)
+         if (/^@(\p{IsAlpha}|_)/n)
          {
-            my $cluster = substr $_, 1;
-            # cluster -> [regex, ranges]
-            $clusters{$cluster} = $cluster ne 'all' ? [qr/\Q$cluster\E/] : [qr/\w+/];
+            $clusters{substr $_, 1} = [];
          }
-         elsif (/^\w/)
+         elsif (/^(\p{IsAlpha}|_)|^\d+$/n)
          {
             push @hosts, $_;
          } else {
-            warn "Wrong host $_\n";
+            abort "Wrong host $_\n";
          }
       } else {
          my $exclusion = substr $_, 1;
@@ -91,71 +93,111 @@ sub arguments()
    abort help unless %clusters or @hosts;
 }
 
-# Calculate cluster ranges
-sub cluster_ranges()
+# Calculate node ranges
+sub groups()
 {
    open my $clush, '<', $config or abort "$config: $!\n";
 
-   my $cluster_count = keys %clusters;
-   my %cluster_found;
+   my (%groups, $group, $nodes);
 
+   # load groups from config
    while (<$clush>)
    {
-      next if /^\s*#/;
+      next unless /^\s+\w/;
+      ($group, $nodes) = split /:/;
+      $group =~ tr/ \t//d;
+      $nodes =~ /'(.+)'/;
+      $groups{$group} = [split /[[:blank:],]/, $1];
+   }
 
-      foreach my $key (keys %clusters)
+   # expand nested groups
+   foreach my $nodes (values %groups)
+   {
+      next unless grep /^@/, @$nodes;
+      for (my $i = 0; $i < @$nodes; $i++)
+      {
+         if ($nodes->[$i] =~ /^@/)
+         {
+            if (exists $groups{substr $nodes->[$i], 1})
+            {
+               splice @$nodes, $i, 1, $groups{substr $nodes->[$i], 1}->@*;
+            } else {
+               abort "$config: $nodes->[$i] cluster not found. Typo?\n";
+            }
+         }
+      }
+   }
+
+   # calculate ranges
+   sub ranges(@)
+   {
+      my @ranges;
+      foreach (@_)
       {
          # config example
          # web: 'wa[1-3],wb[1-2]'
-         if (/\b$clusters{$key}->[0]:\s*'(.+)'/)
+         if (/(.+)\[(\d+)-(\d+)\]/)
          {
-            push $clusters{$key}->@*, map {
-               if (/(.+)\[(\d+)-(\d+)\]/)
-               {
-                  if ($2 == 1)
-                  {
-                     $3 == 2 ? "$1," : "$1-$3";
-                  } else {
-                     "$1$2-$3";
-                  }
-               } else {
-                  $_;
-               }
-            } split /[[:blank:],]/, $1;
-
-            $cluster_found{$key} = 1 unless $key eq 'all';
+            if ($2 == 1)
+            {
+               push @ranges, $3 == 2 ?
+               "$1," :
+               "$1-$3";
+            } else {
+               push @ranges, "$1$2-$3";
+            }
+         } else {
+            push @ranges, $_;
          }
       }
-
-      last if $cluster_count == keys %cluster_found;
+      return @ranges;
    }
 
-   return if exists $clusters{all};
-
-   unless (keys %cluster_found)
+   # @all
+   if (exists $clusters{all})
    {
-      my $s = $cluster_count > 1 ? 's' : '';
-      unless (@hosts)
+      while (my ($group, $nodes) = each %groups)
       {
-         abort join (', ', keys %clusters) . " cluster$s not found\n";
+         push $clusters{$group}->@*, ranges @$nodes;
+      }
+      return;
+   }
+
+   # add nodes with ranges
+   my @unknown;
+
+   foreach (keys %clusters)
+   {
+      if (exists $groups{$_})
+      {
+         push $clusters{$_}->@*, ranges $groups{$_}->@*;
       } else {
-         warn join (', ', keys %clusters) . " cluster$s not found\n";
+         push @unknown, "\@$_";
       }
+   }
+
+   return unless @unknown;
+
+   # warn about unknown clusters
+   my $s = @unknown > 1 ? 's' : '';
+
+   unless (%clusters or @hosts)
+   {
+      abort join (', ', @unknown) . " cluster$s not found\n";
    } else {
-      foreach (keys %clusters)
-      {
-         warn "$_ cluster not found\n" unless exists $cluster_found{$_};
-      }
+      warn join (', ', @unknown) . " cluster$s not found\n";
    }
 }
 
-my (%hosts, @clusters, @singles);
+my (@clusters, @singles);
 
 # Get hosts
 sub hosts()
 {
+   my %hosts;
+
    # expand ranges
-   foreach (@hosts, map {@$_[1..$#$_]} values %clusters)
+   foreach (@hosts, map {@$_} values %clusters)
    {
       my ($host, $first, $last, $range);
 
@@ -229,7 +271,7 @@ sub hosts()
 sub nodes()
 {
    arguments();
-   cluster_ranges() if %clusters;
+   groups() if %clusters;
    hosts();
 
    unless (@exclusions)
