@@ -94,7 +94,7 @@ sub arguments()
    abort help unless %clusters or %hosts;
 }
 
-my %groups;
+my (%groups, @hosts);
 sub expand_ranges(@);
 
 # Calculate node ranges
@@ -144,11 +144,6 @@ sub groups()
       }
    }
 
-   # remove duplicate clusters
-   delete @groups{@deletes};
-
-   return if exists $clusters{all};
-
    # calculate ranges
    # wa[1-3],wb[1-2] -> wa-3 wb,
    sub ranges(@)
@@ -173,14 +168,27 @@ sub groups()
       return @ranges;
    }
 
+   # @all
+   if (exists $clusters{all})
+   {
+      # remove duplicate clusters
+      delete @groups{@deletes};
+
+      foreach my $group (sort keys %groups)
+      {
+         push @hosts, expand_ranges ranges sort $groups{$group}->@*;
+      }
+      return;
+   }
+
    # add nodes with ranges
    my @unknown;
 
-   foreach (keys %clusters)
+   foreach (sort keys %clusters)
    {
       if (exists $groups{$_})
       {
-         $clusters{$_} = expand_ranges ranges sort $groups{$_}->@*;
+         push @hosts, expand_ranges ranges sort $groups{$_}->@*;
       } else {
          push @unknown, "\@$_";
       }
@@ -252,41 +260,20 @@ sub expand_ranges(@)
       }
    }
 
-   return \@hosts;
+   return @hosts;
 }
 
 # Public interface
 sub nodes()
 {
-   my @hosts;
-
    arguments();
-
-   if (%clusters)
-   {
-      groups();
-
-      # @all
-      if (exists $clusters{all})
-      {
-         foreach my $group (sort keys %groups)
-         {
-            push @hosts, @{expand_ranges ranges sort $groups{$group}->@*};
-         }
-      } else {
-         foreach my $group (sort keys %clusters)
-         {
-            push @hosts, $clusters{$group}->@*;
-         }
-      }
-   }
+   groups() if %clusters;
 
    if (%hosts)
    {
       foreach my $group (sort keys %hosts)
       {
-         $hosts{$group} = expand_ranges $hosts{$group}->@*;
-         push @hosts, $hosts{$group}->@*;
+         push @hosts, expand_ranges $hosts{$group}->@*;
       }
    }
 
