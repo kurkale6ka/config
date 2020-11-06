@@ -114,34 +114,32 @@ sub groups()
       $groups{$group} = [split /[[:blank:],]/, $1];
    }
 
-   my @deletes;
+   my @updated_nodes;
 
-   # expand nested groups
+   # groups: skip duplicates, expand nested
    while (my ($group, $nodes) = each %groups)
    {
       next unless grep /^@/, @$nodes;
-      for (my $i = 0; $i < @$nodes; $i++)
+      foreach (@$nodes)
       {
-         my $node = $nodes->[$i];
-         if ($node =~ /^@/)
+         unless (/^@/)
          {
-            if (exists $groups{substr $node, 1})
+            push @updated_nodes, $_;
+            next;
+         }
+         # skip duplicates
+         unless (exists $clusters{$group} and exists $clusters{substr $_, 1} or exists $clusters{all})
+         {
+            if (exists $groups{substr $_, 1})
             {
-               splice @$nodes, $i, 1, $groups{substr $node, 1}->@*;
-
-               if (exists $clusters{all})
-               {
-                  push @deletes, substr $node, 1;
-               }
-               elsif (exists $clusters{$group} and exists $clusters{substr $node, 1})
-               {
-                  delete $clusters{substr $node, 1};
-               }
+               # expand
+               push @updated_nodes, $groups{substr $_, 1}->@*;
             } else {
-               abort "$config: $node cluster not found. Typo?\n";
+               abort "$config: $_ cluster not found. Typo?\n";
             }
          }
       }
+      $groups{$group} = \@updated_nodes;
    }
 
    # calculate ranges
@@ -171,9 +169,6 @@ sub groups()
    # @all
    if (exists $clusters{all})
    {
-      # remove duplicate clusters
-      delete @groups{@deletes};
-
       foreach my $group (sort keys %groups)
       {
          push @hosts, expand_ranges ranges sort $groups{$group}->@*;
@@ -181,7 +176,7 @@ sub groups()
       return;
    }
 
-   # add nodes with ranges
+   # add expanded nodes
    my @unknown;
 
    foreach (sort keys %clusters)
