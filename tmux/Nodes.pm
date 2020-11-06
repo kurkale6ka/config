@@ -125,18 +125,17 @@ sub groups()
          unless (/^@/)
          {
             push @updated_nodes, $_;
-            next;
          }
-         # skip duplicates
-         unless (exists $clusters{$group} and exists $clusters{substr $_, 1} or exists $clusters{all})
+         elsif (exists $groups{substr $_, 1})
          {
-            if (exists $groups{substr $_, 1})
+            # skip duplicates
+            unless (exists $clusters{$group} and exists $clusters{substr $_, 1} or exists $clusters{all})
             {
                # expand
                push @updated_nodes, $groups{substr $_, 1}->@*;
-            } else {
-               abort "$config: $_ cluster not found. Typo?\n";
             }
+         } else {
+            abort "$config: $_ cluster not found. Typo?\n";
          }
       }
       $groups{$group} = \@updated_nodes;
