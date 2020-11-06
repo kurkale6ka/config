@@ -16,6 +16,7 @@ our @ISA = ('Exporter');
 our @EXPORT = ('nodes');
 
 # ClusterShell groups
+# web: 'wa[1-3],wb[1-2]'
 my $config = "$ENV{XDG_CONFIG_HOME}/clustershell/groups.d/cluster.yaml";
 
 my $called = caller;
@@ -64,7 +65,7 @@ if (@ARGV == 0)
    die help unless $called;
 }
 
-my (%clusters, @hosts, @exclusions);
+my (%clusters, %hosts, @exclusions);
 
 # Sort arguments into clusters, hosts and exclusions
 sub arguments()
@@ -80,7 +81,7 @@ sub arguments()
          }
          elsif (/^(\p{IsAlpha}|_)|^\d+$/n)
          {
-            push @hosts, $_;
+            push $hosts{$_}->@*, $_;
          } else {
             abort "Wrong host $_\n";
          }
@@ -90,15 +91,18 @@ sub arguments()
       }
    }
 
-   abort help unless %clusters or @hosts;
+   abort help unless %clusters or %hosts;
 }
+
+my %groups;
+sub expand_ranges(@);
 
 # Calculate node ranges
 sub groups()
 {
    open my $clush, '<', $config or abort "$config: $!\n";
 
-   my (%groups, $group, $nodes);
+   my ($group, $nodes);
 
    # load groups from config
    while (<$clush>)
@@ -109,6 +113,8 @@ sub groups()
       $nodes =~ /'(.+)'/;
       $groups{$group} = [split /[[:blank:],]/, $1];
    }
+
+   my @deletes;
 
    # expand nested groups
    while (my ($group, $nodes) = each %groups)
@@ -122,10 +128,10 @@ sub groups()
             if (exists $groups{substr $node, 1})
             {
                splice @$nodes, $i, 1, $groups{substr $node, 1}->@*;
-               # remove duplicate clusters
+
                if (exists $clusters{all})
                {
-                  delete $groups{substr $node, 1};
+                  push @deletes, substr $node, 1;
                }
                elsif (exists $clusters{$group} and exists $clusters{substr $node, 1})
                {
@@ -138,14 +144,18 @@ sub groups()
       }
    }
 
+   # remove duplicate clusters
+   delete @groups{@deletes};
+
+   return if exists $clusters{all};
+
    # calculate ranges
+   # wa[1-3],wb[1-2] -> wa-3 wb,
    sub ranges(@)
    {
       my @ranges;
       foreach (@_)
       {
-         # config example
-         # web: 'wa[1-3],wb[1-2]'
          if (/(.+)\[(\d+)-(\d+)\]/)
          {
             if ($2 == 1)
@@ -163,16 +173,6 @@ sub groups()
       return @ranges;
    }
 
-   # @all
-   if (exists $clusters{all})
-   {
-      while (my ($group, $nodes) = each %groups)
-      {
-         push $clusters{$group}->@*, ranges @$nodes;
-      }
-      return;
-   }
-
    # add nodes with ranges
    my @unknown;
 
@@ -180,7 +180,7 @@ sub groups()
    {
       if (exists $groups{$_})
       {
-         push $clusters{$_}->@*, ranges $groups{$_}->@*;
+         $clusters{$_} = expand_ranges ranges sort $groups{$_}->@*;
       } else {
          push @unknown, "\@$_";
       }
@@ -191,7 +191,7 @@ sub groups()
    # warn about unknown clusters
    my $s = @unknown > 1 ? 's' : '';
 
-   unless (%clusters or @hosts)
+   unless (%clusters or %hosts)
    {
       abort join (', ', @unknown) . " cluster$s not found\n";
    } else {
@@ -199,23 +199,17 @@ sub groups()
    }
 }
 
-my (@clusters, @singles);
-
-# Get hosts
-sub hosts()
+sub expand_ranges(@)
 {
-   my %hosts;
+   my (@hosts, $host, $range, $first, $last);
 
-   # expand ranges
-   foreach (@hosts, map {@$_} values %clusters)
+   foreach (@_)
    {
-      my ($host, $first, $last, $range);
-
       # final -
       if (/(?<!\d)[-,]$/)
       {
-         chop ($host = $_);
-         $hosts{$host} = [1, 2];
+         chop;
+         push @hosts, $_.1, $_.2;
       }
       # x,y,z
       elsif (/,\d+$/)
@@ -223,7 +217,7 @@ sub hosts()
          ($host, $range) = /(.+?)((?:\d+)?(?:,\d+)+)$/;
 
          $range = "1$range" if $range =~ /^,/;
-         $hosts{$host} = [sort split /,/, $range];
+         push @hosts, map {$host.$_} sort split /,/, $range;
       }
       # 1-n
       elsif (/-\d+$/)
@@ -232,7 +226,7 @@ sub hosts()
 
          $first //= 1;
          $first < $last or abort "non ascending range detected\n";
-         $hosts{$host} = [$first..$last];
+         push @hosts, map {$host.$_} $first..$last;
       }
       # no range
       else
@@ -242,54 +236,66 @@ sub hosts()
          # single digit
          if (/^\d+$/)
          {
-            $hosts{empty} = [(0) x $&];
+            push @hosts, ('empty') x $&;
          }
          # host=count
          elsif (/.+=\d+$/)
          {
             my ($host, $count) = split /=/;
-            $hosts{$host} = [(0) x $count];
+            push @hosts, ($host) x $count;
          }
          # host
          else
          {
-            unless (exists $hosts{$_})
-            {
-               $hosts{$_} = [0];
-            } else {
-               push $hosts{$_}->@*, 0;
-            }
+            push @hosts, $_;
          }
       }
    }
 
-   # hosts: clusters and single hosts
-   foreach my $host (sort keys %hosts)
-   {
-      my $numbers = $hosts{$host};
-
-      if (@$numbers > 1)
-      {
-         push @clusters, map {$_ != 0 ? $host.$_ : $host} @$numbers;
-      } else {
-         push @singles, $host;
-      }
-   }
+   return \@hosts;
 }
 
 # Public interface
 sub nodes()
 {
+   my @hosts;
+
    arguments();
-   groups() if %clusters;
-   hosts();
+
+   if (%clusters)
+   {
+      groups();
+
+      # @all
+      if (exists $clusters{all})
+      {
+         foreach my $group (sort keys %groups)
+         {
+            push @hosts, @{expand_ranges ranges sort $groups{$group}->@*};
+         }
+      } else {
+         foreach my $group (sort keys %clusters)
+         {
+            push @hosts, $clusters{$group}->@*;
+         }
+      }
+   }
+
+   if (%hosts)
+   {
+      foreach my $group (sort keys %hosts)
+      {
+         $hosts{$group} = expand_ranges $hosts{$group}->@*;
+         push @hosts, $hosts{$group}->@*;
+      }
+   }
 
    unless (@exclusions)
    {
-      return @clusters, @singles;
+      return @hosts;
    } else {
       my @nodes;
-      foreach my $node (@clusters, @singles)
+      foreach my $node (@hosts)
       {
          push @nodes, $node unless grep {$node =~ /$_/} @exclusions;
       }
