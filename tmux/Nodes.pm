@@ -75,11 +75,11 @@ sub arguments()
       chomp;
       unless (/^-./)
       {
-         if (/^@(\p{IsAlpha}|_)/n)
+         if (/^@[\p{Alpha}_]/)
          {
             $clusters{substr $_, 1} = [];
          }
-         elsif (/^(\p{IsAlpha}|_)|^\d+$/n)
+         elsif (/^[\p{Alpha}_]|^\d+$/)
          {
             push $hosts{$_}->@*, $_;
          } else {
