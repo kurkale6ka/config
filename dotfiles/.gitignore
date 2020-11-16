@@ -19,6 +19,7 @@ cscope.*
 away.log
 
 # Compiled source
+a.out
 *.com
 *.class
 *.dll
