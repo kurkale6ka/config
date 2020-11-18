@@ -79,7 +79,8 @@ sub arguments()
          {
             $clusters{substr $_, 1} = [];
          }
-         elsif (/^[\p{alpha}_]|^\d+$/)
+         # host identifier, single digit, IP
+         elsif (/^[\p{alpha}_]|^\d+((\.\d+){3})?$/n)
          {
             push $hosts{$_}->@*, $_;
          } else {
