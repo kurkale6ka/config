@@ -16,6 +16,9 @@ systags
 .kak.tags.namecache
 cscope.*
 
+# cache
+.ccls-cache
+
 # Irc
 away.log
 
