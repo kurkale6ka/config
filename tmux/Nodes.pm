@@ -115,12 +115,13 @@ sub groups()
       $groups{$group} = [split /[\h,]/, $1];
    }
 
-   my @updated_nodes;
-
    # groups: skip duplicates, expand nested
    while (my ($group, $nodes) = each %groups)
    {
       next unless grep /^@/, @$nodes;
+
+      my @updated_nodes;
+
       foreach (@$nodes)
       {
          unless (/^@/)
