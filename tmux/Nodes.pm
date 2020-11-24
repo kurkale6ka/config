@@ -115,7 +115,7 @@ sub groups()
       $groups{$group} = [split /[\h,]/, $1];
    }
 
-   # groups: skip duplicates, expand nested
+   # skip or expand nested groups
    while (my ($group, $nodes) = each %groups)
    {
       next unless grep /^@/, @$nodes;
@@ -140,6 +140,7 @@ sub groups()
             abort "$config: $_ cluster not found. Typo?\n";
          }
       }
+
       $groups{$group} = \@updated_nodes;
    }
 
