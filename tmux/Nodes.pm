@@ -108,11 +108,11 @@ sub groups()
    # load groups from config
    while (<$clush>)
    {
-      next unless /^\s+\w/;
+      next unless /^\h+\w/;
       ($group, $nodes) = split /:/;
       $group =~ tr/ \t//d;
       $nodes =~ /'(.+)'/;
-      $groups{$group} = [split /[[:blank:],]/, $1];
+      $groups{$group} = [split /[\h,]/, $1];
    }
 
    my @updated_nodes;
