@@ -8,6 +8,7 @@
 package Nodes;
 
 use v5.32.0;
+use re '/aa';
 no strict;
 # use warnings;
 
@@ -75,12 +76,12 @@ sub arguments()
       chomp;
       unless (/^-./)
       {
-         if (/^@[\p{alpha}_]/)
+         if (/^@[\p{PosixAlpha}_]/)
          {
             $clusters{substr $_, 1} = [];
          }
          # host identifier, single digit, IP
-         elsif (/^[\p{alpha}_]|^\d+((\.\d+){3})?$/n)
+         elsif (/^[\p{PosixAlpha}_]|^\d+((\.\d+){3})?$/n)
          {
             push $hosts{$_}->@*, $_;
          } else {
