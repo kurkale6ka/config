@@ -64,8 +64,7 @@ unless (system ('ssh-add -l >/dev/null') == 0)
 my $session = 'ssh';
 
 # Main window name
-my $win = join '', map "($_)", sort @clusters;
-$win .= join '-', sort @singles;
+my $win = join ('', map {"(\@$_)"} sort @clusters) . join ',', sort @singles;
 
 # todo: notify about failed ssh panes
 die RED."$session:$win exists".RESET, "\n"
