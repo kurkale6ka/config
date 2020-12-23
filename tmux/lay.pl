@@ -18,24 +18,28 @@ my $S = color('bold');
 my $R = color('reset');
 
 # Help
-sub help
+sub help()
 {
    my $msg = <<MSG;
 ${S}Split multiple ssh connections in separate tiles${R}
+
 lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ...
+or
+nodes ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ... | lay -
 
 MSG
    die $msg.Nodes::help();
 }
 
-help if @ARGV == 0;
-help if @ARGV == 1 and $ARGV[0] eq '-h';
+# A lone - won't trigger help() or set any hosts
+help() if @ARGV == 0;
+help() if @ARGV == 1 and $ARGV[0] eq '-h';
 
 my (@clusters, @singles);
 
 foreach (@ARGV)
 {
-   help if /--help/;
+   help() if /--help/;
 
    if (/^@/)
    {
