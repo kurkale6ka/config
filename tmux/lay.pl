@@ -23,8 +23,7 @@ sub help()
    my $msg = <<MSG;
 ${S}Split multiple ssh connections in separate tiles${R}
 
-lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ...
-or
+  lay ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ... or
 nodes ${PINK}\@${R}cluster ... host[${PINK}range${R}] ... [${PINK}-${R}exclude] ... | lay -
 
 MSG
