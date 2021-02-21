@@ -2,23 +2,25 @@
 
 use strict;
 use warnings;
-use feature qw/say/;
+use feature 'say';
 use File::Glob ':bsd_glob';
-use Term::ANSIColor qw/:constants/;
+use Term::ANSIColor ':constants';
 
 # Clipboard
-open my $cb, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
+open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
    or die RED."$!".RESET, "\n";
 
 # TLS
 if (-e '/usr/local/etc/openssl/cert.pem') {
    # Mac OS
-   say $cb '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"';
-} elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
+   say $CB '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"';
+}
+elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
    # Linux
-   say $cb '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"';
-} else {
-   die "No valid certificates found\n";
+   say $CB '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"';
+}
+else {
+   die RED.'No valid certificates found'.RESET, "\n";
 }
 
 # Certificates
@@ -35,21 +37,22 @@ foreach (qw/freenode oftc/)
       next unless <STDIN> =~ /y(es)?/in;
    }
 
-   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'"
-      or die RED."$!".RESET, "\n";
+   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'";
+   $? == 0 or die RED."$!".RESET, "\n";
 
-   print CYAN, 'fingerprint: ', RESET;
+   print CYAN.'fingerprint: '.RESET;
 
-   system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1"
-      or die RED."$!".RESET, "\n";
+   system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1";
+   $? == 0 or die RED."$!".RESET, "\n";
 
    chmod 0600, "$_.pem";
 }
 
 # Copy IRC commands
-while (<DATA>) {
+while (<DATA>)
+{
    next unless m(^/);
-   print $cb $_;
+   print $CB $_;
 }
 
 print BOLD, "\nPlease paste your configuration within weechat!\n\n", RESET;
