@@ -1,14 +1,12 @@
 #! /usr/bin/env perl
 
-use strict;
+use v5.22;
 use warnings;
-use feature 'say';
-use File::Glob ':bsd_glob';
 use Term::ANSIColor ':constants';
 
 # Clipboard
 open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
-   or die RED."$!".RESET, "\n";
+   or die RED.$!.RESET, "\n";
 
 # TLS
 if (-e '/usr/local/etc/openssl/cert.pem') {
@@ -24,10 +22,10 @@ else {
 }
 
 # Certificates
-print BOLD, "Certificates\n\n", RESET;
+say BOLD, "Certificates\n", RESET;
 
-mkdir glob '~/.weechat/certs';
-chdir glob '~/.weechat/certs' or die RED."$!".RESET, "\n";
+mkdir "$ENV{HOME}/.weechat/certs";
+chdir "$ENV{HOME}/.weechat/certs" or die RED.$!.RESET, "\n";
 
 foreach (qw/freenode oftc/)
 {
@@ -38,12 +36,12 @@ foreach (qw/freenode oftc/)
    }
 
    system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'";
-   $? == 0 or die RED."$!".RESET, "\n";
+   $? == 0 or die RED.$!.RESET, "\n";
 
    print CYAN.'fingerprint: '.RESET;
 
    system "openssl x509 -in $_.pem -outform der | sha1sum -b | cut -d' ' -f1";
-   $? == 0 or die RED."$!".RESET, "\n";
+   $? == 0 or die RED.$!.RESET, "\n";
 
    chmod 0600, "$_.pem";
 }
@@ -55,7 +53,7 @@ while (<DATA>)
    print $CB $_;
 }
 
-print BOLD, "\nPlease paste your configuration within weechat!\n\n", RESET;
+say BOLD, "\nPlease paste your configuration within weechat!\n", RESET;
 
 print << 'MSG';
 Freenode & OFTC:
