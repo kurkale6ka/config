@@ -7,9 +7,9 @@
 
 package Nodes;
 
-use v5.32.0;
-use re '/aa';
+use v5.22;
 no strict;
+use re '/aa';
 # use warnings;
 
 require Exporter;
@@ -102,12 +102,12 @@ sub expand_ranges(@);
 # Calculate node ranges
 sub groups()
 {
-   open my $clush, '<', $config or abort "$config: $!\n";
+   open my $CLUSH, '<', $config or abort "$config: $!\n";
 
    my ($group, $nodes);
 
    # load groups from config
-   while (<$clush>)
+   while (<$CLUSH>)
    {
       next unless /^\h+\w/;
       ($group, $nodes) = split /:/;
