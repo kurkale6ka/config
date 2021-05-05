@@ -30,7 +30,7 @@ else
 fi
 alias m=man
 
-bind -m '^L'=clear'^J'
+bind -m '^L'='^U'clear'^J^Y'
 
 if [[ $USER == root ]]
 then
