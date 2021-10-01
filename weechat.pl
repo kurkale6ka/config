@@ -35,7 +35,7 @@ foreach (qw/freenode oftc/)
       next unless <STDIN> =~ /y(es)?/in;
    }
 
-   system "openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out $_.pem -keyout $_.pem -subj '/C=GB'";
+   system qw/openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out/, "$_.pem", '-keyout', "$_.pem", qw(-subj /C=GB);
    $? == 0 or die RED.$!.RESET, "\n";
 
    print CYAN.'fingerprint: '.RESET;
@@ -66,8 +66,8 @@ MSG
 __DATA__
 
 # Servers
-/server add freenode chat.freenode.net/7000 -ssl -autoconnect
-/server add OFTC irc.oftc.net/6697 -ssl -autoconnect
+/server add freenode chat.freenode.net/7000 -ssl -ssl_verify -autoconnect
+/server add OFTC irc.oftc.net/6697 -ssl -ssl_verify -autoconnect
 
 /set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
 /set irc.server.freenode.ssl_cert %h/certs/freenode.pem
