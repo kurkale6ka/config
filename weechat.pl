@@ -11,31 +11,32 @@ open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
 # TLS
 if (-e '/usr/local/etc/openssl/cert.pem') {
    # Mac OS
-   say $CB '/set weechat.network.gnutls_ca_file "/usr/local/etc/openssl/cert.pem"';
+   say $CB '/set weechat.network.gnutls_ca_user "/usr/local/etc/openssl/cert.pem"';
 }
 elsif (-e '/etc/ssl/certs/ca-certificates.crt') {
    # Linux
-   say $CB '/set weechat.network.gnutls_ca_file "/etc/ssl/certs/ca-certificates.crt"';
+   say $CB '/set weechat.network.gnutls_ca_user "/etc/ssl/certs/ca-certificates.crt"';
 }
 else {
    die RED.'No valid certificates found'.RESET, "\n";
 }
 
 # Certificates
-say BOLD, "Certificates\n", RESET;
+say BOLD."Certificates\n".RESET;
 
-mkdir "$ENV{HOME}/.weechat/certs";
-chdir "$ENV{HOME}/.weechat/certs" or die RED.$!.RESET, "\n";
+mkdir "$ENV{XDG_CONFIG_HOME}/weechat",       0700;
+mkdir "$ENV{XDG_CONFIG_HOME}/weechat/certs", 0700;
+chdir "$ENV{XDG_CONFIG_HOME}/weechat/certs" or die RED.$!.RESET, "\n";
 
-foreach (qw/freenode oftc/)
+foreach (qw/oftc/)
 {
    if (-e "$_.pem")
    {
-      print RED, "Regenerate certificate for $_?: ", RESET;
+      print RED."Regenerate certificate for $_?: ".RESET;
       next unless <STDIN> =~ /y(es)?/in;
    }
 
-   system qw/openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1000 -nodes -out/, "$_.pem", '-keyout', "$_.pem", qw(-subj /C=GB);
+   system qw/openssl req -x509 -new -newkey rsa:4096 -sha256 -days 1095 -nodes -out/, "$_.pem", '-keyout', "$_.pem", qw(-subj /C=GB);
    $? == 0 or die RED.$!.RESET, "\n";
 
    print CYAN.'fingerprint: '.RESET;
@@ -53,39 +54,43 @@ while (<DATA>)
    print $CB $_;
 }
 
-say BOLD, "\nPlease paste your configuration within weechat!\n", RESET;
+say BOLD."\nPlease paste your configuration within weechat!\n".RESET;
 
 print << 'MSG';
-Freenode & OFTC:
-/msg nickserv identify **********
-/msg nickserv cert add
+Libera
+/set irc.server.libera.sasl_password **********
 
+All
 /save
+/connect -all
+
+OFTC
+/msg nickserv identify **********
+/msg nickserv cert add <fingerprint>
 MSG
 
 __DATA__
 
 # Servers
-/server add freenode chat.freenode.net/7000 -ssl -ssl_verify -autoconnect
+/server add libera irc.libera.chat/6697 -ssl -ssl_verify -autoconnect
 /server add OFTC irc.oftc.net/6697 -ssl -ssl_verify -autoconnect
 
+# Authentication
+/set irc.server.libera.sasl_mechanism PLAIN
+/set irc.server.libera.sasl_username kurkale6ka
+
 /set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
-/set irc.server.freenode.ssl_cert %h/certs/freenode.pem
-
-/set irc.server.freenode.sasl_mechanism external
-
-/connect freenode OFTC
 
 # Identity
-/set irc.server.freenode.username kurkale6ka
-/set irc.server.freenode.nicks kurkale6ka
-/set irc.server.freenode.realname 'Dimitar Dimitrov'
+/set irc.server.libera.username kurkale6ka
+/set irc.server.libera.nicks kurkale6ka
+/set irc.server.libera.realname 'Dimitar Dimitrov'
 /set irc.server.OFTC.username kurkale6ka
 /set irc.server.OFTC.nicks kurkale6ka
 /set irc.server.OFTC.realname 'Dimitar Dimitrov'
 
 # Channels
-/set irc.server.freenode.autojoin #git,##linux,#neovim,#perl,#postfix,#python,#vim,#zsh
+/set irc.server.libera.autojoin #git,##linux,#neovim,#perl,#postfix,#python,#vim,#zsh
 /set irc.server.OFTC.autojoin #debian
 
 # Filters
