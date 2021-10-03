@@ -5,7 +5,7 @@ use warnings;
 use Term::ANSIColor ':constants';
 
 # Clipboard
-open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : 'xclip'
+open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : qw/xclip -selection clipboard/
    or die RED.$!.RESET, "\n";
 
 # TLS
@@ -28,7 +28,7 @@ mkdir "$ENV{XDG_CONFIG_HOME}/weechat",       0700;
 mkdir "$ENV{XDG_CONFIG_HOME}/weechat/certs", 0700;
 chdir "$ENV{XDG_CONFIG_HOME}/weechat/certs" or die RED.$!.RESET, "\n";
 
-foreach (qw/oftc/)
+foreach (qw/libera oftc/)
 {
    if (-e "$_.pem")
    {
@@ -56,18 +56,11 @@ while (<DATA>)
 
 say BOLD."\nPlease paste your configuration within weechat!\n".RESET;
 
-print << 'MSG';
-Libera
-/set irc.server.libera.sasl_password **********
-
-All
+print <<'';
 /save
 /connect -all
-
-OFTC
 /msg nickserv identify **********
 /msg nickserv cert add <fingerprint>
-MSG
 
 __DATA__
 
@@ -76,9 +69,7 @@ __DATA__
 /server add OFTC irc.oftc.net/6697 -ssl -ssl_verify -autoconnect
 
 # Authentication
-/set irc.server.libera.sasl_mechanism PLAIN
-/set irc.server.libera.sasl_username kurkale6ka
-
+/set irc.server.libera.ssl_cert %h/certs/oftc.pem
 /set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
 
 # Identity
