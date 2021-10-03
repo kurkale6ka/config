@@ -69,7 +69,7 @@ __DATA__
 /server add OFTC irc.oftc.net/6697 -ssl -ssl_verify -autoconnect
 
 # Authentication
-/set irc.server.libera.ssl_cert %h/certs/oftc.pem
+/set irc.server.libera.ssl_cert %h/certs/libera.pem
 /set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
 
 # Identity
