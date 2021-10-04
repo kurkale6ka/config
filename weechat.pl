@@ -3,6 +3,35 @@
 use v5.22;
 use warnings;
 use Term::ANSIColor ':constants';
+use File::Basename 'basename';
+use Getopt::Long 'GetOptions';
+
+my $script = basename $0;
+$script = -f $script ? "./$script" : $0 =~ s/$ENV{HOME}/~/r unless -l $0;
+
+# Help
+my $help = << "---------------------------";
+$script [-h]
+
+Post setup
+==========
+/msg -server ... nickserv identify kurkale6ka **********
+/msg -server ... nickserv cert add <fingerprint>
+
+Util
+====
+cert -f $ENV{XDG_CONFIG_HOME}/weechat/certs/... | cut -d= -f2 | tr -d :
+
+/set <server>
+/help msg
+/msg nickserv help identify
+---------------------------
+
+
+# Options
+GetOptions (
+   help => sub { print $help; exit }
+) or die RED.'Error in command line arguments'.RESET, "\n";
 
 # Clipboard
 open my $CB, '|-', $^O eq 'darwin' ? 'pbcopy' : qw/xclip -selection clipboard/
@@ -55,12 +84,7 @@ while (<DATA>)
 }
 
 say BOLD."\nPlease paste your configuration within weechat!\n".RESET;
-
-print <<'';
-/save
-/connect -all
-/msg nickserv identify **********
-/msg nickserv cert add <fingerprint>
+print $help;
 
 __DATA__
 
@@ -69,6 +93,7 @@ __DATA__
 /server add OFTC irc.oftc.net/6697 -ssl -ssl_verify -autoconnect
 
 # Authentication
+/set irc.server.libera.sasl_mechanism external
 /set irc.server.libera.ssl_cert %h/certs/libera.pem
 /set irc.server.OFTC.ssl_cert %h/certs/oftc.pem
 
@@ -130,3 +155,6 @@ __DATA__
 
 /key missing
 /mouse enable
+
+/save
+/connect -all
