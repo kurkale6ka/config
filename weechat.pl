@@ -10,7 +10,7 @@ my $script = basename $0;
 $script = -f $script ? "./$script" : $0 =~ s/$ENV{HOME}/~/r unless -l $0;
 
 # Help
-my $help = << "---------------------------";
+my $help = << "---------------------------" =~ s/$ENV{HOME}/~/r;
 $script [-h]
 
 Post setup
