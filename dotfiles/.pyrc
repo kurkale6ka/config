@@ -1,9 +1,7 @@
-# tab completion in python2 shell
-
-import sys
-
-if sys.version_info.major == 2:
-
-   import rlcompleter
-   import readline
-   readline.parse_and_bind("tab: complete")
+# # tab completion in python2 shell
+# import sys
+#
+# if sys.version_info.major == 2:
+#    import rlcompleter
+#    import readline
+#    readline.parse_and_bind("tab: complete")
