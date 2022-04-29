@@ -59,3 +59,6 @@ ehthumbs.db
 Thumbs.db
 .*.stackdump
 *.stackdump
+
+# python
+__pycache__/
