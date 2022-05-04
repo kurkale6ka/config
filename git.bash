@@ -14,11 +14,12 @@ git config --global user.email mitkofr@yahoo.fr
 
 git config --global color.ui true
 git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
+
+# aliases
 git config --global alias.st status
 git config --global alias.ci commit
 git config --global alias.co checkout
-
-# branch
+git config --global alias.sw switch
 git config --global alias.br branch
 
 # setup rebase for every tracking branch
