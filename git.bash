@@ -33,7 +33,12 @@ git config --global branch.autosetuprebase always
 git config --global merge.tool vimdiff
 if command -v nvim >/dev/null 2>&1
 then
+   git config --global core.editor nvim
    git config --global mergetool.vimdiff.path nvim
+elif command -v vim >/dev/null 2>&1
+then
+   git config --global core.editor vim
+   git config --global mergetool.vimdiff.path vim
 fi
 
 git config --global difftool.prompt false
