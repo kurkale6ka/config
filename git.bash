@@ -10,7 +10,6 @@ then
 fi
 
 git config --global user.name 'Dimitar Dimitrov'
-git config --global user.email mitkofr@yahoo.fr
 
 git config --global color.ui true
 git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
@@ -20,7 +19,7 @@ git config --global alias.st status
 git config --global alias.ci commit
 git config --global alias.co checkout
 git config --global alias.sw switch
-git config --global alias.br branch
+git config --global alias.br '!git -P branch -avv'
 
 # setup rebase for every tracking branch
 git config --global branch.autosetuprebase always
