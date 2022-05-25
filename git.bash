@@ -15,6 +15,7 @@ git config --global color.ui true
 git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
 
 # aliases
+git config --global alias.h help
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.co checkout
