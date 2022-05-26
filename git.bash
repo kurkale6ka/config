@@ -21,6 +21,7 @@ git config --global alias.cm commit
 git config --global alias.co checkout
 git config --global alias.sw switch
 git config --global alias.br '!git -P branch -avv'
+git config --global alias.sha '!git -P show --quiet --oneline'
 
 # mitigate issues when pulling force-pushed commits
 git config --global pull.rebase true
