@@ -7,13 +7,13 @@
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Home> and <End>
+# Ctrl-A, Ctrl-E
+# <home> and <end>
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
-
-# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f)
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
+# <ctrl-left> and <ctrl-right>
+"\e[1;5D": beginning-of-line
+"\e[1;5C": end-of-line
 
 # Notifications
 set bell-style none

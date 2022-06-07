@@ -9,13 +9,14 @@
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# <Home> and <End> {{{2
+# Ctrl-A, Ctrl-E {{{2
+# <home> and <end>
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
 
-# <Ctrl-Left> and <Ctrl-Right> (same as Alt-b/f) {{{2
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
+# <ctrl-left> and <ctrl-right>
+"\e[1;5D": beginning-of-line
+"\e[1;5C": end-of-line
 
 # ^d (instead of the default 'delete char before cursor') {{{2
 "\C-d": kill-whole-line
