@@ -47,4 +47,4 @@ git config --global alias.di diff
 git config --global alias.l "log --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
 git config --global alias.lg "log --graph --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
 
-git config --global alias.last "!git -P log -n1 HEAD"
+git config --global alias.last "!git -P log -1"
