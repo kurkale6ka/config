@@ -9,6 +9,7 @@
 *.swo
 .*.swp
 *.swp
+*2.vim
 
 # tags
 tags
