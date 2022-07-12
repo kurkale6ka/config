@@ -10,6 +10,7 @@
 .*.swp
 *.swp
 *2.vim
+.projections.json
 
 # tags
 tags
