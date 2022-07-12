@@ -1,0 +1,12 @@
+{
+   "tasks/*": { "type": "task" },
+   "handlers/*": { "type": "handler" },
+   "templates/*": { "type": "template" },
+   "files/*": { "type": "file" },
+   "vars/*": { "type": "var" },
+   "defaults/*": { "type": "default" },
+   "meta/*": { "type": "meta" },
+   "library/*": { "type": "library" },
+   "module_utils/*": { "type": "module_util" },
+   "lookup_plugins/*": { "type": "lookup_plugin" }
+}
