@@ -21,8 +21,9 @@ git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.co checkout
 git config --global alias.sw switch
-git config --global alias.br '!git -P branch -avv'
+git config --global alias.br branch
 git config --global alias.sha '!git -P show --quiet --oneline'
+git config --global alias.last "!git -P log -1"
 
 # mitigate issues when pulling force-pushed commits
 git config --global pull.rebase true
@@ -42,9 +43,3 @@ fi
 
 git config --global difftool.prompt false
 git config --global alias.di diff
-
-# log
-git config --global alias.l "log --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
-git config --global alias.lg "log --graph --date=short --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(blue)%an%C(reset) | %s %C(red)%d%C(reset)'"
-
-git config --global alias.last "!git -P log -1"
