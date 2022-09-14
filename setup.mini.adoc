@@ -1,0 +1,17 @@
+= Remote server custom dotfiles minimal setup
+
+== transfer (run locally)
+
+`rsync -aiC ~/github vmt:`
+
+== links
+
+`~/github/scripts/mkconfig.pl -l`
+
+=== root
+
+`ln -s /home/<user>/github/zsh/.zshenv`
+
+== vim
+
+`~/github/scripts/mkconfig.pl -H` => `vim-plug`
