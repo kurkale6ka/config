@@ -38,6 +38,7 @@ git config --global alias.o browse
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.co checkout
+git config --global alias.b '!fd --strip-cwd-prefix -FH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
 git config --global alias.br '!git -P branch'
 git config --global alias.sha '!git -P show --oneline --quiet'
 git config --global alias.last '!git -P log -1'
