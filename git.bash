@@ -33,12 +33,25 @@ then
 fi
 
 # Aliases
+git config --global alias.a add
+git config --global alias.b 'branch -avv'
+git config --global alias.bd '!git fetch --all --prune && git for-each-ref --format "%(refname) %(upstream:track)" refs/heads | perl -l0ne "print s#refs/heads/(.+) \[gone\]#\$1#r if /gone\]$/" | xargs -0 -n1 git branch -D'
+git config --global alias.c 'commit -v'
+git config --global alias.d 'diff -w'
+git config --global alias.l 'log --graph --pretty="%C(auto)%h %C(242)%<(10,trunc)%ar %Cgreen%<(13,trunc)%an%C(auto)%d %s" -n11'
+git config --global alias.ll 'log -pw'
+# git config --global alias.o checkout
+git config --global alias.f 'fetch --all --prune'
+git config --global alias.g 'pull --all --prune'
+git config --global alias.p push
+git config --global alias.pu 'push -u origin HEAD'
+git config --global alias.s 'status -sb'
 git config --global alias.h help
 git config --global alias.o browse
 git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.co checkout
-git config --global alias.b '!fd --strip-cwd-prefix -FH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
+git config --global alias.bu '!fd --strip-cwd-prefix -FH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
 git config --global alias.br '!git -P branch'
 git config --global alias.sha '!git -P show --oneline --quiet'
 git config --global alias.last '!git -P log -1'
