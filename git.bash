@@ -21,6 +21,7 @@ git config --global pull.rebase true
 # diftool will use mergetool by default
 git config --global merge.tool vimdiff
 git config --global difftool.prompt false
+git config --global diff.colormoved zebra
 
 if command -v nvim >/dev/null 2>&1
 then
