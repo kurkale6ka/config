@@ -60,3 +60,5 @@ git config --global alias.sw '!git -P show -w'
 git config --global alias.di diff
 git config --global alias.dt difftool
 git config --global alias.mt mergetool
+
+git config --global blame.date format:'%d/%b/%Y %R'
