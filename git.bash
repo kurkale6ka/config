@@ -55,7 +55,7 @@ git config --global alias.co checkout
 git config --global alias.bu '!fd --strip-cwd-prefix -FH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
 git config --global alias.br '!git -P branch'
 git config --global alias.sha '!git -P show --oneline --quiet'
-git config --global alias.last '!git -P log -1'
+git config --global alias.last '!git -P log -1 --stat'
 git config --global alias.sw '!git -P show -w'
 git config --global alias.di diff
 git config --global alias.dt difftool
