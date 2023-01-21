@@ -16,6 +16,7 @@
 *.swp
 *2.vim
 .projections.json
+Session.vim
 
 # tags
 tags
