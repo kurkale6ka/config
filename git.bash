@@ -10,7 +10,7 @@ then
 fi
 
 git config --global user.name 'Dimitar Dimitrov'
-
+git config --global init.defaultBranch main
 git config --global color.ui true
 git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
 
@@ -23,6 +23,7 @@ git config --global merge.tool vimdiff
 git config --global difftool.prompt false
 git config --global diff.colormoved zebra
 
+# editor
 if command -v nvim >/dev/null 2>&1
 then
    git config --global core.editor nvim
