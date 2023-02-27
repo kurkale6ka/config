@@ -1,0 +1,4 @@
+--theme="TwoDark"
+--italic-text=always
+--style=snip
+--map-syntax "conf:ini"
