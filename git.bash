@@ -12,7 +12,7 @@ fi
 git config --global user.name 'Dimitar Dimitrov'
 git config --global init.defaultBranch main
 git config --global color.ui true
-git config --global core.excludesfile "$REPOS_BASE"/config/dotfiles/.gitignore
+git config --global core.excludesfile "$REPOS_BASE"/github/config/dotfiles/.gitignore
 
 # mitigate issues when pulling force-pushed commits
 git config --global pull.rebase true
