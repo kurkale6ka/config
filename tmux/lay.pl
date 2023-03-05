@@ -9,7 +9,7 @@
 # use warnings;
 use feature 'say';
 use Term::ANSIColor qw/color :constants/;
-use lib "$ENV{REPOS_BASE}/config/tmux";
+use lib "$ENV{REPOS_BASE}/github/config/tmux";
 use Nodes;
 
 # Colors
