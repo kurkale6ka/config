@@ -70,6 +70,7 @@ Thumbs.db
 
 # python
 __pycache__/
+*.egg-info/
 
 # terraform
 .terraform/
