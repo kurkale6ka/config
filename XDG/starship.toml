@@ -1,0 +1,13 @@
+# right_format = '$aws'
+
+[directory]
+format = '[$path](fg:69 bold)[$read_only]($read_only_style) '
+truncation_length = 100
+truncate_to_repo = false
+
+[git_branch]
+format = 'on [$symbol$branch]($style)(...[$remote_name/$remote_branch](fg:red bold)) '
+always_show_remote = true
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )](fg:216 bold)'
