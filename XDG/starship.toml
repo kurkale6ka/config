@@ -10,4 +10,4 @@ format = 'on [$symbol$branch]($style)(...[$remote_name/$remote_branch](fg:red bo
 always_show_remote = true
 
 [aws]
-format = 'on [$symbol($profile )(\($region\) )](fg:216 bold)'
+format = 'on [$symbol($profile )(\($region\) )(\[$duration\] )](fg:216 bold)'
