@@ -53,6 +53,7 @@ git config --global alias.st status
 git config --global alias.cm commit
 git config --global alias.co checkout
 git config --global alias.bu '!fd --strip-cwd-prefix -FIH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
+git config --global alias.bus '!find . -type d -name .git -printf "%P\n" | parallel --no-notice --tag --tagstring {//} git -C {//} -c color.status=always status -sb'
 git config --global alias.br '!git -P branch'
 git config --global alias.sha '!git -P show --oneline --quiet'
 git config --global alias.last '!git -P log -1 --stat'
