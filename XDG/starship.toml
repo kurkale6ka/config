@@ -6,7 +6,7 @@ truncation_length = 100
 truncate_to_repo = false
 
 [git_branch]
-format = '[$symbol$branch]($style)(→[$remote_name](fg:purple bold dimmed)) '
+format = '[$symbol$branch]($style)([→](dimmed)[$remote_name](fg:purple bold dimmed)) '
 always_show_remote = true
 
 [aws]
