@@ -35,7 +35,7 @@ fi
 
 # Aliases
 git config --global alias.a add
-git config --global alias.b 'branch -avv'
+git config --global alias.b '!git -P branch'
 git config --global alias.bd '!git fetch --all --prune && git for-each-ref --format "%(refname) %(upstream:track)" refs/heads | perl -l0ne "print s#refs/heads/(.+) \[gone\]#\$1#r if /gone\]$/" | xargs -0 -n1 git branch -D'
 git config --global alias.c 'commit -v'
 git config --global alias.d 'diff -w'
@@ -54,7 +54,7 @@ git config --global alias.cm commit
 git config --global alias.co checkout
 git config --global alias.bu '!fd --strip-cwd-prefix -FIH -td .git | parallel --no-notice --tag --tagstring {//} git -C {//}'
 git config --global alias.bus '!find . -type d -name .git -printf "%P\n" | parallel --no-notice --tag --tagstring {//} git -C {//} -c color.status=always status -sb'
-git config --global alias.br '!git -P branch'
+git config --global alias.br 'branch -avv'
 git config --global alias.sha '!git -P show --oneline --quiet'
 git config --global alias.last '!git -P log -1 --stat'
 git config --global alias.sw '!git -P show -w'
