@@ -1,0 +1,22 @@
+import atexit
+import os
+import pathlib
+import readline
+
+# create ~/.local/share/python
+python_data = os.getenv("XDG_DATA_HOME", "~/.local/share") + "/python"
+pathlib.Path.mkdir(pathlib.Path(python_data), parents=True, exist_ok=True)
+
+historyPath = python_data + "/pdb_history"
+
+
+def save_history(historyPath): import readline; readline.write_history_file(historyPath)
+
+
+# read history
+if pathlib.Path(historyPath).exists(): readline.read_history_file(historyPath)
+
+# write history
+atexit.register(save_history, historyPath)
+
+# vim: ft=python
