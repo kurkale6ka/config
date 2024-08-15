@@ -3,7 +3,7 @@ import os
 import pathlib
 import readline
 
-# create ~/.local/share/python
+# mkdir ~/.local/share/python
 python_data = os.getenv("XDG_DATA_HOME", "~/.local/share") + "/python"
 pathlib.Path.mkdir(pathlib.Path(python_data), parents=True, exist_ok=True)
 
