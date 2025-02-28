@@ -32,3 +32,7 @@
 --regex-PHP=/^\s*(static\s+)?(final\s+)?((public|protected|private)\s+)?function\s+(\w+)/\5/
 --regex-PHP=/^\s*(static\s+)?((public|protected|private)\s+)?(final\s+)?function\s+(\w+)/\5/
 --regex-PHP=/^\s*interface\s+(\w+)/\1/
+
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^(#.+)/\1/h,heading,headings/
