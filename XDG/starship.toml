@@ -1,4 +1,4 @@
-# right_format = '$aws'
+right_format = '$aws'
 
 [directory]
 format = '[$path](fg:69 bold)[$read_only]($read_only_style) '
