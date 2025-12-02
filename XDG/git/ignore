@@ -1,4 +1,4 @@
-# git config --global core.excludesfile ~/.gitignore
+# git config --global core.excludesfile $XDG_CONFIG_HOME/git/ignore
 
 # CVS
 .git/
@@ -67,9 +67,11 @@ ehthumbs.db
 Thumbs.db
 .*.stackdump
 *.stackdump
+.zcompdump
 
 # python
 __pycache__/
+.mypy_cache/
 *.egg-info/
 .venv/
 
