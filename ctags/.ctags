@@ -41,13 +41,15 @@
 --kinds-javascript=GScfgm
 
 --exclude=.pnpm
+--exclude=pnpm-lock.yaml
+--exclude=pnpm-workspace.yaml
 --exclude=node_modules
 --exclude=components.json
---exclude=eslint.config.js
 --exclude=package.json
---exclude=pnpm-lock.yaml
 --exclude=tsconfig.*
---exclude=vite.config.ts
+--exclude=*.config.js
+--exclude=*.config.mjs
+--exclude=*.config.ts
 --exclude=*src/routeTree.gen.ts
 --exclude=*components/ui/*
 
