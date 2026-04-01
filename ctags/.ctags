@@ -36,3 +36,21 @@
 --langdef=markdown
 --langmap=markdown:.md
 --regex-markdown=/^(#.+)/\1/h,heading,headings/
+
+# JavaScript
+--kinds-javascript=GScfgm
+
+--exclude=.pnpm
+--exclude=pnpm-lock.yaml
+--exclude=pnpm-workspace.yaml
+--exclude=node_modules
+--exclude=components.json
+--exclude=package.json
+--exclude=tsconfig.*
+--exclude=*.config.js
+--exclude=*.config.mjs
+--exclude=*.config.ts
+--exclude=*src/routeTree.gen.ts
+--exclude=*components/ui/*
+
+--map-javascript=+.tsx
