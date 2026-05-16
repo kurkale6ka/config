@@ -7,11 +7,13 @@ input=$(cat)
 model=$(echo "$input" | jq -r '.model.display_name // empty')
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 effort=$(echo "$input" | jq -r '.effort.level // empty')
-daily=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+session=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+session_next=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 weekly=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 
 # ANSI colors (dim-friendly)
 RES='\033[0m'
+DIM='\033[2m'
 YEL='\033[33m'
 GRN='\033[32m'
 RED='\033[31m'
@@ -56,7 +58,7 @@ then
 fi
 
 # Rate limits
-if [[ -n $daily && -n $weekly ]]
+if [[ -n $session && -n $weekly ]]
 then
     rate_part() {
         local label="$1" val="$2"
@@ -74,7 +76,12 @@ then
         printf "%s: ${color}$val_int%%${RES}" "$label"
     }
 
-    parts+=("$(rate_part "Session" "$daily") $(rate_part "Week" "$weekly")")
+    session_str=$(rate_part "Session" "$session")
+    if [[ -n $session_next ]]
+    then
+        session_str+=" $DIM(next at $(date -d "@$session_next" +%H:%M))$RES"
+    fi
+    parts+=("$session_str $(rate_part "Week" "$weekly")")
 fi
 
 joinByString() {
