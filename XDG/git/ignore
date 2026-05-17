@@ -79,3 +79,5 @@ __pycache__/
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
+
+**/.claude/settings.local.json
