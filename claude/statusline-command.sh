@@ -15,9 +15,10 @@ weekly=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty'
 RES='\033[0m'
 DIM='\033[2m'
 ITA='\033[3m'
-YEL='\033[33m'
-GRN='\033[32m'
 RED='\033[31m'
+GRN='\033[32m'
+YEL='\033[33m'
+CYA='\033[36m'
 ORG='\e[38;2;218;119;86m' # Claude orange
 
 parts=()
@@ -80,7 +81,7 @@ then
     session_str=$(rate_part "Session" "$session")
     if [[ -n $session_next ]]
     then
-        session_str+=" $DIM$ITA(next at $(date -d "@$session_next" +%H:%M))$RES"
+        session_str+=" $DIM$ITA(next at $CYA$(date -d "@$session_next" +%H:%M)$RES$DIM$ITA)$RES"
     fi
     parts+=("$session_str $(rate_part "Week" "$weekly")")
 fi
