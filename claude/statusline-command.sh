@@ -4,11 +4,13 @@
 
 input=$(cat)
 
+# https://code.claude.com/docs/en/statusline
 model=$(echo "$input" | jq -r '.model.display_name // empty')
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 effort=$(echo "$input" | jq -r '.effort.level // empty')
 session=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 session_next=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+week_next=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
 weekly=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 
 # ANSI colors (dim-friendly)
@@ -81,9 +83,14 @@ then
     session_str=$(rate_part "Session" "$session")
     if [[ -n $session_next ]]
     then
-        session_str+=" $DIM$ITA(next at $CYA$(date -d "@$session_next" +%H:%M)$RES$DIM$ITA)$RES"
+        session_str+=" $DIM$ITA(${CYA}>> $(date -d "@$session_next" +%H:%M)$RES$DIM$ITA)$RES"
     fi
-    parts+=("$session_str $(rate_part "Week" "$weekly")")
+    week_str=$(rate_part "Week" "$weekly")
+    if [[ -n $week_next ]]
+    then
+        week_str+=" $DIM$ITA(${CYA}>> $(date -d "@$week_next" +'%a %d')$RES$DIM$ITA)$RES"
+    fi
+    parts+=("$session_str $week_str")
 fi
 
 joinByString() {
