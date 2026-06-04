@@ -25,6 +25,22 @@ ORG='\e[38;2;218;119;86m' # Claude orange
 
 parts=()
 
+# Context usage
+if [[ -n $used ]]
+then
+    used_int=$(printf '%.0f' "$used")
+    if (( used_int >= 80 ))
+    then
+        ctx_color="$RED"
+    elif (( used_int >= 50 ))
+    then
+        ctx_color="$YEL"
+    else
+        ctx_color="$GRN"
+    fi
+    context="$DIM$ITA(context: $ctx_color$used_int%$RES)"
+fi
+
 # Model (shortened)
 if [[ -n $model ]]
 then
@@ -41,24 +57,13 @@ then
             max)      eff_color="$RED" ;;
             *)        eff_color="$RED" ;;
         esac
-        parts+=("$(printf '%s/%s' "${GRN}$short_model${RES}" "${eff_color}$effort${RES}")")
+        model="$(printf '%s/%s' "$GRN$short_model$RES" "$eff_color$effort$RES")"
+        if [[ -n $context ]]
+        then
+            model+=" $context"
+        fi
+        parts+=("$model")
     fi
-fi
-
-# Context usage
-if [[ -n $used ]]
-then
-    used_int=$(printf '%.0f' "$used")
-    if (( used_int >= 80 ))
-    then
-        ctx_color="$RED"
-    elif (( used_int >= 50 ))
-    then
-        ctx_color="$YEL"
-    else
-        ctx_color="$GRN"
-    fi
-    parts+=("$(printf "context: ${ctx_color}${used_int}%%${RES}")")
 fi
 
 # Rate limits
@@ -77,18 +82,18 @@ then
         else
             color="$GRN"
         fi
-        printf "%s: ${color}$val_int%%${RES}" "$label"
+        printf "%s: $color$val_int%%$RES" "$label"
     }
 
     session_str=$(rate_part "Session" "$session")
     if [[ -n $session_next ]]
     then
-        session_str+=" $DIM$ITA(${CYA}>> $(date -d "@$session_next" +%H:%M)$RES$DIM$ITA)$RES"
+        session_str+=" $DIM$ITA($CYA>> $(date -d "@$session_next" +%H:%M)$RES$DIM$ITA)$RES"
     fi
     week_str=$(rate_part "Week" "$weekly")
     if [[ -n $week_next ]]
     then
-        week_str+=" $DIM$ITA(${CYA}>> $(date -d "@$week_next" +'%a %d')$RES$DIM$ITA)$RES"
+        week_str+=" $DIM$ITA($CYA>> $(date -d "@$week_next" +'%a %d')$RES$DIM$ITA)$RES"
     fi
     parts+=("$session_str $week_str")
 fi
