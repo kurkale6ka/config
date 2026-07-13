@@ -22,8 +22,32 @@ GRN='\033[32m'
 YEL='\033[33m'
 CYA='\033[36m'
 ORG='\e[38;2;218;119;86m' # Claude orange
+DIR='\033[1;38;5;69m'     # starship [directory] fg:69 bold
+PUR='\033[1;35m'          # starship git_branch bold purple
+REM='\033[1;2;35m'        # starship $remote_name fg:purple bold dimmed
 
 parts=()
+
+# Directory + git branch (colors mirror the starship prompt)
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // empty')
+if [[ -n $cwd ]]
+then
+    disp_dir=${cwd/#"$HOME"/\~} # tilde-abbreviate $HOME
+    dir_str="$DIR$disp_dir$RES"
+
+    branch=$(git -C "$cwd" branch --show-current 2>/dev/null)
+    if [[ -n $branch ]]
+    then
+        # dir trailing space + branch glyph (none style) + space, then branch name
+        dir_str+=" "$''" $PUR$branch$RES"
+        remote=$(git -C "$cwd" config "branch.$branch.remote" 2>/dev/null)
+        if [[ -n $remote ]]
+        then
+            dir_str+="$DIM→$RES$REM$remote$RES"
+        fi
+    fi
+    parts+=("$dir_str")
+fi
 
 # Context usage
 if [[ -n $used ]]
@@ -38,7 +62,7 @@ then
     else
         ctx_color="$GRN"
     fi
-    context="$DIM$ITA(context: $ctx_color$used_int%$RES)"
+    context="<$DIM${ITA}ctx:$ctx_color$used_int%$RES>"
 fi
 
 # Model (shortened)
@@ -107,4 +131,4 @@ joinByString() {
 }
 
 # Result
-printf '%b' "$(joinByString ' | ' "${parts[@]}")"
+printf '%b' "$(joinByString ' ⚫ ' "${parts[@]}")"
